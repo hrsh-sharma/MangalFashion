@@ -1,0 +1,84 @@
+<div class="product-box-modern" [class]="class">
+    <!-- Badge Section -->
+    <div class="product-badge"
+        [ngClass]="product.is_sale_enable ? 'badge-sale' : product.is_featured ? 'badge-featured' : product.is_trending ? 'badge-trending' : ''"
+        *ngIf="product.is_trending || product.is_sale_enable || product.is_featured">
+        <span>{{ (product.is_sale_enable ? 'sale' : product.is_featured ? 'featured' : product.is_trending ? 'trending'
+            : '' ) | translate }}</span>
+    </div>
+
+    <!-- Close Button for Wishlist -->
+    <div class="product-close-btn" *ngIf="close">
+        <app-button [class]="'btn close-button'" [spinner]="false" [id]="'close_btn'"
+            (click)="removeWishlist(product.id)">
+            <i class="ri-close-line"></i>
+        </app-button>
+    </div>
+
+    <!-- Product Image Section -->
+    <div class="product-image-wrapper">
+        <a [routerLink]="['/product/', product.slug]" class="product-image-link">
+            <img appLazyLoad [src]="product.product_thumbnail ?
+                        product.product_thumbnail.original_url :
+                        'assets/images/product.png'" class="product-img lazy-loading" [alt]="product.name"
+                placeholder="assets/images/placeholder.png">
+        </a>
+        <div class="product-hover-action">
+            <ul class="action-list">
+                <li class="action-item" (click)="cartPopupModal.openModal(product)" title="Quick View">
+                    <i class="ri-eye-line"></i>
+                </li>
+
+                <li class="action-item" (click)="addToWishlist(product)" [class.active]="product.is_wishlist"
+                    title="Wishlist">
+                    <i class="ri-heart-line" *ngIf="!product.is_wishlist"></i>
+                    <i class="ri-heart-fill" *ngIf="product.is_wishlist"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Product Info Section -->
+    <div class="product-info">
+        <!-- Brand Name -->
+        <div class="product-brand" *ngIf="product.brand">
+            {{ product.brand.name }}
+        </div>
+
+        <!-- Product Name and Description -->
+        <div class="product-name-description-wrapper">
+            <a [routerLink]="['/product/', product.slug]" class="product-name-link">
+                <h3 class="product-name">{{ product.name }}</h3>
+            </a>
+            <span class="product-description" *ngIf="product.short_description"> - {{ product.short_description
+                }}</span>
+        </div>
+
+        <!-- Unit -->
+        <div class="product-unit" *ngIf="product.unit">{{ product.unit }}</div>
+
+        <!-- Price Section -->
+        <div class="product-price-section">
+            <span class="product-price-current">{{ product.price | currencySymbol }}</span>
+            <span class="product-price-old" *ngIf="false">{{ product.sale_price | currencySymbol }}</span>
+        </div>
+
+        <!-- Rating and Stock Section -->
+        <div class="product-rating-stock">
+            <div class="rating-wrapper">
+                <ngb-rating [rate]="product.rating_count" class="product-rating"></ngb-rating>
+            </div>
+            <div class="stock-status" *ngIf="product.stock_status == 'in_stock'">
+                {{ product.stock_status | titleCase }}
+            </div>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <div class="product-action">
+            <app-product-cart-button [product]="product" [text]="'Add'"></app-product-cart-button>
+        </div>
+    </div>
+</div>
+<app-product-detail-modal #productDetailModal [product]="product"></app-product-detail-modal>
+<app-variation-modal #variationModal></app-variation-modal>
+<app-cart-popup-modal #cartPopupModal></app-cart-popup-modal>

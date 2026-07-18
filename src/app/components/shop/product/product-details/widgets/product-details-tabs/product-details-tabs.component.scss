@@ -1,0 +1,190 @@
+// Modern Product Tabs Styling
+.modern-product-tabs {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+  
+  .modern-tabs {
+    border-bottom: 2px solid #e0e0e0;
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    
+    .nav-item {
+      margin-bottom: -2px;
+      
+      .modern-tab-link {
+        padding: 15px 25px;
+        color: #666666;
+        font-weight: 500;
+        font-size: calc(15px + (16 - 15) * ((100vw - 320px) / (1920 - 320)));
+        border: none;
+        border-bottom: 3px solid transparent;
+        background: transparent;
+        transition: all 0.3s ease;
+        position: relative;
+        cursor: pointer;
+        
+        span {
+          display: inline-block;
+        }
+        
+        &:hover {
+          color: #CC471F;
+          background-color: transparent;
+        }
+        
+        &.active {
+          color: #CC471F;
+          border-bottom-color: #CC471F;
+          font-weight: 600;
+          
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #CC471F;
+          }
+        }
+      }
+    }
+  }
+  
+  .modern-tab-outlet {
+    padding-top: 15px;
+    
+    .tab-pane {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+  }
+  
+  .modern-description-content {
+    padding: 15px 0;
+    max-width: 100%;
+    
+    .modern-description-text {
+      color: #333333;
+      line-height: 1.6;
+      font-size: calc(13px + (14 - 13) * ((100vw - 320px) / (1920 - 320)));
+      
+      // Style list items
+      ul, ol {
+        padding-left: 18px;
+        margin: 10px 0;
+        
+        li {
+          margin-bottom: 8px;
+          color: #555555;
+          line-height: 1.6;
+          font-size: calc(13px + (14 - 13) * ((100vw - 320px) / (1920 - 320)));
+        }
+      }
+      
+      // Style paragraphs
+      p {
+        margin-bottom: 10px;
+        color: #555555;
+        line-height: 1.6;
+        font-size: calc(13px + (14 - 13) * ((100vw - 320px) / (1920 - 320)));
+      }
+      
+      // Style headings
+      h1, h2, h3, h4, h5, h6 {
+        color: #000000;
+        font-weight: 600;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        font-size: calc(15px + (16 - 15) * ((100vw - 320px) / (1920 - 320)));
+      }
+      
+      // Style tables
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        font-size: calc(13px + (14 - 13) * ((100vw - 320px) / (1920 - 320)));
+        
+        th, td {
+          padding: 8px 10px;
+          border: 1px solid #e0e0e0;
+          text-align: left;
+        }
+        
+        th {
+          background-color: #f5f5f5;
+          font-weight: 600;
+          color: #000000;
+        }
+      }
+      
+      // Style specification lists (Material composition, Sleeve type, etc.)
+      strong, b {
+        font-weight: 600;
+        color: #000000;
+        display: block;
+        margin-top: 8px;
+        margin-bottom: 4px;
+      }
+    }
+    
+    .modern-show-more-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: transparent;
+      color: #CC471F;
+      border: 1px solid #CC471F;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      
+      i {
+        margin-left: 8px;
+        transition: transform 0.3s ease;
+        
+        &.rotate {
+          transform: rotate(180deg);
+        }
+      }
+      
+      &:hover {
+        background-color: #CC471F;
+        color: #ffffff;
+        border-color: #CC471F;
+      }
+    }
+  }
+  
+  .modern-tab-content {
+    padding: 20px 0;
+    min-height: 200px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .modern-product-tabs {
+    .modern-tabs {
+      .nav-item {
+        .modern-tab-link {
+          padding: 12px 15px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,124 @@
+<ng-template #cartPopupModal let-modal>
+  <div class="modal-content cart-popup-content">
+    <div class="modal-header cart-popup-header">
+
+      <button type="button" class="btn-close-modal" (click)="modal.dismiss('Cross click')" aria-label="Close">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+
+    <div class="modal-body cart-popup-body">
+      <div class="login-required-prompt" *ngIf="!isAuthenticated">
+        <div class="login-prompt-icon">
+          <i class="ri-lock-2-line"></i>
+        </div>
+        <h4 class="login-prompt-title">{{ 'Please log in to proceed to checkout' | translate }}</h4>
+        <div class="login-prompt-actions">
+          <a [routerLink]="['/auth/login']" class="btn btn-login-prompt" (click)="closeModal()">
+            <i class="ri-login-circle-line"></i>
+            {{ 'Login' | translate }}
+          </a>
+          <a [routerLink]="['/auth/register']" class="btn btn-register-prompt" (click)="closeModal()">
+            <i class="ri-user-add-line"></i>
+            {{ 'Register' | translate }}
+          </a>
+        </div>
+      </div>
+
+      <div class="cart-items-list" *ngIf="isAuthenticated && product">
+        <div class="cart-item mt-3">
+          <div class="cart-item-image">
+            <img
+              [src]="product?.product_thumbnail ? product?.product_thumbnail?.original_url : 'assets/images/product.png'"
+              class="img-fluid" [alt]="product?.name">
+          </div>
+          <div class="cart-item-info">
+            <h5 class="cart-item-name">
+              {{ product?.name }}
+            </h5>
+            <div class="cart-item-price">
+              {{ currentPrice | currencySymbol }}
+            </div>
+            <div class="cart-item-rating">
+              <ngb-rating [rate]="product?.rating_count || 0" [readonly]="true" [max]="5"></ngb-rating>
+              <span class="rating-count" *ngIf="(product?.reviews_count ?? 0) > 0">{{ product?.reviews_count
+                }} Review{{ (product?.reviews_count ?? 0) > 1 ? 's' : '' }}</span>
+            </div>
+
+            <div class="product-details-section">
+              <h6 class="details-title">Product Details:</h6>
+              <div class="details-content">
+                <p class="product-description" *ngIf="product?.short_description"
+                  [innerHTML]="product?.short_description"></p>
+
+                <div class="product-specs-box">
+                  <div class="spec-row" *ngIf="product?.sku">
+                    <span class="spec-label">SKU:</span>
+                    <span class="spec-value">{{ product?.sku }}</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-label">Stock Status:</span>
+                    <span class="stock-status" [class.in-stock]="product?.stock_status === 'in_stock'"
+                      [class.out-of-stock]="product?.stock_status !== 'in_stock'">
+                      {{ product?.stock_status === 'in_stock' ? 'In Stock' : 'Out of Stock' }}
+                    </span>
+                  </div>
+                  <div class="spec-row" *ngIf="product?.quantity">
+                    <span class="spec-label">Quantity:</span>
+                    <span class="spec-value">{{ product?.quantity }} Items Left</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Dynamic Attribute Selectors -->
+            <div class="attribute-selector-section" *ngFor="let attribute of productAttributes">
+              <div *ngIf="availableAttributeValues[attribute.id]?.length">
+                <h6 class="attribute-label">{{ attribute.name }} : {{ selectedAttributeValues[attribute.id]?.value }}</h6>
+                <div class="attribute-options">
+                  <button *ngFor="let attrValue of availableAttributeValues[attribute.id]" class="attribute-btn"
+                    [class.active]="selectedAttributeValues[attribute.id]?.id === attrValue.id"
+                    [attr.data-style]="attribute.style"
+                    (click)="selectAttributeValue(attribute.id, attrValue)">
+                    {{ attrValue.value }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="cart-item-actions">
+              <div class="qty-box">
+                <div class="input-group">
+                  <button type="button" class="btn qty-btn qty-minus" (click)="updateQuantity(-1)">
+                    <i class="ri-subtract-line"></i>
+                  </button>
+                  <input class="form-control qty-input" type="text" name="quantity" [value]="quantity" readonly>
+                  <button type="button" class="btn qty-btn qty-plus" (click)="updateQuantity(1)">
+                    <i class="ri-add-line"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="wishlist-btn-wrapper">
+                <button type="button" class="btn btn-wishlist" (click)="toggleWishlist(product)"
+                  [class.active]="product.is_wishlist">
+                  <i class="ri-heart-3-line" *ngIf="!product.is_wishlist"></i>
+                  <i class="ri-heart-3-fill" *ngIf="product.is_wishlist"></i>
+                </button>
+              </div>
+
+              <button type="button" class="btn btn-add-to-cart" (click)="addToCart()" [disabled]="addToCartLoader">
+                <i class="ri-shopping-cart-2-fill" *ngIf="!addToCartLoader"></i>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                  *ngIf="addToCartLoader"></span>
+                <span *ngIf="addToCartLoader"> Adding...</span>
+                <span *ngIf="!addToCartLoader"> Add To Cart</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

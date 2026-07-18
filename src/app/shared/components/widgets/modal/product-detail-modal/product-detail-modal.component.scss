@@ -1,0 +1,536 @@
+// Product Detail Modal Styles - Using ::ng-deep to override global styles
+::ng-deep .view-modal {
+  .modal-dialog {
+    .modal-content {
+      border-radius: 16px !important;
+      overflow: hidden;
+      border: none;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+
+      .modal-header {
+        position: relative;
+        padding: 0 !important;
+        border: none !important;
+
+        .btn-close {
+          position: absolute !important;
+          top: 16px !important;
+          right: 16px !important;
+          z-index: 10;
+          width: 30px !important;
+          height: 30px !important;
+          border-radius: 4px !important;
+          background: #000000 !important;
+          border: none !important;
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          padding: 0 !important;
+          opacity: 1 !important;
+          transition: all 0.3s ease;
+          margin: 0 !important;
+
+          &:hover {
+            background: #333333 !important;
+            transform: scale(1.05);
+          }
+
+          i {
+            font-size: 16px !important;
+            color: #ffffff !important;
+          }
+        }
+      }
+
+      .modal-body {
+        padding: 30px !important;
+
+        @media (max-width: 768px) {
+          padding: 20px !important;
+        }
+
+        .view-image-slider {
+          background: #f8f9fa !important;
+          border-radius: 12px;
+          padding: 0px;
+          margin-bottom: 20px;
+
+          .slider-image {
+            img {
+              border-radius: 8px;
+              width: 100%;
+              height: auto;
+            }
+          }
+        }
+
+        .right-sidebar-modal {
+          .title-name {
+            font-size: 24px !important;
+            font-weight: 700 !important;
+            color: #1a1a1a !important;
+            margin-bottom: 12px !important;
+            line-height: 1.3 !important;
+
+            @media (max-width: 768px) {
+              font-size: 20px !important;
+            }
+          }
+
+          .price {
+            font-size: 28px !important;
+            font-weight: 700 !important;
+            color: #1a1a1a !important;
+            margin-bottom: 16px !important;
+            display: flex !important;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+
+            @media (max-width: 768px) {
+              font-size: 24px !important;
+            }
+
+            del {
+              font-size: 18px !important;
+              color: #9e9e9e !important;
+              font-weight: 500;
+              text-decoration: line-through;
+            }
+
+            .modal-label {
+              font-size: 12px !important;
+              font-weight: 600 !important;
+              background: #D94D25 !important;
+              color: #ffffff !important;
+              padding: 4px 10px !important;
+              border-radius: 4px !important;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+          }
+
+          .product-rating {
+            display: flex !important;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px !important;
+
+            ::ng-deep ngb-rating {
+              .star {
+                font-size: 16px !important;
+                color: #ffc107 !important;
+              }
+            }
+
+            .fs-14 {
+              font-size: 14px !important;
+              color: #6c757d !important;
+            }
+          }
+
+          .product-detail {
+            margin-bottom: 20px !important;
+
+            h4 {
+              font-size: 16px !important;
+              font-weight: 600 !important;
+              color: #1a1a1a !important;
+              margin-bottom: 8px !important;
+            }
+
+            p {
+              font-size: 14px !important;
+              color: #6c757d !important;
+              line-height: 1.6;
+              margin: 0;
+            }
+          }
+
+          .product-gray-box {
+            background-color: #f9f9f9 !important;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+
+            .product-info {
+              .product-info-list {
+                list-style: none;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: transparent !important;
+
+                li {
+                  display: flex;
+                  align-items: center;
+                  padding: 8px 0 !important;
+                  border-bottom: 1px dashed #ddd !important;
+                  font-size: 14px !important;
+                  color: #333 !important;
+
+                  &:last-child {
+                    border-bottom: none !important;
+                  }
+
+                  .label {
+                    font-weight: 600;
+                    min-width: 120px;
+                    color: #666;
+                  }
+
+                  .value {
+                    font-weight: 600;
+                    color: #222;
+                  }
+                }
+              }
+            }
+          }
+
+          .selection-section {
+            margin-bottom: 24px !important;
+
+            ::ng-deep app-variant-attributes {
+              .select-package {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+
+                li {
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50% !important;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border: 1px solid #eee;
+                  cursor: pointer;
+                  transition: all 0.3s;
+                  margin-right: 0;
+                  background: #fff;
+
+                  ::ng-deep app-button {
+                    width: 100%;
+                    height: 100%;
+
+                    button {
+                      background: transparent !important;
+                      color: inherit !important;
+                      padding: 0 !important;
+                      width: 100%;
+                      height: 100%;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      border: none !important;
+                      font-size: 14px;
+                      font-weight: 500;
+                    }
+                  }
+
+                  &:hover {
+                    border-color: #000;
+                  }
+
+                  &.active {
+                    background-color: #000 !important;
+                    border-color: #000 !important;
+                    color: #fff !important;
+
+                    ::ng-deep app-button button {
+                      color: #fff !important;
+                    }
+                  }
+
+                  &.disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    background: #f5f5f5;
+                  }
+                }
+              }
+            }
+          }
+
+          .modal-button {
+            display: flex !important;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px !important;
+
+            @media (max-width: 576px) {
+              flex-direction: column;
+            }
+
+            .modal-qty {
+              width: auto !important;
+
+              .input-group {
+                display: flex !important;
+                align-items: center;
+                background: #f8f9fa !important;
+                border-radius: 8px !important;
+                border: 1px solid #e9ecef !important;
+                overflow: hidden;
+                height: auto !important;
+
+                .qty-left-minus {
+                  background: transparent !important;
+                  border: none !important;
+                  padding: 12px 16px !important;
+                  color: #495057 !important;
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                  display: flex !important;
+                  align-items: center;
+                  justify-content: center;
+                  width: auto !important;
+                  height: auto !important;
+                  border-radius: 0 !important;
+
+                  &:hover {
+                    background: #e9ecef !important;
+                    color: #D94D25 !important;
+                  }
+
+                  i {
+                    font-size: 18px !important;
+                  }
+                }
+
+                .qty-input {
+                  border: none !important;
+                  background: transparent !important;
+                  text-align: center !important;
+                  font-size: 16px !important;
+                  font-weight: 600 !important;
+                  color: #1a1a1a !important;
+                  padding: 12px 8px !important;
+                  width: 60px !important;
+                  max-width: 60px !important;
+
+                  &:focus {
+                    outline: none !important;
+                    box-shadow: none !important;
+                  }
+                }
+              }
+            }
+
+            .btn {
+              flex: 1;
+              min-width: 200px;
+              padding: 14px 24px !important;
+              border-radius: 8px !important;
+              font-weight: 600 !important;
+              font-size: 14px !important;
+              text-transform: uppercase !important;
+              letter-spacing: 0.5px !important;
+              transition: all 0.3s ease !important;
+              border: none !important;
+              background: #D94D25 !important;
+              color: #ffffff !important;
+              display: flex !important;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+
+              @media (max-width: 576px) {
+                width: 100% !important;
+                min-width: 100% !important;
+              }
+
+              &:hover:not(:disabled) {
+                background: #C43E1A !important;
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(217, 77, 37, 0.3) !important;
+              }
+
+              &:active:not(:disabled) {
+                transform: translateY(0);
+                background: #B03515 !important;
+              }
+
+              &:disabled {
+                opacity: 0.6 !important;
+                cursor: not-allowed;
+              }
+
+              i {
+                font-size: 18px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Thumbnail slider styles
+::ng-deep .view-modal {
+  .bottom-slider-image {
+    margin-top: 16px !important;
+
+    .slider-image {
+      cursor: pointer;
+      border-radius: 8px !important;
+      overflow: hidden;
+      border: 2px solid transparent !important;
+      transition: all 0.3s ease;
+
+      &.active {
+        border-color: #1E83CA !important;
+      }
+
+      &:hover {
+        border-color: #1E83CA !important;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+  }
+
+  // Table styles for wholesale
+  .modal-table {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+
+    thead {
+      background: #f8f9fa !important;
+
+      th {
+        font-weight: 600 !important;
+        font-size: 13px !important;
+        color: #495057 !important;
+        padding: 12px !important;
+        border: none !important;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #e9ecef !important;
+
+        &:last-child {
+          border-bottom: none !important;
+        }
+
+        td {
+          padding: 12px !important;
+          font-size: 14px !important;
+          color: #495057 !important;
+        }
+      }
+    }
+  }
+}
+
+// Dark mode support
+html.dark {
+  .modal-content {
+    background: #1a1a1a;
+    color: #ffffff;
+
+    .modal-header {
+      .btn-close {
+        background: rgba(255, 255, 255, 0.1);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        i {
+          color: #ffffff;
+        }
+      }
+    }
+
+    .modal-body {
+      .view-image-slider {
+        background: #252525;
+      }
+
+      .right-sidebar-modal {
+        .title-name {
+          color: #ffffff;
+        }
+
+        .price {
+          color: #ffffff;
+        }
+
+        .product-detail {
+          h4 {
+            color: #ffffff;
+          }
+
+          p {
+            color: #adb5bd;
+          }
+        }
+
+        .pickup-box {
+          .product-info {
+            .product-info-list {
+              background: #252525;
+
+              li {
+                color: #adb5bd;
+                border-bottom-color: #333;
+              }
+            }
+          }
+        }
+
+        .modal-button {
+          .modal-qty {
+            .input-group {
+              background: #252525;
+              border-color: #333;
+
+              .qty-left-minus {
+                color: #adb5bd;
+
+                &:hover {
+                  background: #333;
+                  color: #1E83CA;
+                }
+              }
+
+              .qty-input {
+                color: #ffffff;
+                background: transparent;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .modal-table {
+    thead {
+      background: #252525;
+
+      th {
+        color: #adb5bd;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom-color: #333;
+
+        td {
+          color: #adb5bd;
+        }
+      }
+    }
+  }
+}

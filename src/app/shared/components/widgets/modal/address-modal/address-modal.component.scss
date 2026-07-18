@@ -1,0 +1,556 @@
+// Modern Address Modal Styles
+.modern-modal-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 16px 16px 0 0;
+
+  .modal-header-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .modal-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #EA5A26 0%, #ff7a4a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 22px;
+      box-shadow: 0 4px 15px rgba(234, 90, 38, 0.3);
+    }
+
+    .modal-title-content {
+      .modal-title {
+        color: #222;
+        font-weight: 700;
+        font-size: 20px;
+        margin: 0 0 3px 0;
+      }
+
+      .modal-subtitle {
+        color: #6c757d;
+        font-size: 13px;
+        margin: 0;
+      }
+    }
+  }
+
+  .btn-close-modal {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 20px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+      color: #222;
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.modern-modal-body {
+  padding: 30px;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  .address-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .form-field-wrapper {
+      .form-label-modern {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #222;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 10px;
+        text-transform: capitalize;
+
+        i {
+          color: #EA5A26;
+          font-size: 18px;
+        }
+      }
+
+      .form-input-modern,
+      .form-textarea-modern {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        font-size: 15px;
+        color: #222;
+        background: #f8f9fa;
+        transition: all 0.3s ease;
+        font-family: inherit;
+
+        &:focus {
+          outline: none;
+          border-color: #EA5A26;
+          background: white;
+          box-shadow: 0 0 0 4px rgba(234, 90, 38, 0.1);
+        }
+
+        &::placeholder {
+          color: #adb5bd;
+        }
+
+        &.is-invalid {
+          border-color: #dc3545;
+          background: #fff5f5;
+
+          &:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1);
+          }
+        }
+      }
+
+      .form-textarea-modern {
+        resize: vertical;
+        min-height: 60px;
+      }
+
+      .custom-select-modern {
+        width: 100%;
+
+        ::ng-deep {
+          .select2-container {
+            width: 100% !important;
+
+            .select2-selection {
+              padding: 14px 18px;
+              padding-right: 40px;
+              border: 2px solid #e9ecef;
+              border-radius: 10px;
+              background: #f8f9fa;
+              min-height: 50px;
+              transition: all 0.3s ease;
+              display: flex;
+              align-items: center;
+
+              .select2-selection__rendered {
+                padding: 0 !important;
+                line-height: 1.5;
+                overflow: visible !important;
+                text-overflow: unset !important;
+                white-space: normal !important;
+                word-wrap: break-word;
+                width: 100%;
+              }
+
+              .select2-selection__arrow {
+                right: 15px;
+                height: 100%;
+                display: flex;
+                align-items: center;
+              }
+
+              &:focus,
+              &:focus-within {
+                border-color: #EA5A26;
+                background: white;
+                box-shadow: 0 0 0 4px rgba(234, 90, 38, 0.1);
+              }
+            }
+
+            &.select2-container--open {
+              .select2-selection {
+                border-color: #EA5A26;
+                background: white;
+                box-shadow: 0 0 0 4px rgba(234, 90, 38, 0.1);
+              }
+            }
+          }
+
+          .select2-container-dropdown {
+            z-index: 1070 !important;
+          }
+
+          .select2-dropdown {
+            border: 2px solid #EA5A26;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;
+            z-index: 1070 !important;
+
+            .select2-search {
+              padding: 10px;
+
+              .select2-search__field {
+                padding: 10px;
+                border: 2px solid #e9ecef;
+                border-radius: 8px;
+                font-size: 14px;
+
+                &:focus {
+                  border-color: #EA5A26;
+                  outline: none;
+                }
+              }
+            }
+
+            .select2-results {
+              .select2-results__options {
+                max-height: 300px;
+                overflow-y: auto;
+
+                .select2-results__option {
+                  padding: 12px 15px;
+                  font-size: 14px;
+                  transition: all 0.2s ease;
+
+                  &[aria-selected="true"],
+                  &--highlighted {
+                    background: rgba(234, 90, 38, 0.1);
+                    color: #EA5A26;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .phone-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .phone-prefix {
+          position: absolute;
+          left: 1px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: #f8f9fa;
+          /* border: 2px solid #e9ecef; */
+          border-right: none;
+          /* border-radius: 10px 0 0 10px; */
+          padding: 14px 12px;
+          color: #EA5A26;
+          font-weight: 600;
+          font-size: 15px;
+          z-index: 2;
+          pointer-events: none;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          min-width: 55px;
+          justify-content: center;
+        }
+
+        .phone-input {
+          padding-left: 85px !important;
+          width: 100%;
+          border-radius: 0 10px 10px 0 !important;
+
+          &.is-invalid {
+            padding-left: 85px !important;
+          }
+        }
+      }
+
+      .phone-field-modern {
+        .phone-input-wrapper {
+          display: flex;
+          gap: 10px;
+          align-items: flex-start;
+
+          .phone-code-select {
+            flex: 0 0 140px;
+            min-width: 140px;
+
+            ::ng-deep {
+              .select2-container {
+                width: 100% !important;
+
+                .select2-selection {
+                  padding: 14px 18px;
+                  padding-right: 40px;
+                  border: 2px solid #e9ecef;
+                  border-radius: 10px;
+                  background: #f8f9fa;
+                  min-height: 50px;
+                  height: auto;
+                  display: flex;
+                  align-items: center;
+                  transition: all 0.3s ease;
+
+                  .select2-selection__rendered {
+                    padding: 0 !important;
+                    line-height: 1.5;
+                    overflow: visible !important;
+                    text-overflow: unset !important;
+                    white-space: normal !important;
+                    word-wrap: break-word;
+                    width: 100%;
+                  }
+
+                  .select2-selection__arrow {
+                    right: 15px;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                  }
+
+                  &:focus,
+                  &:focus-within {
+                    border-color: #EA5A26;
+                    background: white;
+                    box-shadow: 0 0 0 4px rgba(234, 90, 38, 0.1);
+                  }
+                }
+
+                &.select2-container--open {
+                  .select2-selection {
+                    border-color: #EA5A26;
+                    background: white;
+                    box-shadow: 0 0 0 4px rgba(234, 90, 38, 0.1);
+                  }
+                }
+              }
+            }
+          }
+
+          .phone-input {
+            flex: 1;
+            min-height: 50px;
+            padding: 14px 18px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #222;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            font-family: inherit;
+
+            &:focus {
+              outline: none;
+              border-color: #EA5A26;
+              background: white;
+              box-shadow: 0 0 0 4px rgba(234, 90, 38, 0.1);
+            }
+
+            &::placeholder {
+              color: #adb5bd;
+            }
+
+            &.is-invalid {
+              border-color: #dc3545;
+              background: #fff5f5;
+
+              &:focus {
+                border-color: #dc3545;
+                box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1);
+              }
+            }
+          }
+        }
+      }
+
+      .error-message {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 8px;
+        font-weight: 500;
+
+        i {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .modern-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+    margin-top: 20px;
+
+    .btn-cancel {
+      padding: 12px 28px;
+      border: 2px solid #e9ecef;
+      background: white;
+      color: #6c757d;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: #adb5bd;
+        color: #222;
+        background: #f8f9fa;
+      }
+    }
+
+    ::ng-deep .btn-submit {
+      padding: 12px 28px;
+      border: none;
+      background: #EA5A26;
+      color: white;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(234, 90, 38, 0.3);
+
+      i {
+        font-size: 18px;
+      }
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(234, 90, 38, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 576px) {
+  .modern-modal-header {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
+    .modal-header-content {
+      width: 100%;
+
+      .modal-icon-wrapper {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+      }
+
+      .modal-title-content {
+        .modal-title {
+          font-size: 18px;
+        }
+
+        .modal-subtitle {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .btn-close-modal {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+    }
+  }
+
+  .modern-modal-body {
+    padding: 20px;
+
+    .address-form-fields {
+      gap: 20px;
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+
+        &.state-city-row,
+        &.area-pincode-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .form-field-wrapper {
+        .form-label-modern {
+          font-size: 13px;
+        }
+
+        .form-input-modern,
+        .form-textarea-modern {
+          padding: 12px 15px;
+          font-size: 14px;
+        }
+
+        .phone-input-wrapper {
+          .phone-prefix {
+            left: 1px;
+            font-size: 14px;
+            padding: 12px 10px;
+            height: 44px;
+            min-width: 50px;
+          }
+
+          .phone-input {
+            padding-left: 75px !important;
+
+            &.is-invalid {
+              padding-left: 75px !important;
+            }
+          }
+        }
+
+        .phone-field-modern {
+          .phone-input-wrapper {
+            flex-direction: column;
+            gap: 10px;
+
+            .phone-code-select {
+              flex: 1;
+            }
+          }
+        }
+      }
+    }
+
+    .modern-modal-footer {
+      flex-direction: column-reverse;
+      gap: 12px;
+
+      .btn-cancel,
+      .btn-submit {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<div class="paymnet-option" *ngIf="option?.product?.safe_checkout && product?.safe_checkout">
+    <div class="product-title">
+        <h4>{{ 'Guaranteed Safe Checkout' | translate }}</h4>
+        <img [src]="storageURL + option?.product?.safe_checkout_image" class="img-fluid payment-img"
+            *ngIf="option?.product?.safe_checkout_image">
+    </div>
+</div>
+<div class="secure-checkout-modern" *ngIf="option?.product?.secure_checkout && product?.secure_checkout">
+    <h4 class="secure-checkout-title">{{ 'Secure checkout with' | translate }}</h4>
+    <div class="secure-checkout-icons">
+        <div class="secure-icon-item" *ngIf="product?.is_return">
+            <i class="ri-box-3-line"></i>
+            <span>{{ '15 Days Return' | translate }}</span>
+        </div>
+        <div class="secure-icon-item">
+            <i class="ri-money-dollar-circle-line"></i>
+            <span>{{ 'Cash On Delivery' | translate }}</span>
+        </div>
+        <div class="secure-icon-item">
+            <i class="ri-truck-line"></i>
+            <span>{{ 'Free Shipping' | translate }}</span>
+        </div>
+        <div class="secure-icon-item">
+            <i class="ri-shield-check-line"></i>
+            <span>{{ 'Quality Guaranteed' | translate }}</span>
+        </div>
+        <div class="secure-icon-item">
+            <i class="ri-lock-line"></i>
+            <span>{{ 'Secure Checkout' | translate }}</span>
+        </div>
+        <div class="secure-icon-item">
+            <i class="ri-flag-line"></i>
+            <span>{{ 'Made In India' | translate }}</span>
+        </div>
+    </div>
+</div>
+<div class="secure-site-sec" *ngIf="option?.product?.secure_checkout && product?.secure_checkout">
+    <img [src]="storageURL + option?.product?.secure_checkout_image" class="img-fluid payment-img"
+        *ngIf="option?.product?.secure_checkout_image">
+</div>

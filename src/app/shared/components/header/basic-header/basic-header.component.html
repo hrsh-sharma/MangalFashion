@@ -1,0 +1,61 @@
+<header class=" pb-0 header-overlap" [class.active]="stick && sticky" class="{{!stick && sticky ? class : ''}}">
+    <div class="top-nav top-header sticky-header header-overlay">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="navbar-top d-flex align-items-center justify-content-between">
+                        <!-- Logo and Menu on the left -->
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <div class="d-xl-none d-inline me-3">
+                                <app-navbar-menu-button (activeMenu)="toggle($event)"
+                                    [show]="active"></app-navbar-menu-button>
+                            </div>
+                            <app-logo [textClass]="'txt-theme f-w-600'" [data]="data" [logo]="logo"></app-logo>
+
+                            <!-- Menu next to logo with space -->
+                            <div class="header-menu-middle d-none d-xl-flex" style="margin-left: 50px;">
+                                <div class="main-nav navbar navbar-expand-xl navbar-light">
+                                    <app-menu></app-menu>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right side: Wishlist, Cart, Profile -->
+                        <div class="rightside-box d-flex align-items-center">
+                            <ul class="right-side-menu d-flex align-items-center mb-0"
+                                style="list-style: none; gap: 15px;">
+                                <li class="right-side d-inline-block">
+                                    <app-header-wishlist></app-header-wishlist>
+                                </li>
+                                <li class="right-side d-inline-block">
+                                    <app-header-cart></app-header-cart>
+                                </li>
+                                <li class="right-side onhover-dropdown d-inline-block">
+                                    <app-my-account></app-my-account>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu (offcanvas) -->
+    <div class="d-xl-none">
+        <div class="offcanvas offcanvas-collapse modern-mobile-menu" [class.show]="active">
+            <div class="offcanvas-header modern-menu-header">
+                <div class="menu-header-content">
+                    <div class="menu-icon-wrapper">
+                        <i class="ri-menu-line"></i>
+                    </div>
+                    <h5 class="modern-menu-title">{{ 'Menu' | translate }}</h5>
+                </div>
+            </div>
+            <div class="offcanvas-body modern-menu-body">
+                <app-menu></app-menu>
+            </div>
+        </div>
+        <div class="offcanvas-backdrop fade" *ngIf="active" [class.show]="active" (click)="toggle(false)"></div>
+    </div>
+</header>

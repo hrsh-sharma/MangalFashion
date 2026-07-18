@@ -1,0 +1,298 @@
+// Modern Wishlist Page Styles
+.wishlist-page-container {
+  .wishlist-page-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+
+      .header-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #EA5A26 0%, #ff7a4a 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 28px;
+        box-shadow: 0 4px 15px rgba(234, 90, 38, 0.3);
+      }
+
+      .header-text-content {
+        .page-title {
+          color: #222;
+          font-weight: 700;
+          font-size: 24px;
+          margin: 0 0 5px 0;
+        }
+
+        .page-subtitle {
+          color: #6c757d;
+          font-size: 14px;
+          margin: 0;
+        }
+      }
+    }
+
+    .header-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+      .badge-count {
+        color: #EA5A26;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      .badge-label {
+        color: #6c757d;
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spaGSTg: 0.5px;
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .wishlist-content-section {
+    .wishlist-empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+      .empty-state-icon-wrapper {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(234, 90, 38, 0.1) 0%, rgba(234, 90, 38, 0.05) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 30px;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, rgba(234, 90, 38, 0.15) 0%, rgba(234, 90, 38, 0.08) 100%);
+          animation: pulse 2s ease-in-out infinite;
+        }
+
+        i {
+          font-size: 60px;
+          color: #EA5A26;
+          position: relative;
+          z-index: 1;
+          opacity: 0.6;
+        }
+      }
+
+      .empty-state-title {
+        color: #222;
+        font-weight: 700;
+        font-size: 28px;
+        margin-bottom: 15px;
+      }
+
+      .empty-state-description {
+        color: #6c757d;
+        font-size: 16px;
+        line-height: 1.7;
+        max-width: 500px;
+        margin: 0 auto 30px;
+      }
+
+      .btn-shop-now {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 32px;
+        background: #EA5A26;
+        color: white;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(234, 90, 38, 0.3);
+
+        i {
+          font-size: 20px;
+        }
+
+        &:hover {
+          background: #d4491f;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(234, 90, 38, 0.4);
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .wishlist-page-container {
+    .wishlist-page-header {
+      padding: 20px;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .header-content {
+        width: 100%;
+
+        .header-icon-wrapper {
+          width: 50px;
+          height: 50px;
+          font-size: 24px;
+        }
+
+        .header-text-content {
+          .page-title {
+            font-size: 20px;
+          }
+
+          .page-subtitle {
+            font-size: 13px;
+          }
+        }
+      }
+
+      .header-badge {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px 20px;
+
+        .badge-count {
+          font-size: 24px;
+        }
+
+        .badge-label {
+          margin-top: 0;
+        }
+      }
+    }
+
+    .wishlist-content-section {
+      .wishlist-empty-state {
+        padding: 60px 20px;
+
+        .empty-state-icon-wrapper {
+          width: 100px;
+          height: 100px;
+
+          &::before {
+            width: 80px;
+            height: 80px;
+          }
+
+          i {
+            font-size: 50px;
+          }
+        }
+
+        .empty-state-title {
+          font-size: 24px;
+        }
+
+        .empty-state-description {
+          font-size: 15px;
+        }
+
+        .btn-shop-now {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .wishlist-page-container {
+    .wishlist-page-header {
+      padding: 15px;
+
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+
+        .header-icon-wrapper {
+          margin: 0 auto;
+        }
+      }
+    }
+
+    .wishlist-content-section {
+      .wishlist-empty-state {
+        padding: 40px 15px;
+
+        .empty-state-icon-wrapper {
+          width: 80px;
+          height: 80px;
+
+          &::before {
+            width: 65px;
+            height: 65px;
+          }
+
+          i {
+            font-size: 40px;
+          }
+        }
+
+        .empty-state-title {
+          font-size: 20px;
+        }
+
+        .empty-state-description {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,159 @@
+// Modern Delete Modal Styles
+.modern-delete-modal {
+  padding: 0;
+  text-align: center;
+
+  .delete-modal-header {
+    padding: 40px 30px 20px;
+    display: flex;
+    justify-content: center;
+
+    .delete-icon-wrapper {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff4757 0%, #ff6b7a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 36px;
+      box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3);
+      animation: pulse 2s infinite;
+    }
+  }
+
+  .delete-modal-body {
+    padding: 0 30px 30px;
+
+    .delete-modal-title {
+      color: #222;
+      font-weight: 700;
+      font-size: 24px;
+      margin: 0 0 15px 0;
+    }
+
+    .delete-modal-message {
+      color: #6c757d;
+      font-size: 15px;
+      margin: 0;
+      line-height: 1.6;
+    }
+  }
+
+  .delete-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 25px 30px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    border-radius: 0 0 16px 16px;
+
+    .btn-cancel-delete {
+      padding: 12px 28px;
+      border: 2px solid #e9ecef;
+      background: white;
+      color: #6c757d;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 100px;
+
+      &:hover {
+        border-color: #adb5bd;
+        color: #222;
+        background: #f8f9fa;
+      }
+    }
+
+    .btn-confirm-delete {
+      padding: 12px 28px;
+      border: none;
+      background: #ff4757;
+      color: white;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+      min-width: 100px;
+      justify-content: center;
+
+      i {
+        font-size: 18px;
+      }
+
+      &:hover {
+        background: #ee3542;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// Pulse animation for delete icon
+@keyframes pulse {
+  0% {
+    box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 35px rgba(255, 71, 87, 0.5);
+  }
+  100% {
+    box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3);
+  }
+}
+
+// Responsive Design
+@media (max-width: 576px) {
+  .modern-delete-modal {
+    .delete-modal-header {
+      padding: 30px 20px 15px;
+
+      .delete-icon-wrapper {
+        width: 70px;
+        height: 70px;
+        font-size: 32px;
+      }
+    }
+
+    .delete-modal-body {
+      padding: 0 20px 20px;
+
+      .delete-modal-title {
+        font-size: 20px;
+      }
+
+      .delete-modal-message {
+        font-size: 14px;
+      }
+    }
+
+    .delete-modal-footer {
+      padding: 20px;
+      flex-direction: column-reverse;
+      gap: 12px;
+
+      .btn-cancel-delete,
+      .btn-confirm-delete {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+      }
+    }
+  }
+}
+

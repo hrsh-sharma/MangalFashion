@@ -1,0 +1,221 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<section class="login-section section-b-space">
+    <div class="container-fluid-lg">
+        <div class="row justify-content-center">
+            <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-10">
+                <div class="login-container">
+                    <!-- Welcome Text -->
+                    <div class="welcome-header">
+                        <h1 class="welcome-title">Create Your Account</h1>
+                        <p class="welcome-subtitle">{{ 'Create New Account' | translate }}</p>
+                    </div>
+
+                    <!-- Register Card -->
+                    <div class="login-card-modern">
+                        <form [formGroup]="form" (ngSubmit)="submit()" class="login-form-modern">
+                            <!-- Name Field -->
+                            <div class="input-field-group">
+                                <div class="field-label-row">
+                                    <label for="name" class="field-label">
+                                        <i class="ri-user-line"></i>
+                                        {{ 'Full Name' | translate }}
+                                    </label>
+                                </div>
+                                <div class="input-container">
+                                    <input 
+                                        type="text" 
+                                        class="form-field" 
+                                        id="name" 
+                                        formControlName="name" 
+                                        placeholder="{{ 'Name' | translate }}"
+                                        (keydown)="allowOnlyLetters($event)" 
+                                        (input)="sanitizeNameInput($event)" 
+                                        (paste)="sanitizeNamePaste($event)"
+                                        [class.field-error]="form.controls['name'].touched && form.controls['name'].invalid">
+                                </div>
+                                <div *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['required']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'name_is_required' | translate }}
+                                </div>
+                                <div *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['pattern']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'Only letters and spaces are allowed' | translate }}
+                                </div>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="input-field-group">
+                                <div class="field-label-row">
+                                    <label for="email" class="field-label">
+                                        <i class="ri-mail-line"></i>
+                                        {{ 'Email Address' | translate }}
+                                    </label>
+                                </div>
+                                <div class="input-container">
+                                    <input
+                                        type="email"
+                                        class="form-field"
+                                        id="email"
+                                        formControlName="email"
+                                        placeholder="{{ 'enter_your_email' | translate }}"
+                                        (input)="filterEmailCharacters($event)"
+                                        pattern="[a-zA-Z0-9._\-+@]+"
+                                        [class.field-error]="form.controls['email'].touched && form.controls['email'].invalid">
+                                </div>
+                                <div *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'Email Is Required' | translate }}
+                                </div>
+                                <div *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['email']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'Invalid Email' | translate }}
+                                </div>
+                            </div>
+
+                            <!-- Phone Field -->
+                            <div class="input-field-group phone-field">
+                                <div class="field-label-row">
+                                    <label for="phone" class="field-label">
+                                        <i class="ri-phone-line"></i>
+                                        {{ 'Phone Number' | translate }}
+                                    </label>
+                                </div>
+                                <div class="input-container phone-input-wrapper">
+                                    <select2 class="country-code-select"
+                                      [data]="codes"
+                                      [templates]="template"
+                                      formControlName="country_code">
+                                      <ng-template #template let-data="data">
+                                        <div class="country">
+                                          <div class="flag-box">
+                                            <div class="iti-flag {{data?.class}}"></div>
+                                          </div>
+                                          <span class="dial-code">{{data.code}}</span>
+                                        </div>
+                                      </ng-template>
+                                    </select2>
+                                    <input 
+                                        type="tel" 
+                                        class="form-field phone-input" 
+                                        id="phone" 
+                                        formControlName="phone" 
+                                        placeholder="{{ 'Phone' | translate }}" 
+                                        maxlength="10" 
+                                        (keydown)="allowOnlyDigits($event)" 
+                                        (input)="sanitizePhoneInput($event)" 
+                                        (paste)="sanitizePhonePaste($event)"
+                                        [class.field-error]="form.controls['phone'].touched && form.controls['phone'].invalid">
+                                </div>
+                                <div *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'Phone Number Is Required' | translate }}
+                                </div>
+                                <div *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['invalid']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'Phone Number must be 10 digits.' }}
+                                </div>
+                            </div>
+
+                            <!-- Password Field -->
+                            <div class="input-field-group">
+                                <div class="field-label-row">
+                                    <label for="password" class="field-label">
+                                        <i class="ri-lock-line"></i>
+                                        {{ 'Password' | translate }}
+                                    </label>
+                                </div>
+                                <div class="input-container">
+                                    <input 
+                                        type="password" 
+                                        class="form-field" 
+                                        id="password" 
+                                        formControlName="password" 
+                                        placeholder="{{ 'password' | translate }}"
+                                        [class.field-error]="form.controls['password'].touched && form.controls['password'].invalid">
+                                </div>
+                                <div *ngIf="form.controls['password'].touched && form.controls['password'].errors?.['required']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'password_is_required' | translate }}
+                                </div>
+                            </div>
+
+                            <!-- Confirm Password Field -->
+                            <div class="input-field-group">
+                                <div class="field-label-row">
+                                    <label for="password_confirmation" class="field-label">
+                                        <i class="ri-lock-password-line"></i>
+                                        {{ 'Password Confirmation' | translate }}
+                                    </label>
+                                </div>
+                                <div class="input-container">
+                                    <input 
+                                        type="password" 
+                                        class="form-field" 
+                                        id="password_confirmation" 
+                                        formControlName="password_confirmation" 
+                                        placeholder="{{ 'password_confirmation' | translate }}"
+                                        [class.field-error]="form.controls['password_confirmation'].touched && (form.controls['password_confirmation'].errors?.['required'] || passwordMatchError)">
+                                </div>
+                                <div *ngIf="form.controls['password_confirmation'].touched && form.controls['password_confirmation'].errors?.['required']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'confirm_password_is_required' | translate }}
+                                </div>
+                                <div *ngIf="passwordMatchError" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'confirm Password Does Not Matched' | translate }}
+                                </div>
+                            </div>
+
+                            <!-- Terms & Conditions -->
+                            <div class="form-options-row">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" class="checkbox-input" id="flexCheckDefault" [formControl]="tnc">
+                                    <span class="checkbox-custom" [class.checkbox-error]="tnc.touched && tnc.invalid"></span>
+                                    <span class="checkbox-text" [class.text-red]="tnc.touched && tnc.invalid">
+                                        {{ 'I Agree With' | translate }}
+                                        <a [routerLink]="['/term-condition']" class="terms-link">{{ 'Terms' | translate }}</a>
+                                        {{ 'And' | translate }}
+                                        <a [routerLink]="['/privacy-policy']" class="terms-link">{{ 'Privacy' | translate }}</a>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <!-- ReCaptcha -->
+                            <div class="input-field-group" *ngIf="reCaptcha">
+                                <re-captcha formControlName="recaptcha"></re-captcha>
+                                <div *ngIf="form.controls['recaptcha']?.touched && form.controls['recaptcha']?.errors?.['required']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'ReCaptcha is Required' | translate }}
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="submit-button-wrapper">
+                                <app-button [id]="'sign_up_btn'" [disabled]="tnc.invalid || form.invalid" [class]="'btn-login-submit'">
+                                    {{ 'Sign Up' | translate }}
+                                    <i class="ri-arrow-right-line"></i>
+                                </app-button>
+                            </div>
+                        </form>
+
+                        <!-- Divider -->
+                        <div class="form-divider">
+                            <span class="divider-text">{{ 'OR' | translate }}</span>
+                        </div>
+
+                        <!-- Login Link Section -->
+                        <div class="signup-section">
+                            <p class="signup-question">
+                                {{ 'Already Have An Account' | translate }}?
+                            </p>
+                            <a [routerLink]="['/auth/login']" class="signup-button">
+                                {{ 'Login' | translate }}
+                                <i class="ri-arrow-right-line"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

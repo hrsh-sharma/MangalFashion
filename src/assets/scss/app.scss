@@ -1,0 +1,60 @@
+// Import container override before Bootstrap
+@import "utils/container-override";
+@import "./vendors/bootstrap/bootstrap.scss";
+@import "ngx-toastr/toastr-bs5-alert";
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
+@import "ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
+
+@import 'swiper/swiper.scss';
+@import 'vendors/lazy-loading';
+
+@import "utils/variables";
+@import "style";
+
+// Full-width container override - must be after Bootstrap
+.container,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl,
+.container-fluid,
+.container-fluid-lg,
+.container-fluid-md,
+.container-fluid-xs {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+// Ensure body and html are full width
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden;
+}
+
+// Ensure all sections are full width
+section {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+// Global Outfit Font Family
+* {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+html, body {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.dark {
+  @import "utils/dark_variables";
+  @import "style";
+}
+
+ 

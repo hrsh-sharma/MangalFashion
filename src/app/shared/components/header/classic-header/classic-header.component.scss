@@ -1,0 +1,6 @@
+// Hide wishlist icon on mobile screens
+@media (max-width: 767px) {
+  .rightside-menu .option-list-2 li:nth-child(3) {
+    display: none !important;
+  }
+}

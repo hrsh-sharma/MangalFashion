@@ -1,0 +1,108 @@
+<div class="addresses-page-container">
+    <!-- Page Header -->
+    <div class="addresses-page-header">
+        <div class="header-content">
+            <div class="header-icon-wrapper">
+                <i class="ri-map-pin-line"></i>
+            </div>
+            <div class="header-text-content">
+                <h4 class="page-title">{{ 'Saved Address' | translate }}</h4>
+                <p class="page-subtitle">{{ 'Manage your delivery addresses' | translate }}</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a [routerLink]="['/account/dashboard']" class="btn-back-dashboard">
+                <i class="ri-arrow-left-line"></i>
+                <span>{{ 'Back to Dashboard' | translate }}</span>
+            </a>
+            <button type="button" class="btn-add-address" (click)="AddressModal.openModal()">
+                <i class="ri-add-line"></i>
+                <span>{{ 'Add Address' | translate }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Addresses List -->
+    <div class="addresses-list-container" *ngIf="(user$ | async)?.address?.length">
+        <div class="addresses-grid">
+            <div class="address-card" *ngFor="let address of (user$ | async)?.address; let i = index;">
+                <div class="address-card-header">
+                    <div class="address-title-section">
+                        <div class="address-icon-wrapper">
+                            <i class="ri-home-line"></i>
+                        </div>
+                        <div>
+                            <span class="address-label">{{ 'Address Type' | translate }}</span>
+                            <h6 class="address-title">{{ address?.title }}</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="address-card-body">
+                    <div class="address-info-item">
+                        <i class="ri-user-line"></i>
+                        <div>
+                            <span class="info-label">{{ 'Name' | translate }}</span>
+                            <span class="info-value">{{ (user$ | async)?.name | titleCase }}</span>
+                        </div>
+                    </div>
+
+                    <div class="address-info-item">
+                        <i class="ri-map-pin-line"></i>
+                        <div>
+                            <span class="info-label">{{ 'Address' | translate }}</span>
+                            <div class="info-value address-structured">
+                                <div *ngIf="address?.floor_no">Floor No.: {{ address?.floor_no }}</div>
+                                <div *ngIf="address?.flat_no">Flat No.: {{ address?.flat_no }}</div>
+                                <div *ngIf="address?.building">Building: {{ address?.building }}</div>
+                                <div *ngIf="address?.road">Road: {{ address?.road }}</div>
+                                <div>{{ address?.street }}, {{ address?.city }}, {{ address?.area }}, {{ address?.country_id }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="address-info-row">
+                        <div class="address-info-item">
+                            <i class="ri-mail-line"></i>
+                            <div>
+                                <span class="info-label">{{ 'Pin Code' | translate }}</span>
+                                <span class="info-value">{{ address?.pincode }}</span>
+                            </div>
+                        </div>
+                        <div class="address-info-item">
+                            <i class="ri-phone-line"></i>
+                            <div>
+                                <span class="info-label">{{ 'Phone' | translate }}</span>
+                                <span class="info-value">+{{ address?.country_code }} {{ address?.phone }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="address-card-footer">
+                    <button type="button" class="btn-edit-address" (click)="AddressModal.openModal(address)">
+                        <i class="ri-edit-line"></i>
+                        <span>{{ 'Edit' | translate }}</span>
+                    </button>
+                    <button type="button" class="btn-delete-address" (click)="DeleteModal.openModal('delete', address)">
+                        <i class="ri-delete-bin-line"></i>
+                        <span>{{ 'Remove' | translate }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="addresses-empty-state" *ngIf="!(user$ | async)?.address?.length">
+        <div class="empty-state-content">
+            <i class="ri-map-pin-line"></i>
+            <h4>{{ 'You Have Not Address yet' | translate }}</h4>
+        </div>
+    </div>
+</div>
+<address-modal #addressModal></address-modal>
+<app-delete-modal
+    #deleteModal
+    (deleteItem)="delete($event.actionToPerform,$event.data)">
+</app-delete-modal>

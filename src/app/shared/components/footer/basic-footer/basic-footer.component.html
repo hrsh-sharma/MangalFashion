@@ -1,0 +1,153 @@
+<div class="container">
+    <div class="main-footer section-b-space">
+        <div class="row g-md-4 g-3">
+            <!-- COLLECTIONS Section -->
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6" (click)="toggle('collections')">
+                <div class="footer-column-minimal">
+                    <div class="footer-title-minimal" [class.show]="active['collections']">
+                        <h4>COLLECTIONS</h4>
+                        <i class="ri-arrow-down-s-line toggle-icon"></i>
+                    </div>
+                    <div class="footer-content-minimal" [class.expanded]="active['collections']">
+                        <app-footer-categories [data]="data"></app-footer-categories>
+                        <ul class="footer-list-minimal" *ngIf="!data?.footer?.footer_categories?.length">
+                            <li><a [routerLink]="['/collections/kurtas']">Kurta</a></li>
+                            <li><a [routerLink]="['/collections/ethnic-jackets']">Ethnic Jackets</a></li>
+                            <li><a [routerLink]="['/collections/ethnic-suit-sets']">Ethnic Suit Sets</a></li>
+                            <li><a [routerLink]="['/collections/sherwani-sets']">Sherwani Sets</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- USEFUL LINKS Section -->
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6" (click)="toggle('useful_link')">
+                <div class="footer-column-minimal">
+                    <div class="footer-title-minimal" [class.show]="active['useful_link']">
+                        <h4>USEFUL LINKS</h4>
+                        <i class="ri-arrow-down-s-line toggle-icon"></i>
+                    </div>
+                    <div class="footer-content-minimal" [class.expanded]="active['useful_link']">
+                        <ul class="footer-list-minimal">
+                            <li><a routerLink="/term-condition" title="Terms &amp; Conditions"
+                                    href="/term-condition">Terms &amp; Conditions</a></li>
+                            <li><a routerLink="/privacy-policy" title="Privacy Policy" href="/privacy-policy">Privacy
+                                    Policy</a></li>
+                            <li><a routerLink="/refund-and-cancellation" title="Refund and Cancellation Policy"
+                                    href="/refund-and-cancellation">Refund and Cancellation Policy</a></li>
+                            <li><a routerLink="/return-policy" title="Return Policy" href="/return-policy">Return
+                                    Policy</a></li>
+                            <li><a routerLink="/shipping-policy" title="Shipping Policy"
+                                    href="/shipping-policy">Shipping Policy</a></li>
+                            <li><a routerLink="/page/about-us" title="About Us" href="/page/about-us">About Us</a></li>
+                            <li><a routerLink="/Contact-Us" title="Contact Us" href="/Contact-Us">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEWSLETTER Section -->
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                <div class="footer-column-minimal">
+                    <div class="footer-title-minimal">
+                        <h4>NEWSLETTER</h4>
+                    </div>
+                    <div class="footer-content-minimal newsletter-section always-visible">
+                        <p class="newsletter-description">Sign up to Get exclusive offers, latest collections, and style
+                            tips!</p>
+                        <div class="newsletter-form">
+                            <input type="email" class="newsletter-input" placeholder="E-mail" [formControl]="email"
+                                (keyup.enter)="submitNewsletter()">
+                            <button type="button" class="newsletter-button" (click)="submitNewsletter()"
+                                [disabled]="isSubmitting">
+                                <span *ngIf="!isSubmitting">SUBSCRIBE</span>
+                                <span *ngIf="isSubmitting">...</span>
+                            </button>
+                        </div>
+                        <div class="newsletter-error" *ngIf="email.touched && email.errors?.['email']">
+                            Please enter a valid email address
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADDRESS Section -->
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                <div class="footer-column-minimal">
+                    <div class="footer-title-minimal">
+                        <h4>ADDRESS</h4>
+                    </div>
+                    <div class="footer-content-minimal address-section always-visible">
+                        <ul class="address-list-minimal">
+                            <li class="contact-info-group">
+                                <a href="mailto:info&#64;mangalfashion.com" title="Send us an email">
+                                    info&#64;mangalfashion.com
+                                </a>
+
+                            </li>
+        
+                            <li>
+                                <small>MANGAL MURTI LANDCRAFTS PRIVATE LIMITED</small>
+                                <div>
+                                    <div>10th UNIT NO. 10104</div>
+                                    <div>GAUR CITY MALL SECTOR 4 GREATER NOIDA</div>
+                                    <div>Parthala Bridge Gaur City Mall</div>
+                                    <div>Gautambuddha Nagar Uttar Pradesh 201318</div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub Footer -->
+    <div class="sub-footer-modern section-small-space">
+        <div class="sub-footer-content">
+            <div class="reserve-modern" *ngIf="data?.footer?.footer_copyright">
+                <app-footer-copyright [data]="data"></app-footer-copyright>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Social & Back to Top Container -->
+    <div class="sticky-action-container">
+        <!-- Social Media Toggle & Menu -->
+        <div class="social-widget" [class.expanded]="showSocialActions">
+            <div class="social-menu">
+                <a href="https://www.facebook.com/profile.php?id=61587125992259" class="social-item" target="_blank"
+                    title="Facebook">
+                    <i class="ri-facebook-fill"></i>
+                </a>
+                <a href="https://x.com/mangalfashion" class="social-item" target="_blank" title="X">
+                    <i class="ri-twitter-x-fill"></i>
+                </a>
+                <a href="https://www.instagram.com/mangalfashionofficial/" class="social-item" target="_blank"
+                    title="Instagram">
+                    <i class="ri-instagram-fill"></i>
+                </a>
+                <a href="https://www.pinterest.com/mangalfashionofficial/_profile/" class="social-item" target="_blank"
+                    title="Pinterest">
+                    <i class="ri-pinterest-fill"></i>
+                </a>
+                <a href="https://www.youtube.com/@mangalfashionofficial" class="social-item" target="_blank"
+                    title="Youtube">
+                    <i class="ri-youtube-fill"></i>
+                </a>
+            </div>
+            <button class="social-toggle-btn" (click)="toggleSocialActions()" type="button" title="Social Menu">
+                <i class="ri-share-line" *ngIf="!showSocialActions"></i>
+                <i class="ri-close-line" *ngIf="showSocialActions"></i>
+            </button>
+        </div>
+
+        <!-- Standalone Back to Top -->
+        <button class="back-to-top-btn" [class.show]="showBackToTop" (click)="scrollToTop()" type="button"
+            title="Back to Top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+    </div>
+
+</div>

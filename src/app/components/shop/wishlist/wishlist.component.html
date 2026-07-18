@@ -1,0 +1,61 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<div class="wishlist-page-container">
+  <!-- Page Header -->
+  <div class="wishlist-page-header">
+    <div class="header-content">
+      <div class="header-icon-wrapper">
+        <i class="ri-heart-line"></i>
+      </div>
+      <div class="header-text-content">
+        <h4 class="page-title">{{ 'Wishlist' | translate }}</h4>
+        <p class="page-subtitle">{{ 'Your favorite items saved for later' | translate }}</p>
+      </div>
+    </div>
+    <div class="header-badge" *ngIf="(wishlistItems$ | async)?.data?.length">
+      <span class="badge-count">{{ (wishlistItems$ | async)?.data?.length }}</span>
+      <span class="badge-label">{{ 'Items' | translate }}</span>
+    </div>
+  </div>
+
+  <!-- Wishlist Content -->
+  <section class="wishlist-content-section section-lg-space">
+    <div class="container-fluid-lg">
+      <ng-container *ngIf="wishlistService?.skeletonLoader else productContent">
+        <div class="row g-sm-3 g-2">
+          <div class="col-xxl-2 col-lg-3 col-md-4 col-6 product-box-contain" *ngFor="let item of skeletonItems">
+            <app-skeleton-product-box></app-skeleton-product-box>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #productContent>
+        <div class="row g-sm-3 g-2" [ngClass]="{ 
+            'product_border': (themeOption$ | async)?.product?.full_border || (themeOption$ |
+            async)?.product?.product_box_border,
+            'product_img_bg': (themeOption$ | async)?.product?.image_bg,
+            'full_bg': (themeOption$ | async)?.product?.product_box_bg }">
+          <div class="col-xxl-2 col-lg-3 col-md-4 col-6 product-box-contain"
+            *ngFor="let product of (wishlistItems$ | async)?.data">
+            <app-product-box [product]="product" [close]="true" [class]="'product-box-3'" [style]="'horizontal'">
+            </app-product-box>
+          </div>
+        </div>
+      </ng-template>
+      
+      <!-- Empty State -->
+      <div class="wishlist-empty-state" *ngIf="!(wishlistItems$ | async)?.data?.length && !wishlistService.skeletonLoader">
+        <div class="empty-state-icon-wrapper">
+          <i class="ri-heart-line"></i>
+        </div>
+        <h4 class="empty-state-title">{{ 'No Items Added' | translate }}</h4>
+        <p class="empty-state-description">
+          {{ 'It appears that nothing has been added to your wishlist. Explore categories if you want to.' | translate }}
+        </p>
+        <a [routerLink]="['/collections']" class="btn-shop-now">
+          <i class="ri-shopping-bag-line"></i>
+          <span>{{ 'Start Shopping' | translate }}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>

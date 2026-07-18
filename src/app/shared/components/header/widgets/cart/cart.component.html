@@ -1,0 +1,179 @@
+<!-- Cart Style Basic -->
+<div class="onhover-dropdown header-badge" *ngIf="style == 'basic'" [class.cart-open]="!cartHide">
+    <app-button
+      [type]="'button'"
+      [class]="'btn p-0 position-relative d-inline-block header-wishlist'"
+      [spinner]="false"
+      [id]="'cart_sidebar_btn'"
+      (click)="toggleCart()">
+        <i class="ri-shopping-bag-line"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge" *ngIf="(cartItem$ | async)?.length">
+            {{ (cartItem$ | async)?.length }} <span class="visually-hidden">{{ 'unread_messages' | translate }}</span>
+        </span>
+    </app-button>
+    
+    <!-- Cart Dropdown Content -->
+    <ng-container *ngIf="!cartHide">
+        <div class="onhover-div" (click)="$event.stopPropagation()">
+            <div class="sidebar-title" *ngIf="(cartItem$ | async)?.length">
+                <h4>{{ (cartItem$ | async)?.length }} {{ ((cartItem$ | async)?.length == 1 ? 'product' : 'products') | translate }} <a href="javascript:void(0)" (click)="clearCart()">{{ 'clear_cart' | translate }}</a></h4>
+            </div>
+            <ul class="cart-list" *ngIf="(cartItem$ | async)?.length">
+                <li class="product-box-contain" *ngFor="let item of cartItem$ | async">
+                    <div class="drop-cart horizontal-layout">
+                        <a href="javascript:void(0)" class="drop-image">
+                            <img [src]="item?.variation && item?.variation?.variation_image
+                                    ? item?.variation?.variation_image?.original_url
+                                    : item?.product?.product_thumbnail
+                                    ? item?.product?.product_thumbnail?.original_url
+                                    : 'assets/images/product.png'" class="img-fluid" [alt]="item?.product?.name">
+                        </a>
+                        <div class="drop-contain">
+                            <div class="product-header-row">
+                                <a href="javascript:void(0)" class="product-name">
+                                    <h5>{{ item?.variation ? item?.variation?.name : item?.product?.name }}</h5>
+                                </a>
+                            </div>
+                            <div class="product-price">
+                                <h6>{{ (item?.variation ? item.variation.sale_price : item?.product && item?.wholesale_price ? item?.wholesale_price : item?.product?.sale_price)! | currencySymbol }}</h6>
+                            </div>
+                            <h5 class="gram" *ngIf="item?.variation">
+                                {{ item?.variation?.selected_variation || item?.variation?.name || 'N/A' }}
+                            </h5>
+                            <div class="cart_qty qty-box product-qty">
+                                <div class="input-group h-100">
+                                    <app-button
+                                        [class]="'btn qty-left-minus'"
+                                        [id]="'add-to-cart'+item.product.id"
+                                        [spinner]="false"
+                                        (click)="updateQuantity(item, -1)">
+                                        <i class="ri-subtract-line" *ngIf="item.quantity > 1"></i>
+                                        <i class="ri-delete-bin-line" *ngIf="item.quantity <= 1"></i>
+                                    </app-button>
+                                    <input class="form-control input-number qty-input" type="number" name="quantity" [value]="item?.quantity" readonly>
+                                    <app-button
+                                        [class]="'btn qty-left-minus'"
+                                        [id]="'qty-left-minus'+item.product.id"
+                                        [spinner]="false"
+                                        (click)="updateQuantity(item, 1)">
+                                        <i class="ri-add-line"></i>
+                                    </app-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="empty-cart-box" *ngIf="!(cartItem$ | async)?.length">
+                <i class="ri-shopping-cart-line"></i>
+                <h5>{{ 'Your Cart Is Currently Empty' | translate }}</h5>
+            </div>
+            <div class="bottom-box" *ngIf="(cartItem$ | async)?.length">
+                <p class="free">{{ 'Shipping And Taxes Are Calculated At Checkout' | translate }}</p>
+                <div class="price-box">
+                    <h5>{{ 'Total' | translate }}:</h5>
+                    <h4 class="fw-bold">{{ (cartTotal$ | async)! | currencySymbol }}</h4>
+                </div>
+                <div class="button-group">
+                    <a [routerLink]="['/cart']" class="btn btn-sm cart-button">
+                        {{ 'View Cart' | translate }}
+                    </a>
+                    <a [routerLink]="['/checkout']" class="btn btn-sm cart-button checkout-btn">
+                        {{ 'Checkout' | translate }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<!-- Cart Style Classic -->
+<div class="onhover-dropdown header-badge" *ngIf="style == 'classic'" [class.cart-open]="!cartHide">
+    <a href="javascript:void(0)" class="header-icon swap-icon"
+        (click)="toggleCart()">
+        <small class="badge-number badge-light" *ngIf="(cartItem$ | async)?.length">
+            {{ (cartItem$ | async)?.length }}
+        </small>
+        <i class="ri-shopping-cart-line"></i>
+    </a>
+
+    <!-- Cart Dropdown Content -->
+    <div class="onhover-div" (click)="$event.stopPropagation()">
+        <div class="sidebar-title" *ngIf="(cartItem$ | async)?.length">
+            <h4>{{ (cartItem$ | async)?.length }} {{ ((cartItem$ | async)?.length == 1 ? 'product' : 'products') | translate }} <a href="javascript:void(0)" (click)="clearCart()">{{ 'clear_cart' | translate }}</a></h4>
+        </div>
+        <ul class="cart-list" *ngIf="(cartItem$ | async)?.length">
+            <li class="product-box-contain" *ngFor="let item of cartItem$ | async">
+                <div class="drop-cart horizontal-layout">
+                    <a href="javascript:void(0)" class="drop-image">
+                        <img [src]="item?.variation && item?.variation?.variation_image
+                                ? item?.variation?.variation_image?.original_url
+                                : item?.product?.product_thumbnail
+                                ? item?.product?.product_thumbnail?.original_url
+                                : 'assets/images/product.png'" class="img-fluid" [alt]="item?.product?.name">
+                    </a>
+                    <div class="drop-contain">
+                        <div class="product-header-row">
+                            <a href="javascript:void(0)" class="product-name">
+                                <h5>{{ item?.variation ? item?.variation?.name : item?.product?.name }}</h5>
+                            </a>
+                        </div>
+                        <div class="product-price">
+                            <h6>{{ (item?.variation ? item.variation.sale_price : item?.product && item?.wholesale_price ? item?.wholesale_price : item?.product?.sale_price)! | currencySymbol }}</h6>
+                        </div>
+                        <h5 class="gram" *ngIf="item?.variation">
+                            {{ item?.variation?.selected_variation }}
+                        </h5>
+                        <div class="cart_qty qty-box product-qty">
+                            <div class="input-group h-100">
+                                <app-button
+                                    [class]="'btn qty-left-minus'"
+                                    [id]="'add-to-cart'+item.product.id"
+                                    [spinner]="false"
+                                    (click)="updateQuantity(item, -1)">
+                                    <i class="ri-subtract-line" *ngIf="item.quantity > 1"></i>
+                                    <i class="ri-delete-bin-line" *ngIf="item.quantity <= 1"></i>
+                                </app-button>
+                                <input class="form-control input-number qty-input" type="number" name="quantity" [value]="item?.quantity" readonly>
+                                <app-button
+                                    [class]="'btn qty-left-minus'"
+                                    [id]="'qty-left-minus'+item.product.id"
+                                    [spinner]="false"
+                                    (click)="updateQuantity(item, 1)">
+                                    <i class="ri-add-line"></i>
+                                </app-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="empty-cart-box" *ngIf="!(cartItem$ | async)?.length">
+            <i class="ri-shopping-cart-line"></i>
+            <h5>{{ 'Your Cart Is Currently Empty' | translate }}</h5>
+        </div>
+        <div class="bottom-box" *ngIf="(cartItem$ | async)?.length">
+            <p class="free">{{ 'Shipping And Taxes Are Calculated At Checkout' | translate }}</p>
+            <div class="price-box">
+                <h5>{{ 'Total' | translate }}:</h5>
+                <h4 class="fw-bold">{{ (cartTotal$ | async)! | currencySymbol }}</h4>
+            </div>
+            <div class="button-group">
+                <a [routerLink]="['/cart']" class="btn btn-sm cart-button">
+                    {{ 'View Cart' | translate }}
+                </a>
+                <a [routerLink]="['/checkout']" class="btn btn-sm cart-button checkout-btn">
+                    {{ 'Checkout' | translate }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Free Shipping Celebration -->
+<!-- <div class="confetti-wrapper" [class.show]="confetti == 1 && (sidebarCartOpen$ | async)" *ngIf="(themeOption$ | async)?.general?.celebration_effect">
+    <ng-container *ngFor="let item of confettiItems">
+        <div class="confetti-{{item}}"></div>
+    </ng-container>
+</div> -->
+<!-- Variation Customize -->
+<app-variation-modal #variationModal></app-variation-modal>

@@ -1,0 +1,100 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<section class="login-section section-b-space">
+  <div class="container-fluid-lg">
+    <div class="row justify-content-center">
+      <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-10">
+        <app-alert></app-alert>
+
+        <div class="login-container">
+          <!-- Welcome Text -->
+          <div class="welcome-header">
+            <h1 class="welcome-title">Verify Your Account</h1>
+            <p class="welcome-subtitle">{{ 'Enter the verification code sent to' | translate }}</p>
+            <p class="otp-destination">
+              <span *ngIf="otpType === 'email' || otpType === 'register'" class="destination-text">
+                <i class="ri-mail-line"></i>
+                {{ email }}
+              </span>
+              <span *ngIf="otpType === 'number'" class="destination-text">
+                <i class="ri-phone-line"></i>
+                {{ number.phone }}
+              </span>
+            </p>
+          </div>
+
+          <!-- OTP Card -->
+          <div class="login-card-modern">
+            <form (ngSubmit)="submit()" class="login-form-modern">
+
+              <!-- OTP Boxes -->
+              <div class="otp-boxes-group">
+                <div class="field-label-row">
+                  <label class="field-label">
+                    <i class="ri-lock-password-line"></i>
+                    {{ 'Verification Code' | translate }}
+                  </label>
+                </div>
+
+                <div class="otp-boxes-container">
+                  <input
+                    *ngFor="let digit of digits; let i = index; trackBy: trackByIndex"
+                    #otpBox
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="1"
+                    class="otp-box"
+                    [class.otp-box-filled]="digits[i]"
+                    [class.otp-box-error]="otpError"
+                    [value]="digits[i]"
+                    (input)="onDigitInput(i, $event)"
+                    (keydown)="onKeyDown(i, $event)"
+                    (paste)="onPaste($event)"
+                    autocomplete="one-time-code"
+                  />
+                </div>
+
+                <div *ngIf="otpError" class="field-error-message">
+                  <i class="ri-error-warning-line"></i>
+                  {{ 'Please enter all ' + otpLength + ' digits of the verification code' | translate }}
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="submit-button-wrapper">
+                <app-button [id]="'otp_validate_btn'" [class]="'btn-login-submit'">
+                  {{ 'Verify & Proceed' | translate }}
+                  <i class="ri-arrow-right-line"></i>
+                </app-button>
+              </div>
+            </form>
+
+            <!-- Divider -->
+            <div class="form-divider">
+              <span class="divider-text">{{ 'OR' | translate }}</span>
+            </div>
+
+            <!-- Additional Options -->
+            <div class="otp-options">
+              <p class="resend-text">{{ "Didn't receive the code?" | translate }}</p>
+              <button type="button" class="resend-button" (click)="resendOtp()">
+                <i class="ri-refresh-line"></i>
+                {{ 'Resend Code' | translate }}
+              </button>
+            </div>
+
+            <!-- Back to Login Section -->
+            <div class="signup-section">
+              <p class="signup-question">
+                {{ 'Wrong email or phone?' | translate }}
+              </p>
+              <a [routerLink]="['/auth/login']" class="signup-button">
+                {{ 'Back to Login' | translate }}
+                <i class="ri-arrow-right-line"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

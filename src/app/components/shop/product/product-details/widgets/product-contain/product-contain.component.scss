@@ -1,0 +1,27 @@
+.quantity-wishlist-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .wishlist-btn-group {
+        .wishlist-btn {
+            background-color: var(--theme-color-2);
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+
+            i {
+                font-size: 20px;
+                color: var(--theme-color);
+            }
+
+            &:hover {
+                background-color: var(--theme-color);
+
+                i {
+                    color: white;
+                }
+            }
+        }
+    }
+}

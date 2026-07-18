@@ -1,0 +1,61 @@
+<ng-template #payModal let-modal>
+  <div class="modern-modal-header">
+    <div class="modal-header-content">
+      <div class="modal-icon-wrapper">
+        <i class="ri-bank-card-line"></i>
+      </div>
+      <div class="modal-title-content">
+        <h3 class="modal-title">{{ 'pay_now' | translate }}</h3>
+        <p class="modal-subtitle">{{ 'Select your preferred payment method' | translate }}</p>
+      </div>
+    </div>
+    <button type="button" class="btn-close-modal" (click)="modal.dismiss('Cross click')">
+      <i class="ri-close-line"></i>
+    </button>
+  </div>
+
+  <div class="modern-modal-body">
+    <div class="payment-methods-section">
+      <div class="payment-methods-grid">
+        <ng-container *ngFor="let payment of (setting$ |async)?.payment_methods; let i = index;">
+          <div class="payment-method-card" *ngIf="payment.status">
+            <label class="payment-method-label" [for]="payment.name">
+              <input 
+                class="payment-method-radio" 
+                type="radio" 
+                name="payment_method" 
+                [value]="payment.name" 
+                [id]="payment.name" 
+                [formControl]="paymentType">
+              <div class="payment-method-content">
+                <div class="payment-method-icon">
+                  <i class="ri-wallet-3-line"></i>
+                </div>
+                <div class="payment-method-text">
+                  <span class="payment-method-name">{{ (payment.title ? payment.title : payment.name) | titleCase }}</span>
+                </div>
+                <div class="payment-method-check">
+                  <i class="ri-check-line"></i>
+                </div>
+              </div>
+            </label>
+          </div>
+        </ng-container>
+      </div>
+      <div class="error-message" *ngIf="paymentType?.touched && paymentType.errors?.['required']">
+        <i class="ri-error-warning-line"></i>
+        <span>{{ 'select_payment_method_is_required' | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modern-modal-footer">
+    <button type="button" class="btn-cancel" (click)="modal.dismiss('Cancel')">
+      {{ 'cancel' | translate }}
+    </button>
+    <button type="button" class="btn-submit" (click)="submit()">
+      <i class="ri-check-line"></i>
+      <span>{{ 'submit' | translate }}</span>
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,28 @@
+<section class="breadcrumb-modern-section" *ngIf="breadcrumb">
+    <div class="container-fluid-lg">
+        <div class="breadcrumb-modern-wrapper">
+            <div class="breadcrumb-title-section">
+                <h1 class="breadcrumb-modern-title">{{ breadcrumb.title | titleCase }}</h1>
+            </div>
+            <nav class="breadcrumb-modern-nav" aria-label="breadcrumb">
+                <ol class="breadcrumb-modern-list">
+                    <li class="breadcrumb-modern-item">
+                        <a [routerLink]="['/']" class="breadcrumb-modern-link home-link" title="Home">
+                            <i class="ri-home-4-line"></i>
+                            <span class="breadcrumb-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-modern-item" *ngFor="let item of filteredItems; let last = last" [class.active]="item?.active || last">
+                        <span class="breadcrumb-separator">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </span>
+                        <span class="breadcrumb-text" *ngIf="item?.active || last || !item?.url">{{ item?.label! | titleCase }}</span>
+                        <a [routerLink]="item?.url ? [item.url] : ['/']" class="breadcrumb-modern-link" *ngIf="!item?.active && !last && item?.url">
+                            {{ item?.label! | titleCase }}
+                        </a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>

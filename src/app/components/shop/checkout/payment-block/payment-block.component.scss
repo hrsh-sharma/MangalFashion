@@ -1,0 +1,41 @@
+.form-check-label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    cursor: pointer !important;
+
+    span {
+        white-space: nowrap !important;
+    }
+
+    .payment-icon {
+        height: 35px !important;
+        width: auto !important;
+        max-width: 180px !important;
+        object-fit: contain !important;
+        margin-left: 5px !important;
+        display: block !important;
+    }
+
+    .payment-icon--large {
+        height: 55px !important;
+        max-width: 240px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-check-label {
+        gap: 8px !important;
+
+        span {
+            white-space: normal !important;
+            flex: 1 1 auto !important;
+        }
+
+        .payment-icon--large {
+            height: 45px !important;
+            max-width: 180px !important;
+        }
+    }
+}

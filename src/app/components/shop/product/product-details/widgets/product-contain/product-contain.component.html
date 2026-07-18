@@ -1,0 +1,105 @@
+<ng-container *ngIf="product">
+    <!-- Engagement Metrics -->
+
+
+    <!-- Brand/Category -->
+    <div class="brand-box-suggection" *ngIf="product?.brand">
+        <h5>
+            <span>{{ product.brand.name }}</span>
+        </h5>
+    </div>
+
+    <!-- Product Title -->
+    <h1 class="name product-title-large">{{ selectedVariation ? selectedVariation.name : product.name }}</h1>
+
+    <!-- Price with Discount Badge -->
+    <div class="price-section-modern">
+        <div class="discount-badge" *ngIf="selectedVariation ? selectedVariation.discount : product.discount">
+            <span>SAVE {{ (selectedVariation ? selectedVariation.discount : product.discount) }}%</span>
+        </div>
+        <div class="price-display">
+            <h3 class="theme-color price-current">
+                {{ (selectedVariation ? selectedVariation.sale_price : product.sale_price) | currencySymbol }}
+            </h3>
+            <del class="price-old" *ngIf="selectedVariation ? selectedVariation.discount : product.discount">
+                {{ (selectedVariation ? selectedVariation.price : product.price) | currencySymbol }}
+            </del>
+        </div>
+    </div>
+
+
+    <div class="product-contain" *ngIf="product?.short_description">
+        <p [innerHTML]="product.short_description"></p>
+    </div>
+    <ng-container *ngIf="product?.status">
+        <div class="product-package">
+            <app-variant-attributes [product]="product" [attributes]="product.attributes || []"
+                (selectVariation)="selectVariation($event!)" [owlCar]="owlCar">
+            </app-variant-attributes>
+        </div>
+        <app-sale-timer [startDate]="product.sale_starts_at" [endDate]="product.sale_expired_at"
+            *ngIf="product.sale_starts_at && product.sale_expired_at" [title]="'hurry_up_sales_ends_in'">
+        </app-sale-timer>
+        <ng-container *ngIf="product?.wholesales?.length">
+            <app-product-wholesale [product]="product"></app-product-wholesale>
+            <h4>{{ 'Total Price:' | translate }} <span class="theme-color">{{ totalPrice | currencySymbol }}</span></h4>
+        </ng-container>
+        <!-- Quantity -->
+        <div class="note-box product-package quantity-wishlist-section" *ngIf="!product?.is_external">
+            <div class="cart_qty qty-box product-qty modern-qty-selector">
+                <app-button [class]="'btn qty-btn qty-minus'" [id]="'add-to-cart'+product.id" [spinner]="false"
+                    (click)="updateQuantity(-1)">
+                    <i class="ri-subtract-fill"></i>
+                </app-button>
+                <input class="form-control input-number qty-input" type="text" name="quantity" value="{{productQty}}"
+                    readonly>
+                <app-button [class]="'btn qty-btn qty-plus'" [id]="'qty-left-minus'+product.id" [spinner]="false"
+                    (click)="updateQuantity(1)">
+                    <i class="ri-add-line"></i>
+                </app-button>
+            </div>
+            <div class="wishlist-btn-group">
+                <app-button [class]="'btn wishlist-btn'" [id]="'add-to-wishlist'+product.id" [spinner]="false"
+                    (click)="addToWishlist(product)">
+                    <i class="ri-heart-{{ product.is_wishlist ? 'fill' : 'line' }}"></i>
+                </app-button>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="dynamic-checkout modern-checkout-buttons">
+            <ng-container *ngIf="!product?.is_external else isExternalProduct">
+                <app-button [id]="'addcartbtnVariation'+product.id" [class]="'btn btn-md btn-add-cart scroll-button'"
+                    (click)="addToCart(product)"
+                    *ngIf="((selectedVariation && selectedVariation.status && selectedVariation.quantity >= productQty) || (!selectedVariation && product.quantity >= productQty)) else outStock">
+                    <i class="ri-shopping-cart-line me-1"></i> {{ 'Add To Cart' | translate }}
+                </app-button>
+                <ng-template #outStock>
+                    <app-button [class]="'btn btn-md btn-add-cart scroll-button disabled'"
+                        [id]="'soldoutbtnproductcontain'" [spinner]="false" [disabled]="true">
+                        <i class="ri-shopping-cart-line me-1"
+                            *ngIf="((selectedVariation && selectedVariation.status && selectedVariation.quantity >= productQty) || (!selectedVariation && product.quantity >= productQty))"></i>
+                        {{
+                        ((selectedVariation && selectedVariation.status && selectedVariation.quantity < productQty ||
+                            (!selectedVariation && product.quantity < productQty)) ? 'out_of_stock' : 'Add To Cart' ) |
+                            translate }} </app-button>
+                </ng-template>
+                <app-button [class]="'btn btn-md btn-buy-now'" [id]="'buynowbtn'+product.id"
+                    [disabled]="((selectedVariation && selectedVariation.status && selectedVariation.quantity >= productQty) || (!selectedVariation && product.quantity >= productQty)) ? false : true"
+                    (click)="((selectedVariation && selectedVariation.status && selectedVariation.quantity >= productQty) || (!selectedVariation && product.quantity >= productQty)) && addToCart(product, true)">
+                    {{ 'Buy Now' | translate }} <i class="ri-arrow-right-line ms-1"></i>
+                </app-button>
+            </ng-container>
+            <ng-template #isExternalProduct>
+                <app-button [id]="'externalBtn'+product.id" [class]="'btn btn-md btn-buy-now'"
+                    (click)="externalProductLink(product.external_url)">
+                    {{ product.external_button_text ? product.external_button_text : 'Buy Now' | translate }}
+                </app-button>
+            </ng-template>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!product?.status">
+        <div class="not-available">{{ 'Currently Item Unavailable' | translate }}</div>
+    </ng-container>
+</ng-container>
+<app-cart-popup-modal #cartPopupModal></app-cart-popup-modal>

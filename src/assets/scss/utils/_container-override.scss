@@ -1,0 +1,10 @@
+// Container max-width override for full-width layout
+// This overrides Bootstrap's container max-widths before Bootstrap is imported
+$container-max-widths: (
+  sm: 100%,
+  md: 100%,
+  lg: 100%,
+  xl: 100%,
+  xxl: 100%
+) !default;
+

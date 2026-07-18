@@ -1,0 +1,120 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<section class="login-section section-b-space">
+    <div class="container-fluid-lg">
+        <div class="row justify-content-center">
+            <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-10">
+                <app-alert></app-alert>
+                
+                <div class="login-container">
+                    <!-- Welcome Text -->
+                    <div class="welcome-header">
+                        <h1 class="welcome-title">Welcome Back!</h1>
+                        <p class="welcome-subtitle">{{ 'Login Your Account' | translate }}</p>
+                    </div>
+
+                    <!-- Login Card -->
+                    <div class="login-card-modern">
+                        <form [formGroup]="form" (ngSubmit)="submit()" class="login-form-modern">
+                            <!-- Email Field -->
+                            <div class="input-field-group">
+                                <div class="field-label-row">
+                                    <label for="email" class="field-label">
+                                        <i class="ri-mail-line"></i>
+                                        {{ 'Email Address' | translate }}
+                                    </label>
+                                </div>
+                                <div class="input-container">
+                                    <input
+                                        type="email"
+                                        class="form-field"
+                                        id="email"
+                                        formControlName="email"
+                                        placeholder="{{ 'enter_your_email' | translate }}"
+                                        (input)="filterEmailCharacters($event)"
+                                        pattern="[a-zA-Z0-9._\-+@]+"
+                                        [class.field-error]="form.controls['email'].touched && form.controls['email'].invalid">
+                                </div>
+                                <div *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'Email Is Required' | translate }}
+                                </div>
+                                <div *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['email']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'Invalid Email' | translate }}
+                                </div>
+                            </div>
+
+                            <!-- Password Field -->
+                            <div class="input-field-group">
+                                <div class="field-label-row">
+                                    <label for="password" class="field-label">
+                                        <i class="ri-lock-line"></i>
+                                        {{ 'Password' | translate }}
+                                    </label>
+                                </div>
+                                <div class="input-container">
+                                    <input 
+                                        type="password" 
+                                        class="form-field" 
+                                        id="password" 
+                                        formControlName="password" 
+                                        placeholder="{{ 'password' | translate }}"
+                                        [class.field-error]="form.controls['password'].touched && form.controls['password'].invalid">
+                                </div>
+                                <div *ngIf="form.controls['password'].touched && form.controls['password'].errors?.['required']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'Password Is Required' | translate }}
+                                </div>
+                            </div>
+
+                            <!-- ReCaptcha -->
+                            <div class="input-field-group" *ngIf="reCaptcha">
+                                <re-captcha formControlName="recaptcha"></re-captcha>
+                                <div *ngIf="form.controls['recaptcha']?.touched && form.controls['recaptcha']?.errors?.['required']" class="field-error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    {{ 'ReCaptcha is Required' | translate }}
+                                </div>
+                            </div>
+
+                            <!-- Options Row -->
+                            <div class="form-options-row">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" class="checkbox-input" id="remeberme">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">{{ 'Remember Me' | translate }}</span>
+                                </label>
+                                <a [routerLink]="['/auth/forgot-password']" class="forgot-password-link">
+                                    {{ 'Forgot Password' | translate }}?
+                                </a>
+                            </div>
+
+                            <!-- Login Button -->
+                            <div class="submit-button-wrapper">
+                                <app-button [id]="'login_btn'" [class]="'btn-login-submit'">
+                                    {{ 'Login' | translate }}
+                                    <i class="ri-arrow-right-line"></i>
+                                </app-button>
+                            </div>
+                        </form>
+
+                        <!-- Divider -->
+                        <div class="form-divider">
+                            <span class="divider-text">{{ 'OR' | translate }}</span>
+                        </div>
+
+                        <!-- Sign Up Section -->
+                        <div class="signup-section">
+                            <p class="signup-question">
+                                {{ "Dont Have An Account" | translate }}?
+                            </p>
+                            <a [routerLink]="['/auth/register']" class="signup-button">
+                                {{ 'Sign up' | translate }}
+                                <i class="ri-arrow-right-line"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

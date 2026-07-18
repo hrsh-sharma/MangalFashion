@@ -1,0 +1,28 @@
+<ng-template #confirmationModal let-modal>
+    <div class="modern-confirmation-modal">
+        <div class="confirmation-modal-header">
+            <div class="confirmation-icon-wrapper">
+                <i class="ri-question-line"></i>
+            </div>
+        </div>
+        <div class="confirmation-modal-body">
+            <h3 class="confirmation-modal-title">{{ 'confirmation' | translate }}</h3>
+            <p class="confirmation-modal-message">{{ 'Are You Sure You Want To Proceed' | translate }}?</p>
+        </div>
+        <div class="confirmation-modal-footer">
+            <button 
+                type="button" 
+                class="btn-cancel-confirmation" 
+                (click)="modal.dismiss('Cancel')">
+                {{ 'NO' | translate }}
+            </button>
+            <button 
+                type="button" 
+                class="btn-confirm-action" 
+                (click)="confirm()">
+                <i class="ri-check-line"></i>
+                <span>{{ 'YES' | translate }}</span>
+            </button>
+        </div>
+    </div>
+</ng-template>

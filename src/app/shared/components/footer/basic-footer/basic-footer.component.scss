@@ -1,0 +1,1147 @@
+// SEO Footer Content Section Styling
+.seo-footer-content {
+    padding: 30px 0;
+    margin-top: 20px;
+    border-top: 1px solid #e5e5e5;
+    background-color: #f8f9fa;
+
+    h2 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 15px;
+        line-height: 1.3;
+        text-align: left;
+
+        @media (max-width: 768px) {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+    }
+
+    h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        margin: 20px 0 10px 0;
+        line-height: 1.2;
+
+        @media (max-width: 768px) {
+            font-size: 13px;
+            margin: 16px 0 8px 0;
+        }
+    }
+
+    p {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #333;
+        margin-bottom: 12px;
+        text-align: justify;
+
+        @media (max-width: 768px) {
+            font-size: 11px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        a {
+            color: #333;
+            text-decoration: underline;
+            border-bottom: none;
+            transition: none;
+
+            &:hover {
+                color: #333;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    ul {
+        margin: 12px 0 15px 15px;
+        padding-left: 0;
+
+        li {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 6px;
+            list-style: disc;
+            position: relative;
+            padding-left: 0;
+
+            @media (max-width: 768px) {
+                font-size: 11px;
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    // Responsive container adjustments
+    @media (max-width: 768px) {
+        padding: 25px 0;
+        margin-top: 15px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 20px 0;
+        margin-top: 10px;
+
+        h2 {
+            font-size: 15px;
+        }
+
+        h3 {
+            font-size: 12px;
+        }
+
+        p {
+            font-size: 10px;
+        }
+
+        ul li {
+            font-size: 10px;
+        }
+    }
+}
+
+// Footer Container Override - Make it container size, not full width
+:host {
+    .container {
+        max-width: 1320px !important;
+        width: 100%;
+        margin: 0 auto;
+        padding-left: 15px;
+        padding-right: 15px;
+
+        @media (max-width: 1400px) {
+            max-width: 1140px !important;
+        }
+
+        @media (max-width: 1200px) {
+            max-width: 960px !important;
+        }
+
+        @media (max-width: 992px) {
+            max-width: 720px !important;
+        }
+
+        @media (max-width: 768px) {
+            max-width: 540px !important;
+        }
+
+        @media (max-width: 576px) {
+            max-width: 100%;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+    }
+}
+
+// Minimalist Footer Design - Matching Image Style
+.footer-column-minimal {
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 991px) {
+        margin-bottom: 30px;
+    }
+}
+
+.footer-title-minimal {
+    position: relative;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding-bottom: 0;
+    border-bottom: none;
+
+    @media (max-width: 991px) {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        line-height: 1.4;
+
+        @media (max-width: 991px) {
+            font-size: 13px;
+        }
+    }
+
+    .toggle-icon {
+        font-size: 18px;
+        color: #666;
+        transition: transform 0.3s ease, color 0.3s ease;
+        display: none;
+
+        @media (max-width: 991px) {
+            display: block;
+        }
+    }
+
+    &.show {
+        .toggle-icon {
+            transform: rotate(180deg);
+            color: #1a1a1a;
+        }
+    }
+}
+
+.footer-content-minimal {
+    flex: 1;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @media (max-width: 991px) {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    &.expanded {
+        @media (max-width: 991px) {
+            max-height: 1000px;
+            opacity: 1;
+            visibility: visible;
+            margin-top: 15px;
+        }
+    }
+
+    // Force all footer sections to be expanded on mobile and tablet
+    @media (max-width: 1024px) {
+        max-height: 1000px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        margin-top: 15px;
+    }
+
+    // Sections that should always be visible (NEWSLETTER, ADDRESS)
+    &.always-visible {
+        @media (max-width: 991px) {
+            max-height: 1000px !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            margin-top: 0;
+        }
+    }
+}
+
+.footer-list-minimal {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        margin-bottom: 3px;
+        line-height: 1.5;
+
+        @media (max-width: 991px) {
+            margin-bottom: 8px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            display: inline-block;
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            line-height: 1.6;
+
+            @media (max-width: 991px) {
+                font-size: 13px;
+            }
+
+            &:hover {
+                color: #1a1a1a;
+            }
+        }
+    }
+}
+
+// Newsletter Section
+.newsletter-section {
+    .newsletter-description {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        margin-top: 0;
+
+        @media (max-width: 991px) {
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+    }
+
+    .newsletter-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .newsletter-input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 0;
+        font-size: 14px;
+        color: #1a1a1a;
+        background-color: #fff;
+        transition: border-color 0.3s ease;
+        font-family: inherit;
+
+        @media (max-width: 991px) {
+            padding: 10px 12px;
+            font-size: 13px;
+        }
+
+        &::placeholder {
+            color: #999;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: #1a1a1a;
+        }
+    }
+
+    .newsletter-button {
+        width: 100%;
+        padding: 12px 20px;
+        background-color: #C43E1A;
+        color: #fff;
+        border: none;
+        border-radius: 0;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, opacity 0.3s ease;
+        font-family: inherit;
+
+        @media (max-width: 991px) {
+            padding: 10px 18px;
+            font-size: 11px;
+        }
+
+        &:hover:not(:disabled) {
+            background-color: #A03316;
+        }
+
+        &:active:not(:disabled) {
+            background-color: #8B2A12;
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    .newsletter-error {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #d32f2f;
+        line-height: 1.4;
+    }
+}
+
+// Address Section
+.address-section {
+    .address-list-minimal {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+
+            @media (max-width: 991px) {
+                margin-bottom: 10px;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            a {
+                display: inline-block;
+                font-size: 14px;
+                color: #666;
+                text-decoration: none;
+                transition: color 0.2s ease;
+                word-break: break-word;
+
+                @media (max-width: 991px) {
+                    font-size: 13px;
+                }
+
+                &:hover {
+                    color: #1a1a1a;
+                }
+            }
+
+            &.contact-info-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+
+                a {
+                    display: block;
+                    margin-bottom: 0;
+
+                    &.phone-number {
+                        margin-top: 0;
+                        padding-top: 0;
+                    }
+                }
+            }
+
+            .GST-info {
+                display: inline-block;
+                font-size: 14px;
+                color: #666;
+                text-decoration: none;
+                line-height: 1.6;
+
+                @media (max-width: 991px) {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}
+
+// Footer Categories Component Styling
+.footer-content-minimal {
+    ul:not(.footer-list-minimal):not(.address-list-minimal) {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+
+            @media (max-width: 991px) {
+                margin-bottom: 8px;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            a {
+                display: inline-block;
+                font-size: 14px;
+                color: #666;
+                text-decoration: none;
+                transition: color 0.2s ease;
+                line-height: 1.6;
+
+                @media (max-width: 991px) {
+                    font-size: 13px;
+                }
+
+                &:hover {
+                    color: #1a1a1a;
+                }
+            }
+        }
+    }
+}
+
+// Modern Footer Styling
+.footer-section-modern {
+    padding: 20px 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 991px) {
+        padding: 15px 0;
+    }
+}
+
+.footer-title-modern {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    @media (max-width: 991px) {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+    h4 {
+        font-size: calc(18px + (22 - 18) * ((100vw - 320px) / (1920 - 320)));
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0;
+        letter-spacing: -0.5px;
+        transition: color 0.3s ease;
+
+        @media (max-width: 991px) {
+            font-size: 18px;
+        }
+    }
+
+    .toggle-icon {
+        font-size: 20px;
+        color: #666;
+        transition: transform 0.3s ease, color 0.3s ease;
+        display: none;
+
+        @media (max-width: 991px) {
+            display: block;
+        }
+    }
+
+    &.show {
+        border-bottom-color: var(--theme-color, #007bff);
+
+        h4 {
+            color: var(--theme-color, #007bff);
+        }
+
+        .toggle-icon {
+            transform: rotate(180deg);
+            color: var(--theme-color, #007bff);
+        }
+    }
+
+    &:hover {
+        border-bottom-color: var(--theme-color, #007bff);
+
+        h4 {
+            color: var(--theme-color, #007bff);
+        }
+    }
+
+    &.contact-title-modern {
+        cursor: default;
+
+        &:hover {
+            border-bottom-color: rgba(0, 0, 0, 0.05);
+
+            h4 {
+                color: #1a1a1a;
+            }
+        }
+    }
+}
+
+.footer-contain-modern {
+    flex: 1;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @media (max-width: 991px) {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    &.expanded {
+        @media (max-width: 991px) {
+            max-height: 1000px;
+            opacity: 1;
+            visibility: visible;
+            margin-top: 15px;
+        }
+    }
+}
+
+.footer-links-modern {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        margin-bottom: 12px;
+        transition: transform 0.2s ease;
+
+        @media (max-width: 991px) {
+            margin-bottom: 10px;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:hover {
+            transform: translateX(5px);
+
+            @media (max-width: 991px) {
+                transform: translateX(3px);
+            }
+        }
+
+        a {
+            display: inline-block;
+            font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+            color: #666;
+            text-decoration: none;
+            position: relative;
+            padding-left: 0;
+            transition: all 0.3s ease;
+            line-height: 1.6;
+
+            @media (max-width: 991px) {
+                font-size: 14px;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: -2px;
+                width: 0;
+                height: 2px;
+                background: var(--theme-color, #007bff);
+                transition: width 0.3s ease;
+            }
+
+            &:hover {
+                color: var(--theme-color, #007bff);
+                padding-left: 12px;
+
+                &::before {
+                    width: 8px;
+                }
+            }
+        }
+    }
+}
+
+// Social Media Modern Styling
+.social-media-modern {
+    display: flex;
+    gap: 12px;
+    margin-top: 0;
+    flex-wrap: wrap;
+
+    @media (max-width: 991px) {
+        margin-top: 20px;
+        gap: 10px;
+    }
+}
+
+.social-link-modern {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    @media (max-width: 991px) {
+        width: 38px;
+        height: 38px;
+    }
+
+    i {
+        font-size: 20px;
+        position: relative;
+        z-index: 2;
+        transition: transform 0.3s ease;
+
+        @media (max-width: 991px) {
+            font-size: 18px;
+        }
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: var(--theme-color, #007bff);
+        transform: translate(-50%, -50%);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 123, 255, 0.25);
+        color: #fff;
+
+        &::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        i {
+            transform: scale(1.1);
+        }
+    }
+
+    &:active {
+        transform: translateY(-1px);
+    }
+}
+
+// Sub Footer Modern Styling
+.sub-footer-modern {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 25px 0;
+
+    @media (max-width: 991px) {
+        padding: 20px 0;
+        margin-top: 10px;
+    }
+}
+
+.sub-footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    @media (max-width: 991px) {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+
+.reserve-modern {
+    flex: 1;
+
+    h6 {
+        font-size: calc(13px + (15 - 13) * ((100vw - 320px) / (1920 - 320)));
+        color: #666;
+        margin: 0;
+        font-weight: 400;
+        line-height: 1.6;
+
+        @media (max-width: 991px) {
+            font-size: 13px;
+        }
+    }
+}
+
+// Footer Logo Section Enhancement
+.footer-logo {
+    .footer-logo-contain {
+        margin-top: 15px;
+
+        p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+    }
+}
+
+// Contact Section Enhancement
+.footer-contact {
+    ul {
+        li {
+            margin-bottom: 20px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+// Footer Links Component Styling (for help center)
+.footer-contain-modern {
+    ul:not(.footer-links-modern) {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 12px;
+            transition: transform 0.2s ease;
+
+            @media (max-width: 991px) {
+                margin-bottom: 10px;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &:hover {
+                transform: translateX(5px);
+
+                @media (max-width: 991px) {
+                    transform: translateX(3px);
+                }
+            }
+
+            a {
+                display: inline-block;
+                font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+                color: #666;
+                text-decoration: none;
+                position: relative;
+                padding-left: 0;
+                transition: all 0.3s ease;
+                line-height: 1.6;
+
+                @media (max-width: 991px) {
+                    font-size: 14px;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    bottom: -2px;
+                    width: 0;
+                    height: 2px;
+                    background: var(--theme-color, #007bff);
+                    transition: width 0.3s ease;
+                }
+
+                &:hover {
+                    color: var(--theme-color, #007bff);
+                    padding-left: 12px;
+
+                    &::before {
+                        width: 8px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive Improvements
+@media (max-width: 991px) {
+    .main-footer {
+        .row {
+            >div {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+@media (max-width: 575px) {
+    .footer-title-modern {
+        h4 {
+            font-size: 16px;
+        }
+    }
+
+    .footer-links-modern {
+        li {
+            margin-bottom: 8px;
+
+            a {
+                font-size: 13px;
+            }
+        }
+    }
+
+    .social-link-modern {
+        width: 36px;
+        height: 36px;
+
+        i {
+            font-size: 16px;
+        }
+    }
+}
+
+// Sticky Action Container (Holds both Social and Back to Top)
+.sticky-action-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    @media (max-width: 991px) {
+        bottom: 20px;
+        right: 20px;
+        gap: 12px;
+    }
+
+    @media (max-width: 575px) {
+        bottom: 15px;
+        right: 15px;
+        gap: 10px;
+    }
+}
+
+// Social Widget Styles
+.social-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    .social-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(15px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+    }
+
+    &.expanded {
+        .social-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .social-toggle-btn {
+            background-color: #333;
+            transform: rotate(90deg);
+        }
+    }
+
+    .social-toggle-btn {
+        width: 50px;
+        height: 50px;
+        background-color: #C43E1A;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(196, 62, 26, 0.25);
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 2;
+
+        @media (max-width: 991px) {
+            width: 45px;
+            height: 45px;
+        }
+
+        @media (max-width: 575px) {
+            width: 40px;
+            height: 40px;
+        }
+
+        i {
+            font-size: 24px;
+
+            @media (max-width: 991px) {
+                font-size: 22px;
+            }
+
+            @media (max-width: 575px) {
+                font-size: 20px;
+            }
+        }
+
+        &:hover {
+            background-color: #A03316;
+            transform: scale(1.05);
+        }
+    }
+
+    .social-item {
+        width: 40px;
+        height: 40px;
+        background-color: #fff;
+        color: #333;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        transition: all 0.2s ease;
+
+        @media (max-width: 991px) {
+            width: 36px;
+            height: 36px;
+        }
+
+        @media (max-width: 575px) {
+            width: 32px;
+            height: 32px;
+        }
+
+        i {
+            font-size: 18px;
+
+            @media (max-width: 991px) {
+                font-size: 16px;
+            }
+        }
+
+        &:hover {
+            background-color: #C43E1A;
+            color: #fff;
+            transform: translateX(-5px);
+        }
+    }
+}
+
+// Separate Back to Top Button Styles
+.back-to-top-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+
+    @media (max-width: 991px) {
+        width: 45px;
+        height: 45px;
+    }
+
+    @media (max-width: 575px) {
+        width: 40px;
+        height: 40px;
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+    }
+
+    i {
+        font-size: 24px;
+
+        @media (max-width: 991px) {
+            font-size: 22px;
+        }
+
+        @media (max-width: 575px) {
+            font-size: 20px;
+        }
+    }
+
+    &:hover {
+        background-color: #333;
+        transform: translateY(-5px);
+    }
+}
+
+// About Mangal Fashion Section - Reduced Font Size
+.mangal-fashion-about {
+    .about-content {
+        .about-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.3;
+
+            @media (max-width: 768px) {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+
+            @media (max-width: 480px) {
+                font-size: 16px;
+            }
+        }
+
+        .about-description,
+        .section-description {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #555;
+            margin-bottom: 15px;
+            text-align: justify;
+
+            @media (max-width: 768px) {
+                font-size: 12px;
+                margin-bottom: 12px;
+                text-align: left;
+            }
+
+            @media (max-width: 480px) {
+                font-size: 11px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .section-heading {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 20px 0 10px 0;
+            line-height: 1.3;
+
+            @media (max-width: 768px) {
+                font-size: 15px;
+                margin: 16px 0 8px 0;
+            }
+
+            @media (max-width: 480px) {
+                font-size: 14px;
+                margin: 14px 0 7px 0;
+            }
+        }
+    }
+}

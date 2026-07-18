@@ -1,0 +1,19 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+<section class="user-dashboard-section section-b-space">
+    <div class="container-fluid-lg">
+        <div class="row">
+            <div class="col-12 custom-box-loader" id="account">
+                <div class="box-loader" *ngIf="(loadingStatus$ | async)">
+                    <app-loader [loaderClass]="'custom-loader-wrapper blur-bg'"></app-loader>
+                </div>
+                <ng-container>
+                    <div class="dashboard-right-sidebar">
+                        <div class="tab-content">
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</section>

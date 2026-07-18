@@ -1,0 +1,45 @@
+<ng-container *ngIf="!product?.is_external else isExternalProduct">
+    <!-- Show Go to Cart button if product is already in cart -->
+    <ng-container *ngIf="cartItem && cartItem.quantity > 0">
+        <app-button [id]="'go-to-cart'+product.id"
+            [class]="'btn btn-add-cart addcart-button'"
+            [iconClass]="'ri-shopping-cart-line'"
+            [spinner]="false"
+            [routerLink]="['/cart']">
+            {{ 'Go to Cart' | translate  }}
+        </app-button>
+    </ng-container>
+
+    <!-- Show Add to Cart button only if product is not in cart -->
+    <ng-container *ngIf="!cartItem || cartItem.quantity <= 0">
+        <app-button [id]="'add-to-cart'+product.id"
+            [class]="'btn btn-add-cart addcart-button'"
+            [iconClass]="iconClass"
+            [spinner]="false"
+            (click)="addToCart(product, 1)"
+            *ngIf="product.stock_status == 'in_stock' else outStock">
+            {{ text | translate  }}
+        </app-button>
+        <ng-template #outStock>
+            <app-button [id]="'out-of-stock'+product.id"
+                [class]="'btn btn-add-cart addcart-button'"
+                [spinner]="false"
+                [iconClass]="iconClass"
+                [disabled]="true">
+                {{ (text ? 'out_of_stock' : '') | translate  }}
+            </app-button>
+        </ng-template>
+    </ng-container>
+</ng-container>
+<ng-template #isExternalProduct>
+    <app-button [id]="'add-to-cart'+product.id"
+        [class]="'btn btn-add-cart addcart-button'"
+        [iconClass]="'ri-add-line'"
+        [spinner]="false"
+        (click)="externalProductLink(product.external_url)">
+        {{ (product.external_button_text ? product.external_button_text : 'Buy Now') | translate }}
+    </app-button>
+</ng-template>
+<app-product-detail-modal #productDetailModal [product]="product"></app-product-detail-modal>
+<app-variation-modal #variationModal></app-variation-modal>
+<app-cart-popup-modal #cartPopupModal></app-cart-popup-modal>

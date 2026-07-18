@@ -1,0 +1,483 @@
+.theme-color-1 {
+    --theme-color: #FF6B35;
+    /* MANGAL - Vibrant Orange */
+    --theme-color-secondary: #0066CC;
+    /* MURTI - Distinct Blue */
+}
+
+.theme-color-2 {
+    --theme-color: #FF8C42;
+    /* Alternative Orange */
+    --theme-color-secondary: #0052CC;
+    /* Alternative Blue */
+}
+
+.theme-color-3 {
+    --theme-color: #FF6B35;
+    /* MANGAL Orange */
+    --theme-color-secondary: #0066CC;
+    /* MURTI Blue */
+}
+
+.theme-color-4 {
+    --theme-color: #FF6B35;
+    /* MANGAL Orange */
+    --theme-color-secondary: #0066CC;
+    /* MURTI Blue */
+}
+
+.theme-color-5 {
+    --theme-color: #FF6B35;
+    /* MANGAL Orange */
+    --theme-color-secondary: #0066CC;
+    /* MURTI Blue */
+}
+
+// utils
+@import "utils/mixin/animation";
+@import "utils/mixin/common";
+@import "utils/mixin/breakpoints";
+// components
+@import "components/accordion";
+@import "components/alert";
+@import "components/breadscrumb";
+@import "components/button";
+@import "components/card";
+@import "components/cookie_bar";
+@import "components/confetti";
+@import "components/counter";
+@import "components/country-flag";
+@import "components/form";
+@import "components/label";
+@import "components/loader";
+@import "components/modal";
+@import "components/nav-tabs";
+@import "components/pagination";
+@import "components/ratio";
+@import "components/slider";
+@import "components/tab";
+@import "components/tap-to-top";
+@import "components/theme-setting";
+@import "components/timer";
+@import "components/title";
+@import "components/tooltip";
+// Base
+@import "base/reset";
+@import "base/typography";
+// Layout
+@import "layout/banner";
+@import "layout/blog";
+@import "layout/brand";
+@import "layout/category";
+@import "layout/footer";
+@import "layout/header";
+@import "layout/home";
+@import "layout/item";
+@import "layout/nav";
+@import "layout/newsletter";
+@import "layout/offer";
+@import "layout/product";
+@import "layout/review";
+@import "layout/service";
+@import "layout/select2";
+// Pages
+@import "pages/coming-soon";
+@import "pages/inner_pages";
+@import "pages/checkout";
+@import "pages/offer";
+@import "pages/pos";
+@import "pages/shop_page";
+@import "pages/product_page";
+@import "pages/user-dashboard";
+// Themes
+@import "themes/dark";
+@import "themes/rtl";
+
+// Internal Links Section
+.internal-links-section {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+
+    .internal-links-container {
+        h3 {
+            color: var(--theme-color);
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .internal-link-card {
+            display: block;
+            background: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 100%;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+                color: var(--theme-color);
+                text-decoration: none;
+            }
+
+            i {
+                font-size: 2.5rem;
+                color: var(--theme-color);
+                margin-bottom: 15px;
+                display: block;
+            }
+
+            h5 {
+                font-weight: 600;
+                margin-bottom: 10px;
+                color: #333;
+            }
+
+            p {
+                color: #666;
+                font-size: 0.9rem;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.user-dashboard-section .dashboard-left-sidebar .user-nav-pills .logout-cls .btn {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px;
+}
+
+header .top-nav .navbar-top .middle-box .search-box .input-group button {
+    background-color: #000000;
+    color: #ffffff;
+    height: 51px;
+    padding: 14px 20px;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+footer.section-t-space {
+    margin-top: 30px;
+}
+
+footer .sub-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px dashed #c1c1c1;
+}
+
+.btn-animation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    background: transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    background: #ff6b6b;
+    background: linear-gradient(90deg, #1d1d22 0%, #2a2d2d 100%);
+    border: none;
+    z-index: 0;
+}
+
+.footer-contain a {
+    color: #4a5568 !important;
+}
+
+.product-left-box img {
+    width: 100% !important;
+}
+
+.product-left-box .ng-star-inserted {
+    width: 100%;
+}
+
+// Sub Paisa
+$border-radius: 4px;
+
+@mixin with-border($radius: $border-radius, $border-color: black) {
+    border: 1px solid $border-color;
+    border-radius: $radius;
+}
+
+.my-graph-component {
+    @include with-border($border-radius, blue);
+    filter: drop-shadow(2px 4px 6px black);
+    background-color: #1eb4d1;
+    border: 1px solid #198aa2;
+    display: inline-block;
+    user-select: none;
+    padding: 20px;
+
+    .comp-props {
+        color: white;
+
+        .increase-button {
+            @include with-border($border-radius, #3e3e3e);
+            background-color: white;
+            margin-left: 40px;
+            padding: 4px 6px;
+            cursor: pointer;
+            color: black;
+
+            &:hover {
+                filter: drop-shadow(2px 4px 6px black);
+            }
+        }
+    }
+
+    .comp-state {
+        color: yellow;
+        margin-top: 20px;
+    }
+}
+
+.checkout-section-2 .left-sidebar-checkout .checkout-detail-box>ul>li .checkout-box .checkout-detail .payment-option img {
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    left: 140px;
+    right: auto;
+    width: 100px;
+}
+
+app-product-box:has(.hidden) {
+    display: none !important;
+}
+
+// Global rating star color - Orange
+::ng-deep ngb-rating {
+    .star {
+        color: var(--theme-color) !important;
+        fill: var(--theme-color) !important;
+    }
+}
+
+.price-rating .product-rating.custom-rate {
+    display: none;
+}
+
+h6.byers.ng-star-inserted {
+    display: none;
+}
+
+.title-flex-2 {
+    margin-bottom: 10px;
+}
+
+h2.p-text-main.h1-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.product-section-box .custom-tab .tab-pane .product-description.more-less-box {
+    max-height: auto !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-section .right-box-contain .name {
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 40px;
+}
+
+ul.footer-list-minimal {
+    flex-direction: column;
+    display: flex;
+}
+
+.shop-section {
+    padding-top: 0 !important;
+}
+
+.shop-left-sidebar {
+    margin-top: 60px;
+    margin-left: 20px;
+}
+
+@media (max-width: 768px) {
+
+    .order-details-page-container .order-info-section .consumer-details-card .card-body-modern,
+    .order-details-page-container .order-info-section .order-summary-card .card-body-modern {
+        padding: 10px !important;
+    }
+
+    .product-item-card {
+        flex-direction: column !important;
+    }
+
+    .order-details-page-container .order-tracking-section .tracking-card .tracking-steps::before {
+        display: none !important;
+    }
+
+    .custom-account-dropdown .account-dropdown-menu {
+        right: -15px !important;
+    }
+
+    a.dropdown-item {
+        color: #4a5568 !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    ul.navbar-nav {
+        padding-left: 15px !important;
+    }
+
+    .top-nav {
+        padding: 14px !important;
+    }
+}
+
+button#place_order {
+    background: #f46734;
+    color: #fff;
+}
+
+.qty-box {
+    width: 100% !important;
+}
+
+ul.navbar-nav {
+    align-items: center;
+}
+
+.overlay.show {
+    opacity: 0 !important;
+    visibility: visible;
+}
+
+.form-check.custom-form-check.hide-check-box.w-100 {
+    align-items: center;
+    display: flex;
+    gap: 6px;
+}
+
+.payment-icon {
+    max-width: 100px !important;
+    margin-left: 15px !important;
+}
+
+.checkout-steps-list {
+    gap: 20px !important;
+}
+
+.payment-options-card {
+    margin-top: 15px !important;
+}
+
+@media (max-width: 768px) {
+
+    .payment-options-card,
+    .order-summary-card {
+        margin-top: 0 !important;
+    }
+
+    .checkout-step-header {
+        flex-direction: column;
+        align-items: start !important;
+        justify-content: start;
+        gap: 10px;
+    }
+
+    a.btn-add-new {
+        font-size: 14px !important;
+        padding: 5px 12px !important;
+    }
+
+    .summary-row.total-row {
+        flex-direction: column;
+        align-items: start !important;
+    }
+}
+
+.order-summary-header {
+    padding: 0.5rem 2rem !important;
+}
+
+.order-summary-title {
+    font-size: 22px !important;
+    font-weight: 500 !important;
+}
+
+.quantity-wishlist-section .modern-qty-selector .qty-input {
+    width: 40px !important;
+}
+
+ul.product-info-list {
+    flex-direction: column;
+    display: flex;
+}
+
+.product-list-section {
+    margin-top: 10px !important;
+}
+
+a.dropdown-item {
+    color: #222522;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.status-pending span,
+.status-draft span {
+    border: none !important;
+}
+
+.status-success span,
+.status-in_stock span,
+.status-completed span,
+.status-approved span,
+.status-delivered span,
+.status-credit span {
+    border: none !important;
+}
+
+span.product-description {
+    white-space: nowrap !important;
+}
+
+.mangal-fashion-about {
+    padding-bottom: 0px !important;
+}
+
+ul.select2-results__options {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.reg-btn app-button {
+    background: #f7e9e7;
+    border-radius: 10px;
+}
+button#register_btn {
+    padding: 7px 20px;
+    margin: 0 !important;
+}
+section.policy-content-section.section-lg-space {
+    padding: 0 !important;
+}
+section.contact-main-section.section-lg-space {
+    padding-bottom: 0 !important;
+}
+.top-margin-check{
+    margin-top:0px !important;
+}
+.checkout-detail{
+    margin-top:20px !important;
+}

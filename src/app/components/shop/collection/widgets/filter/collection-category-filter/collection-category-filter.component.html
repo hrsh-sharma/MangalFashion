@@ -1,0 +1,32 @@
+<div class="category-filter-wrapper">
+  <div class="theme-form search-box" *ngIf="categories.length > 5">
+    <input type="text" placeholder="{{'search_text' | translate}}" [(ngModel)]="searchText" class="form-control">
+  </div>
+  <ul class="category-list custom-padding custom-height" *ngIf="categories?.length">
+    <div *ngTemplateOutlet="recursiveCategories; context: { $implicit: categories }"></div>
+    <ng-template #recursiveCategories let-categories>
+      <ng-container *ngFor="let category of categories | filter: searchText:'subcategories'">
+        <li>
+          <div class="category-item" 
+               [class.selected]="checked(category?.slug!)"
+               [class.non-clickable]="category.is_clickable === false"
+               (click)="toggleCategory(category?.slug!, category)">
+            <span class="category-name">{{ category?.name }}</span>
+          </div>
+          <ul class="sub-category-list" *ngIf="category?.subcategories.length">
+            <ng-container *ngTemplateOutlet="recursiveCategories; context: { $implicit: category.subcategories }"></ng-container>
+          </ul>
+        </li>
+      </ng-container>
+    </ng-template>
+  </ul>
+  <div *ngIf="(categories | filter: searchText:'subcategories').length === 0" class="search-not-found-box">
+    <h5>No results found.</h5>
+  </div>
+  <!-- No Data -->
+  <app-no-data
+    [class]="'no-data-added bg-light'"
+    [text]="'no_category_found'"
+    *ngIf="!categories?.length">
+  </app-no-data>
+</div>

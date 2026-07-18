@@ -1,0 +1,303 @@
+<!-- Floating Left Sidebar -->
+<div class="floating-sidebar" [class.visible]="showFloatingSidebar">
+  <button class="fs-icon" (click)="onProfileClick()" title="My Account">
+    <i class="ri-user-line"></i>
+  </button>
+  <button class="fs-icon" [routerLink]="['/wishlist']" title="Wishlist">
+    <i class="ri-heart-line"></i>
+  </button>
+  <button class="fs-icon" [routerLink]="['/cart']" title="Cart">
+    <i class="ri-shopping-cart-line"></i>
+  </button>
+</div>
+
+<!-- Home Section Start -->
+
+<!-- Hero Slider Start -->
+<section class="hero-slider-section full-width-hero">
+    <div class="hero-slider" #heroSlider>
+        <div class="slider-container">
+            <div class="slider-track" #sliderTrack>
+                <div class="slide active" *ngFor="let slide of heroSlides; let i = index"
+                    [class.active]="currentSlide === i">
+                    <div class="hero-slide-wrapper">
+                        <a [href]="slide.link">
+                            <img [src]="slide.image" [alt]="slide.alt" class="img-fluid w-100 hero-image"
+                                loading="lazy">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dots Indicator -->
+            <div class="slider-dots">
+                <button *ngFor="let slide of heroSlides; let i = index" [class.active]="currentSlide === i"
+                    (click)="goToSlide(i)" [attr.aria-label]="'Go to slide ' + (i + 1)">
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section Start (Top) -->
+<section class="product-section featured-products-section" *ngIf="featuredProductIds?.length">
+    <div class="container-fluid-lg">
+        <div class="product-section-content">
+            <div class="product-list-wrapper">
+                <app-theme-product [productIds]="featuredProductIds" [style]="'horizontal'" [slider]="true"
+                    [sliderOption]="productSlider4NoLoop" [productStyle]="'product-solid'" [boxClass]="'product-box-bg'">
+                </app-theme-product>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Featured Products Section End (Top) -->
+
+<!-- Summer Edit Triptych Section Start -->
+<section class="product-triptych-section summer-edit-section">
+    <div class="triptych-header">
+        <span class="triptych-tag">SUMMER 2026</span>
+        <h2 class="triptych-heading">THE SUMMER EDIT</h2>
+    </div>
+    <div class="triptych-container">
+        <div class="triptych-panel">
+            <a [routerLink]="['/collections/t-shirts']" class="panel-link">
+                <div class="panel-image-wrapper">
+                    <img src="assets/images/men-tshirt.png" alt="Men's T-Shirts" class="panel-image" loading="lazy">
+                </div>
+                <div class="panel-overlay">
+                    <div class="panel-badge">NEW IN</div>
+                    <h3 class="panel-title">
+                        <span class="title-line-1">MEN'S</span>
+                        <span class="title-line-2">T-SHIRTS</span>
+                    </h3>
+                    <span class="panel-cta">SHOP NOW →</span>
+                </div>
+            </a>
+        </div>
+        <div class="triptych-panel">
+            <a [routerLink]="['/collections/shorts']" class="panel-link">
+                <div class="panel-image-wrapper">
+                    <img src="assets/images/men-shorts.png" alt="Shorts" class="panel-image" loading="lazy">
+                </div>
+                <div class="panel-overlay">
+                    <div class="panel-badge">TRENDING</div>
+                    <h3 class="panel-title">
+                        <span class="title-line-1">COOL</span>
+                        <span class="title-line-2">SHORTS</span>
+                    </h3>
+                    <span class="panel-cta">SHOP NOW →</span>
+                </div>
+            </a>
+        </div>
+        <div class="triptych-panel">
+            <a [routerLink]="['/collections/women-s-t-shirts']" class="panel-link">
+                <div class="panel-image-wrapper">
+                    <img src="assets/images/summer-cloth-women.png" alt="Women's T-Shirts" class="panel-image" loading="lazy">
+                </div>
+                <div class="panel-overlay">
+                    <div class="panel-badge">BESTSELLER</div>
+                    <h3 class="panel-title">
+                        <span class="title-line-1">WOMEN'S</span>
+                        <span class="title-line-2">T-SHIRTS</span>
+                    </h3>
+                    <span class="panel-cta">SHOP NOW →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Summer Edit Triptych Section End -->
+
+<!-- Featured Products Section Start -->
+<section class="product-section featured-products-section" *ngIf="featuredProductIds2?.length">
+    <div class="container-fluid-lg">
+        <div class="product-section-content">
+            <div class="product-list-wrapper">
+                <app-theme-product [productIds]="featuredProductIds2" [style]="'horizontal'" [slider]="true"
+                    [sliderOption]="productSlider4NoLoop" [productStyle]="'product-solid'" [boxClass]="'product-box-bg'">
+                </app-theme-product>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Featured Products Section End -->
+
+<!-- Collection Drops Slider Start -->
+<section class="collection-drops-section">
+  <div class="drops-header">
+    <h2>LATEST DROPS</h2>
+  </div>
+  <div class="drops-slider-wrapper">
+
+    <div class="drops-track"
+         [style.transform]="'translateX(-' + currentCollectionSlide * 100 + '%)'">
+      <div class="drops-slide" *ngFor="let slide of collectionSlides">
+        <div class="slide-img-wrap">
+          <img [src]="slide.image" [alt]="slide.alt" class="drops-img" loading="lazy">
+          <div class="slide-overlay">
+            <div class="slide-left">
+              <span class="slide-tag">{{ slide.tag }}</span>
+              <h3 class="slide-title">
+                <span>{{ slide.titleLine1 }}</span>
+                <span>{{ slide.titleLine2 }}</span>
+              </h3>
+              <p class="slide-by">{{ slide.subtitle }}</p>
+              <a [href]="slide.link" class="slide-cta">SHOP NOW</a>
+            </div>
+            <div class="slide-right">
+              <p class="slide-tagline">{{ slide.tagline }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button class="drops-nav drops-prev" (click)="prevCollectionSlide()" aria-label="Previous">
+      <i class="ri-arrow-left-s-line"></i>
+    </button>
+    <button class="drops-nav drops-next" (click)="nextCollectionSlide()" aria-label="Next">
+      <i class="ri-arrow-right-s-line"></i>
+    </button>
+
+    <!-- Dot Indicators -->
+    <div class="drops-dots">
+      <button *ngFor="let slide of collectionSlides; let i = index"
+              [class.active]="currentCollectionSlide === i"
+              (click)="goToCollectionSlide(i)"
+              [attr.aria-label]="'Go to slide ' + (i + 1)">
+      </button>
+    </div>
+
+  </div>
+</section>
+<!-- Collection Drops Slider End -->
+
+
+
+<!-- <section class="home-section-2 home-section-bg pt-md-0 pt-3 overflow-hidden" *ngIf="data?.content?.home_banner">
+  <app-theme-home-banner [theme]="'denver'" [data]="data?.content?.home_banner"></app-theme-home-banner>
+</section> -->
+<!-- Home Section End -->
+
+
+<!-- mangal fashion Banner End -->
+<!-- Category Section Start -->
+<section *ngIf="data?.content?.categories_icon_list?.status">
+    <div class="container-fluid-lg">
+        <app-theme-categories [style]="'horizontal'" [theme]="'paris'" [sliderOption]="categorySlider"
+            [categoryIds]="data?.content?.categories_icon_list?.category_ids || []"
+            [image]="data?.content?.categories_icon_list?.image_url">
+        </app-theme-categories>
+    </div>
+</section>
+<!-- Category Section End -->
+
+<!-- Deal Section Start -->
+<section class="product-section product-section-3" *ngIf="data?.content?.products_list_1?.status">
+    <div class="container-fluid-lg">
+        <div class="product-section-content">
+            <app-title [title]="data?.content?.products_list_1?.title" [style]="'simple'" [headingLevel]="'h1'"
+                class="h1-text">
+            </app-title>
+
+            <div class="product-list-wrapper">
+                <app-theme-product [productIds]="latestItemIds"
+                    [style]="'horizontal'" [slider]="true" [sliderOption]="productSlider4NoLoop"
+                    [productStyle]="'product-solid'" [boxClass]="'product-box-bg'">
+                </app-theme-product>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Deal Section End -->
+
+<!-- Lookbook Grid Section Start -->
+<section class="lookbook-section">
+
+  <div class="lookbook-header">
+    <span class="lookbook-tag">STYLE INSPIRATION</span>
+    <h2 class="lookbook-title">THE LOOKBOOK</h2>
+  </div>
+
+  <div class="lookbook-grid">
+
+    <a [routerLink]="['/collections/lehenga-choli-sets']" class="lookbook-item">
+      <img src="assets/images/lehanga1.jpg" alt="Lehengas" loading="lazy">
+      <div class="lookbook-overlay">
+        <span class="lookbook-label">LEHENGAS</span>
+        <span class="shop-look">SHOP THE LOOK <i class="ri-arrow-right-line"></i></span>
+      </div>
+    </a>
+
+    <a [routerLink]="['/collections/sarees']" class="lookbook-item">
+      <img src="assets/images/saare.jpg" alt="Sarees" loading="lazy">
+      <div class="lookbook-overlay">
+        <span class="lookbook-label">SAREES</span>
+        <span class="shop-look">SHOP THE LOOK <i class="ri-arrow-right-line"></i></span>
+      </div>
+    </a>
+
+    <a [routerLink]="['/collections/kurta-suit-sets']" class="lookbook-item">
+      <img src="assets/images/suit.jpg" alt="Suits" loading="lazy">
+      <div class="lookbook-overlay">
+        <span class="lookbook-label">SUITS</span>
+        <span class="shop-look">SHOP THE LOOK <i class="ri-arrow-right-line"></i></span>
+      </div>
+    </a>
+
+    <a [routerLink]="['/collections/gym-shorts']" class="lookbook-item">
+      <img src="assets/images/men-gym-short.png" alt="Gym Shorts" loading="lazy">
+      <div class="lookbook-overlay">
+        <span class="lookbook-label">GYM SHORTS</span>
+        <span class="shop-look">SHOP THE LOOK <i class="ri-arrow-right-line"></i></span>
+      </div>
+    </a>
+
+    <a [routerLink]="['/collections/tank-tops']" class="lookbook-item">
+      <img src="assets/images/tenktop.png" alt="Tank Tops" loading="lazy">
+      <div class="lookbook-overlay">
+        <span class="lookbook-label">TANK TOPS</span>
+        <span class="shop-look">SHOP THE LOOK <i class="ri-arrow-right-line"></i></span>
+      </div>
+    </a>
+
+    <a [routerLink]="['/collections/shorts']" class="lookbook-item">
+      <img src="assets/images/men-shorts.png" alt="Shorts" loading="lazy">
+      <div class="lookbook-overlay">
+        <span class="lookbook-label">SHORTS</span>
+        <span class="shop-look">SHOP THE LOOK <i class="ri-arrow-right-line"></i></span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="lookbook-footer">
+    <a href="https://www.instagram.com" target="_blank" class="insta-link">
+      <i class="ri-instagram-line"></i>
+      <span>Follow us &#64;mangalfashionofficial</span>
+    </a>
+  </div>
+
+</section>
+<!-- Lookbook Grid Section End -->
+
+
+
+
+<!-- Top Selling Section Start -->
+<section class="product-section product-section-3" *ngIf="data?.content?.products_list_2?.status">
+    <div class="container-fluid-lg">
+        <div>
+            <app-title [title]="data?.content?.products_list_2?.title " [style]="'simple'" class="mb-5">
+            </app-title>
+            <app-theme-product [productIds]="onDiscountIds" [style]="'horizontal'"
+                [slider]="true" [sliderOption]="productSlider4NoLoop" [productStyle]="'product-solid'"
+                [boxClass]="'product-box-bg'">
+            </app-theme-product>
+        </div>
+    </div>
+</section>
+<!-- Top Selling Section End -->
+

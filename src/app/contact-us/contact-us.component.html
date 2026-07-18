@@ -1,0 +1,205 @@
+<!-- Hero Section -->
+<section class="contact-hero-section">
+    <div class="container-fluid-lg">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-hero-content">
+                    <div class="hero-icon-wrapper">
+                        <i class="ri-customer-service-2-line"></i>
+                    </div>
+                    <h1 class="hero-title">Contact Us</h1>
+                    <p class="hero-subtitle">We'd love to hear from you!</p>
+                    <p class="hero-description">
+                        Get in touch with our customer support team for any questions, assistance, or feedback. We're
+                        here to help you 24/7.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information & Form Section -->
+<section class="contact-main-section section-lg-space">
+    <div class="container-fluid-lg">
+        <div class="row g-4">
+            <!-- Company Information Section -->
+            <div class="col-lg-5">
+                <div class="contact-info-card">
+                    <div class="card-header-modern">
+                        <h3 class="section-title">
+                            <i class="ri-information-line"></i> Company Information
+                        </h3>
+                    </div>
+                    <div class="card-body-modern">
+                        <div class="info-item">
+                            <div class="info-icon-wrapper">
+                                <i class="ri-building-line"></i>
+                            </div>
+                            <div class="info-content">
+                                <label class="info-label">Company Name</label>
+                                <p class="info-value">MANGAL MURTI LANDCRAFTS PRIVATE LIMITED</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon-wrapper">
+                                <i class="ri-file-text-line"></i>
+                            </div>
+                            <div class="info-content">
+                                <label class="info-label">GST</label>
+                                <p class="info-value">09AAKCM2049Q1ZS</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon-wrapper">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <div class="info-content">
+                                <label class="info-label">Email Address</label>
+                                <p class="info-value">
+                                    <a href="mailto:info&#64;mangalfashion.com">info&#64;mangalfashion.com</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon-wrapper">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <div class="info-content">
+                                <label class="info-label">Phone Number</label>
+                                <p class="info-value">
+                                    <a href="tel:++91 9528323105">+91 9528323105</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon-wrapper">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <div class="info-content">
+                                <label class="info-label">Registered Address</label>
+                                <div class="info-value">
+                                    <div>MANGAL MURTI LANDCRAFTS PRIVATE LIMITED</div>
+                                    <div>10th UNIT NO. 10104</div>
+                                    <div>GAUR CITY MALL SECTOR 4 GREATER NOIDA</div>
+                                    <div>Parthala Bridge Gaur City Mall</div>
+                                    <div>Gautambuddha Nagar Uttar Pradesh 201318</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon-wrapper">
+                                <i class="ri-global-line"></i>
+                            </div>
+                            <div class="info-content">
+                                <label class="info-label">Website</label>
+                                <p class="info-value">
+                                    <a href="https://mangalfashion.com" target="_blank">mangalfashion.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form Section -->
+            <div class="col-lg-7">
+                <div class="contact-form-card">
+                    <div class="card-header-modern">
+                        <h3 class="section-title">
+                            <i class="ri-message-3-line"></i> Get In Touch
+                        </h3>
+                        <p class="section-subtitle">Fill out the form below and we'll get back to you as soon as
+                            possible.</p>
+                    </div>
+                    <div class="card-body-modern">
+                        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                            <div class="contact-form-fields">
+                                <div class="form-field-wrapper">
+                                    <label class="form-label-modern" for="name">
+                                        <i class="ri-user-line"></i>
+                                        Name
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input type="text" class="form-input-modern" id="name"
+                                            placeholder="Enter your full name" formControlName="name"
+                                            (input)="filterSpecialCharacters($event, 'name')" pattern="[a-zA-Z\s]+">
+                                        <i class="ri-user-3-fill input-icon"></i>
+                                    </div>
+                                    <div class="error-message"
+                                        *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+                                        <i class="ri-error-warning-line"></i>
+                                        <span>Name should contain only letters and spaces.</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-field-wrapper">
+                                        <label class="form-label-modern" for="email">
+                                            <i class="ri-mail-line"></i>
+                                            Email Address
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <input type="email" class="form-input-modern" id="email"
+                                                placeholder="Enter your email address" formControlName="email"
+                                                (input)="filterEmailCharacters($event)" pattern="[a-zA-Z0-9._\-+@]+">
+                                            <i class="ri-mail-fill input-icon"></i>
+                                        </div>
+                                        <div class="error-message"
+                                            *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+                                            <i class="ri-error-warning-line"></i>
+                                            <span>Enter a valid email address.</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-field-wrapper">
+                                        <label class="form-label-modern" for="phone">
+                                            <i class="ri-phone-line"></i>
+                                            Phone Number
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <input type="tel" class="form-input-modern" id="phone"
+                                                placeholder="Enter your phone number" formControlName="phone"
+                                                (input)="filterPhoneNumber($event)" maxlength="10" pattern="[0-9]{10}">
+                                            <i class="ri-smartphone-line input-icon"></i>
+                                        </div>
+                                        <div class="error-message"
+                                            *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched">
+                                            <i class="ri-error-warning-line"></i>
+                                            <span>Phone number should be exactly 10 digits.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-field-wrapper">
+                                    <label class="form-label-modern" for="message">
+                                        <i class="ri-message-2-line"></i>
+                                        Message
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <textarea class="form-textarea-modern" id="message"
+                                            placeholder="Enter your message" rows="6"
+                                            formControlName="message"></textarea>
+                                        <i class="ri-chat-2-fill input-icon textarea-icon"></i>
+                                    </div>
+                                    <div class="error-message"
+                                        *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+                                        <i class="ri-error-warning-line"></i>
+                                        <span>Message field cannot be empty.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-submit-wrapper">
+                                <button type="submit" class="btn-submit" [disabled]="contactForm.invalid">
+                                    <i class="ri-send-plane-fill"></i>
+                                    <span>Submit</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

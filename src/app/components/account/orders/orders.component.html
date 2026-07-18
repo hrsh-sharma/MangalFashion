@@ -1,0 +1,110 @@
+<div class="orders-page-container">
+    <!-- Page Header -->
+    <div class="orders-page-header">
+        <div class="header-content">
+            <div class="header-icon-wrapper">
+                <i class="ri-file-text-line"></i>
+            </div>
+            <div class="header-text-content">
+                <h4 class="page-title">{{ 'My Orders' | translate }}</h4>
+                <p class="page-subtitle">{{ 'View and track all your orders' | translate }}</p>
+            </div>
+        </div>
+        <a [routerLink]="['/account/dashboard']" class="btn-back-dashboard">
+            <i class="ri-arrow-left-line"></i>
+            <span>{{ 'Back to Dashboard' | translate }}</span>
+        </a>
+    </div>
+
+    <!-- Orders List -->
+    <div class="orders-list-container" *ngIf="(order$ | async)?.data?.length">
+        <div class="orders-grid">
+            <div class="order-card" *ngFor="let order of (order$ | async)?.data; let i = index">
+                <div class="order-card-header">
+                    <div class="order-number-section">
+                        <div class="order-icon-wrapper">
+                            <i class="ri-shopping-bag-line"></i>
+                        </div>
+                        <div>
+                            <span class="order-label">{{ 'Order Number' | translate }}</span>
+                            <h6 class="order-number">#{{ order.order_number }}</h6>
+                        </div>
+                    </div>
+                    <div class="order-status-badge status-{{order?.payment_status?.toLowerCase()}}">
+                        <span>{{ order?.payment_status | titleCase }}</span>
+                    </div>
+                </div>
+
+                <div class="order-card-body">
+                    <div class="order-info-row">
+                        <div class="info-item">
+                            <i class="ri-calendar-line"></i>
+                            <div>
+                                <span class="info-label">{{ 'Date' | translate }}</span>
+                                <span class="info-value">{{ order?.created_at | date: 'dd MMM yyyy hh:mm:a' }}</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="ri-money-rupee-circle-line"></i>
+                            <div>
+                                <span class="info-label">{{ 'Amount' | translate }}</span>
+                                <span class="info-value amount">{{ order?.total | currencySymbol }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-info-row">
+                        <div class="info-item">
+                            <i class="ri-bank-card-line"></i>
+                            <div>
+                                <span class="info-label">{{ 'Payment Method' | translate }}</span>
+                                <span class="info-value">
+                                    <span *ngIf="order?.payment_method === 'mangal fashion_nabu'">
+                                        Pay By UPI INTENT 3
+                                    </span>
+                                    <span *ngIf="order?.payment_method === 'pay_drill'">
+                                        Cash Free
+                                    </span>
+                                    <span *ngIf="order?.payment_method === 'star_mangal'">
+                                        Pay via UPI App
+                                    </span>
+                                    <span *ngIf="order?.payment_method === 'payrise_mangalfashion_jio'">
+                                        Pay by UPI
+                                    </span>
+                                    <span *ngIf="order?.payment_method !== 'mangal fashion_nabu' && order?.payment_method !== 'pay_drill' && order?.payment_method !== 'star_mangal' && order?.payment_method !== 'payrise_mangalfashion_jio'">
+                                        {{ order?.payment_method | titleCase }}
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-card-footer">
+                    <a [routerLink]="['/account/order/details', order.order_number]" class="btn-view-order">
+                        <i class="ri-eye-line"></i>
+                        <span>{{ 'View Details' | translate }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="orders-pagination" *ngIf="(order$ | async)?.data?.length">
+            <app-pagination
+                [total]="(order$ | async)?.total || 0"
+                [currentPage]="filter['page']"
+                [pageSize]="filter['paginate']"
+                (setPage)="setPaginate($event)">
+            </app-pagination>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="orders-empty-state" *ngIf="!(order$ | async)?.data?.length">
+        <div class="empty-state-content">
+            <i class="ri-shopping-bag-line"></i>
+            <h4>{{ 'No Orders have yet' | translate }}</h4>
+        </div>
+    </div>
+</div>

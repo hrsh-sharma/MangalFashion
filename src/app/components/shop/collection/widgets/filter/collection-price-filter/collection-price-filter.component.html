@@ -1,0 +1,48 @@
+<div class="price-range-filter">
+  <div class="price-inputs">
+    <input 
+      type="number" 
+      class="price-input min-price" 
+      [(ngModel)]="minPrice" 
+      [min]="minRange" 
+      [max]="maxRange"
+      (input)="onPriceChange()"
+      (blur)="onPriceChange()">
+    <span class="price-separator">-</span>
+    <input 
+      type="number" 
+      class="price-input max-price" 
+      [(ngModel)]="maxPrice" 
+      [min]="minRange" 
+      [max]="maxRange"
+      (input)="onPriceChange()"
+      (blur)="onPriceChange()">
+  </div>
+  
+  <div class="price-slider-container">
+    <div class="price-slider-track">
+      <div class="price-slider-fill" [style.left.%]="getMinPercent()" [style.width.%]="getRangePercent()"></div>
+      <input 
+        type="range" 
+        class="price-slider min-slider" 
+        [min]="minRange" 
+        [max]="maxRange" 
+        [value]="minPrice"
+        (input)="onMinSliderChange($event)"
+        (change)="onSliderChange()">
+      <input 
+        type="range" 
+        class="price-slider max-slider" 
+        [min]="minRange" 
+        [max]="maxRange" 
+        [value]="maxPrice"
+        (input)="onMaxSliderChange($event)"
+        (change)="onSliderChange()">
+    </div>
+  </div>
+  
+  <div class="price-display">
+    <span class="price-min">{{ minPrice | currencySymbol }}</span>
+    <span class="price-max">{{ maxPrice | currencySymbol }}</span>
+  </div>
+</div>

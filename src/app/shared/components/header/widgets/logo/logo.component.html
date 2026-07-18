@@ -1,0 +1,7 @@
+<a [routerLink]="['/']" href="/" class="web-logo nav-logo">
+    <img appLazyLoad
+         [src]="logo || data?.logo?.header_logo?.original_url || 'assets/images/mangal-logo.png'"
+         class="img-fluid lazy-loading"
+         alt="logo"
+         placeholder="assets/images/placeholder.png">
+</a>

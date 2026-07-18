@@ -1,0 +1,28 @@
+<ng-template #deleteModal let-modal>
+    <div class="modern-delete-modal">
+        <div class="delete-modal-header">
+            <div class="delete-icon-wrapper">
+                <i class="ri-delete-bin-line"></i>
+            </div>
+        </div>
+        <div class="delete-modal-body">
+            <h3 class="delete-modal-title">{{ 'delete_item' | translate }}?</h3>
+            <p class="delete-modal-message">{{ 'delete_text' | translate }}</p>
+        </div>
+        <div class="delete-modal-footer">
+            <button 
+                type="button" 
+                class="btn-cancel-delete" 
+                (click)="modal.dismiss('Cancel')">
+                {{ 'No' | translate }}
+            </button>
+            <button 
+                type="button" 
+                class="btn-confirm-delete" 
+                (click)="delete()">
+                <i class="ri-check-line"></i>
+                <span>{{ 'Yes' | translate }}</span>
+            </button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,46 @@
+// Lazy Loading Styles
+.lazy-loading {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.lazy-loaded {
+    opacity: 1;
+  }
+
+  &.lazy-load-error {
+    opacity: 0.5;
+    filter: grayscale(100%);
+  }
+}
+
+// Blur placeholder effect
+img[appLazyLoad] {
+  transition: filter 0.3s ease-in-out;
+
+  &:not(.lazy-loaded) {
+    filter: blur(10px);
+    transform: scale(1.1);
+  }
+
+  &.lazy-loaded {
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+// Loading animation for images
+@keyframes lazy-loading-pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+img[appLazyLoad]:not(.lazy-loaded) {
+  animation: lazy-loading-pulse 1.5s ease-in-out infinite;
+}

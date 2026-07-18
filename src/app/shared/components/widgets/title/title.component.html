@@ -1,0 +1,18 @@
+<div class="title title-flex-2" [class]="class" *ngIf="style === 'simple' && title; else classic">
+  <h1 *ngIf="headingLevel === 'h1'">{{ title }}</h1>
+  <h2 *ngIf="headingLevel === 'h2'">{{ title }}</h2>
+  <ng-content></ng-content>
+</div>
+<ng-template #classic>
+  <div [class]="class" *ngIf="title">
+    <div>
+      <h1>{{ title }}</h1>
+      <span class="title-leaf">
+        <svg class="icon-width">
+          <use attr.xlink:href="assets/svg/leaf.svg#{{svg}}"></use>
+        </svg>
+      </span>
+      <p *ngIf="description">{{ description }}</p>
+    </div>
+  </div>
+</ng-template>

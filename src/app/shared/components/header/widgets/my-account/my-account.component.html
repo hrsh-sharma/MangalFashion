@@ -1,0 +1,50 @@
+<!-- My Account Basic Style -->
+<div *ngIf="style == 'basic'" class="custom-account-dropdown">
+    <div class="account-trigger">
+        <div class="account-icon-wrapper">
+            <i class="ri-user-3-line" *ngIf="!(isAuthenticated$ | async) else profile"></i>
+            <ng-template #profile>
+                <div class="user-avatar">
+                    <img [src]="(user$ | async)?.profile_image?.original_url" class="img-fluid" alt="profile"
+                        *ngIf="(user$ | async)?.profile_image && (user$ | async)?.profile_image?.original_url else placeholder">
+                    <ng-template #placeholder>
+                        <span class="avatar-initial">{{ (user$ | async)?.name?.charAt(0)?.toString()?.toUpperCase() }}</span>
+                    </ng-template>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="account-dropdown-menu">
+        <div class="dropdown-content">
+            <div class="dropdown-item" *ngIf="!(isAuthenticated$ | async)">
+                <a [routerLink]="['/auth/login']" class="dropdown-link">
+                    <i class="ri-login-box-line"></i>
+                    <span>{{ 'Login' | translate }}</span>
+                </a>
+            </div>
+            <div class="dropdown-item" *ngIf="!(isAuthenticated$ | async)">
+                <a [routerLink]="['/auth/register']" class="dropdown-link">
+                    <i class="ri-user-add-line"></i>
+                    <span>{{ 'Register' | translate }}</span>
+                </a>
+            </div>
+            <div class="dropdown-item" *ngIf="(isAuthenticated$ | async)">
+                <a [routerLink]="['/account/dashboard']" class="dropdown-link">
+                    <i class="ri-user-line"></i>
+                    <span>{{ 'My Account' | translate }}</span>
+                </a>
+            </div>
+            <div class="dropdown-item" *ngIf="(isAuthenticated$ | async)">
+                <a href="javascript:void(0)" (click)="confirmationModal.openModal()" class="dropdown-link logout-link">
+                    <i class="ri-logout-box-r-line"></i>
+                    <span>{{ 'Logout' | translate }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-confirmation-modal
+    #confirmationModal
+    (confirmed)="logout()">
+</app-confirmation-modal>

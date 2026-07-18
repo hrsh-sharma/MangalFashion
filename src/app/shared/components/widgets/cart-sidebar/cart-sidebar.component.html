@@ -1,0 +1,89 @@
+<div class="cart-sidebar-overlay" [class.show]="sidebarCartOpen$ | async" (click)="closeCart()"></div>
+<div class="cart-sidebar" [class.show]="sidebarCartOpen$ | async">
+
+    <div class="sidebar-header">
+        <h3>Shopping Cart</h3>
+        <button type="button" class="btn-close-sidebar" (click)="closeCart()">
+            <i class="ri-close-line"></i>
+        </button>
+    </div>
+
+    <div class="sidebar-content">
+
+        <!-- Free Shipping Progress -->
+        <div class="free-shipping-bar" *ngIf="(cartItem$ | async)?.length && shippingFreeAmt > 0">
+            <p *ngIf="shippingCal < 100">Unlock Free Shipping! Add <span>{{ remainingShipping | currencySymbol }}</span>
+                more.</p>
+
+        </div>
+
+        <!-- Cart Count -->
+        <div class="cart-count-bar" *ngIf="(cartItem$ | async)?.length">
+            <span>{{ (cartItem$ | async)?.length }} Products</span>
+        </div>
+
+        <!-- Cart Items -->
+        <ul class="cart-list" *ngIf="(cartItem$ | async)?.length">
+            <li class="cart-item" *ngFor="let item of cartItem$ | async">
+                <div class="item-image">
+                    <img [src]="item?.variation && item?.variation?.variation_image
+                    ? item?.variation?.variation_image?.original_url
+                    : item?.product?.product_thumbnail
+                    ? item?.product?.product_thumbnail?.original_url
+                    : 'assets/images/product.png'" [alt]="item?.product?.name">
+                </div>
+                <div class="item-details">
+                    <h5 class="item-name">{{ item?.variation ? item?.variation?.name : item?.product?.name }}</h5>
+                    <h6 class="item-price">{{ ((item?.variation ? item.variation.sale_price : item?.product &&
+                        item?.wholesale_price ? item?.wholesale_price : item?.product?.sale_price) || 0) |
+                        currencySymbol }}
+                    </h6>
+                    <h5 class="gram" *ngIf="item?.variation">
+                        {{ item?.variation?.selected_variation }}
+                    </h5>
+
+                    <div class="item-controls">
+                        <div class="qty-box-sm">
+                            <button class="qty-btn" (click)="updateQuantity(item, -1)"><i
+                                    class="ri-subtract-line"></i></button>
+                            <input type="text" class="qty-input" [value]="item.quantity" readonly>
+                            <button class="qty-btn" (click)="updateQuantity(item, 1)"><i
+                                    class="ri-add-line"></i></button>
+                        </div>
+                        <button class="btn-remove" (click)="delete(item.id)">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </div>
+
+                    <div class="item-variation" *ngIf="item?.variation">
+                        <small class="variation-label">Size:</small>
+                        <span class="variation-value">{{ item?.variation?.selected_variation || item?.variation?.name || 'N/A' }}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Empty Cart -->
+        <div class="empty-cart" *ngIf="!(cartItem$ | async)?.length">
+            <i class="ri-shopping-cart-2-line"></i>
+            <p>Your cart is empty.</p>
+            <button class="btn btn-solid" (click)="closeCart()">Start Shopping</button>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="sidebar-footer" *ngIf="(cartItem$ | async)?.length">
+        <div class="footer-info">
+            <p>Shipping And Taxes Are Calculated At Checkout</p>
+            <div class="total-row">
+                <span>Total:</span>
+                <span class="total-amount">{{ ((cartTotal$ | async) || 0) | currencySymbol }}</span>
+            </div>
+        </div>
+        <div class="footer-buttons">
+            <a [routerLink]="['/cart']" (click)="closeCart()" class="btn btn-outline">View Cart</a>
+            <a [routerLink]="['/checkout']" (click)="closeCart()" class="btn btn-solid">Checkout</a>
+        </div>
+    </div>
+</div>

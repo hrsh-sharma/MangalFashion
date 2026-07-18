@@ -1,0 +1,380 @@
+// Mobile Product Card View
+.product-mobile-view {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .product-mobile-card {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+
+    .product-mobile-image {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      border-radius: 6px;
+      overflow: hidden;
+      background-color: #fff;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .product-mobile-details {
+      flex: 1;
+      min-width: 0;
+
+      .product-mobile-name {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #333;
+        line-height: 1.4;
+      }
+
+      .product-mobile-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        .info-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 13px;
+
+          .info-label {
+            color: #777;
+            font-weight: 500;
+          }
+
+          .info-value {
+            color: #333;
+            font-weight: 600;
+
+            &.fw-bold {
+              font-weight: 700;
+              color: #000;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile Sub-Order Card View
+.sub-order-mobile-view {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .sub-order-mobile-card {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+
+    .sub-order-mobile-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .sub-order-info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e8e8e8;
+
+        &:last-of-type {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        .info-label {
+          color: #777;
+          font-weight: 500;
+        }
+
+        .info-value {
+          color: #333;
+          font-weight: 600;
+          text-align: right;
+
+          &.fw-bold {
+            font-weight: 700;
+            color: #000;
+          }
+        }
+
+        .status {
+          display: inline-block;
+          padding: 4px 12px;
+          border-radius: 4px;
+          font-size: 12px;
+          font-weight: 600;
+        }
+      }
+
+      .sub-order-action {
+        margin-top: 8px;
+        padding-top: 12px;
+        border-top: 1px solid #e8e8e8;
+
+        .btn-view-order {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 16px;
+          background-color: #0da487;
+          color: #fff;
+          border-radius: 6px;
+          text-decoration: none;
+          font-size: 13px;
+          font-weight: 500;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #0b8d73;
+            color: #fff;
+          }
+
+          i {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile Responsive Styles
+@media (max-width: 767.98px) {
+  section.user-dashboard-section {
+    padding: 15px 0;
+  }
+
+  .container-fluid-lg {
+    padding: 0 10px;
+  }
+
+  .title-header {
+    margin-bottom: 15px;
+
+    h5 {
+      font-size: 16px;
+      word-break: break-word;
+    }
+  }
+
+  .tracking-panel {
+    margin: 0 -15px;
+    padding: 0 15px;
+
+    ul {
+      padding-right: 10px;
+      gap: 10px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+
+        &:hover {
+          background: #555;
+        }
+      }
+
+      body.rtl & {
+        padding-right: 0;
+        padding-left: 10px;
+      }
+
+      li {
+        min-width: 120px;
+        flex-shrink: 0;
+        padding: 12px 15px;
+
+        body.rtl & {
+          padding: 12px 15px;
+        }
+
+        .panel-content {
+          gap: 10px;
+
+          .icon {
+            width: 30px;
+            flex-shrink: 0;
+          }
+
+          .status {
+            font-size: 12px;
+            white-space: normal;
+            line-height: 1.3;
+          }
+        }
+      }
+    }
+  }
+
+  .card {
+    margin-bottom: 15px;
+
+    .card-body {
+      padding: 15px;
+    }
+  }
+
+  .customer-detail {
+    ul {
+      li {
+        margin-bottom: 15px;
+
+        label {
+          font-size: 14px;
+          margin-bottom: 6px;
+          display: block;
+        }
+
+        h4 {
+          font-size: 13px;
+          line-height: 1.5;
+          word-break: break-word;
+        }
+      }
+    }
+  }
+
+  .tracking-total {
+    ul {
+      li {
+        font-size: 14px;
+        padding: 8px 0;
+
+        &:last-child {
+          padding-top: 12px;
+          margin-top: 8px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .h-m30 {
+    height: auto !important;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .container-fluid-lg {
+    padding: 0 8px;
+  }
+
+  .title-header {
+    margin-bottom: 12px;
+
+    h5 {
+      font-size: 15px;
+    }
+  }
+
+  .card {
+    .card-body {
+      padding: 12px;
+    }
+  }
+
+  .product-mobile-card {
+    flex-direction: column;
+
+    .product-mobile-image {
+      width: 100%;
+      height: 200px;
+      margin: 0 auto;
+    }
+  }
+
+  .sub-order-mobile-card {
+    .sub-order-mobile-content {
+      .sub-order-info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+
+        .info-value {
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  .tracking-panel {
+    ul {
+      li {
+        min-width: 100px;
+        padding: 10px 12px;
+
+        .panel-content {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 8px;
+
+          .icon {
+            width: 35px;
+          }
+
+          .status {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Dark mode support
+html.dark {
+  .product-mobile-card,
+  .sub-order-mobile-card {
+    background-color: #2a2d2d;
+    border-color: #3f4242;
+
+    .product-mobile-name,
+    .info-value {
+      color: #dddddd;
+    }
+
+    .info-label {
+      color: #999;
+    }
+  }
+
+  .sub-order-action {
+    border-color: #3f4242;
+  }
+}

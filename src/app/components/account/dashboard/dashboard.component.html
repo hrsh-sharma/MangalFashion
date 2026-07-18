@@ -1,0 +1,136 @@
+<div class="tab-pane fade show active">
+    <div class="dashboard-home">
+        <!-- Header Section -->
+        <div class="title-header">
+            <div class="d-flex align-items-center">
+                <h5>{{ 'My Dashboard' | translate }}</h5>
+            </div>
+        </div>
+
+        <!-- Welcome Section -->
+        <div class="dashboard-welcome-card card card-hover mb-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div>
+                        <h4 class="mb-2">{{ 'Hello' | translate }}, <span class="text-theme">{{ (user$ | async)?.name! | titleCase }}</span></h4>
+                        <p class="text-content mb-0">{{ "Welcome to your dashboard" | translate }}</p>
+                    </div>
+                    <div class="profile-avatar">
+                        <img *ngIf="(user$ | async)?.profile_image?.original_url" 
+                             [src]="(user$ | async)?.profile_image?.original_url" 
+                             class="avatar-img" 
+                             alt="profile">
+                        <div *ngIf="!(user$ | async)?.profile_image?.original_url" class="avatar-placeholder">
+                            <span>{{ (user$ | async)?.name?.charAt(0)?.toString()?.toUpperCase() }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Information Card -->
+        <div class="modern-profile-card mb-4">
+            <div class="profile-card-header">
+                <div class="header-content">
+                    <h4 class="profile-title">{{ 'Profile Information' | translate }}</h4>
+                    <p class="profile-subtitle">{{ 'Manage your personal information' | translate }}</p>
+                </div>
+            </div>
+            
+            <div class="profile-info-grid">
+                <div class="profile-info-box">
+                    <div class="info-icon-wrapper name-icon">
+                        <i class="ri-user-line"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">{{ 'Name' | translate }}</span>
+                        <h6 class="info-value">{{ (user$ | async)?.name | titleCase }}</h6>
+                    </div>
+                </div>
+
+                <div class="profile-info-box">
+                    <div class="info-icon-wrapper email-icon">
+                        <i class="ri-mail-line"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">{{ 'Email' | translate }}</span>
+                        <h6 class="info-value">{{ (user$ | async)?.email }}</h6>
+                    </div>
+                </div>
+
+                <div class="profile-info-box">
+                    <div class="info-icon-wrapper phone-icon">
+                        <i class="ri-phone-line"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">{{ 'Phone' | translate }}</span>
+                        <h6 class="info-value">{{ (user$ | async)?.country_code }} {{ (user$ | async)?.phone }}</h6>
+                    </div>
+                </div>
+
+                <div class="profile-info-box">
+                    <div class="info-icon-wrapper password-icon">
+                        <i class="ri-lock-line"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">{{ 'Password' | translate }}</span>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="info-value mb-0">●●●●●●●●</h6>
+                            <a href="javascript:void(0)" class="change-password-link" (click)="PasswordModal.openModal()">
+                                <i class="ri-edit-line"></i>
+                                <span>{{ 'Change Password' | translate }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-info-box full-width" *ngIf="address">
+                    <div class="info-icon-wrapper address-icon">
+                        <i class="ri-map-pin-line"></i>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">{{ 'Address' | translate }}</span>
+                        <div class="info-value">
+                            <div *ngIf="address.floor_no"><b>Floor No.</b>: {{ address.floor_no }}</div>
+                            <div *ngIf="address.flat_no"><b>Flat No.</b>: {{ address.flat_no }}</div>
+                            <div *ngIf="address.building"><b>Building</b>: {{ address.building }}</div>
+                            <div *ngIf="address.road"><b>Road</b>: {{ address.road }}</div>
+                            <div>{{ address.street }}, {{ address.city }}, {{ address.area }}, {{ address.country_id }} {{ address.pincode }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <div class="dashboard-actions-section mb-4">
+            <h5 class="section-title mb-4">{{ 'Quick Actions' | translate }}</h5>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="dashboard-action-card card card-hover" (click)="navigateTo('order')">
+                        <div class="card-body text-center">
+                            <div class="action-icon">
+                                <i class="ri-file-text-line"></i>
+                            </div>
+                            <h6 class="action-title">{{ 'My Orders' | translate }}</h6>
+                            <p class="action-description">{{ 'View and track your orders' | translate }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="dashboard-action-card card card-hover" (click)="navigateTo('addresses')">
+                        <div class="card-body text-center">
+                            <div class="action-icon">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <h6 class="action-title">{{ 'Saved Address' | translate }}</h6>
+                            <p class="action-description">{{ 'Manage your addresses' | translate }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-edit-profile-modal #profileModal></app-edit-profile-modal>
+<app-change-password-modal #passwordModal></app-change-password-modal>

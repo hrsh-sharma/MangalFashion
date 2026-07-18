@@ -1,0 +1,171 @@
+<ng-template #addressModal let-modal>
+  <div class="modern-modal-header">
+    <div class="modal-header-content">
+      <div class="modal-icon-wrapper">
+        <i class="ri-map-pin-line"></i>
+      </div>
+      <div class="modal-title-content">
+        <h3 class="modal-title">{{ (!address ? 'Add Address' : 'Edit Address') | translate }}</h3>
+        <p class="modal-subtitle">{{ (!address ? 'Add a new delivery address' : 'Update your address details') |
+          translate }}</p>
+      </div>
+    </div>
+    <button type="button" class="btn-close-modal" (click)="modal.dismiss('Cross click')">
+      <i class="ri-close-line"></i>
+    </button>
+  </div>
+  <form [formGroup]="form" class="" (ngSubmit)="submit()">
+    <div class="modern-modal-body">
+      <div class="address-form-fields">
+        <div class="form-row">
+          <div class="form-field-wrapper">
+            <label class="form-label-modern" for="title">
+              <i class="ri-home-line"></i>
+              <span>{{ 'Name' | translate }}</span>
+            </label>
+            <input class="form-input-modern" id="title" type="text" placeholder="{{ 'Enter Name' | translate }}"
+              formControlName="title" (keydown)="allowOnlyLetters($event)" (input)="sanitizeLettersInput($event, 'title')"
+              (paste)="sanitizeLettersPaste($event)"
+              [class.is-invalid]="form?.controls?.['title']?.touched && (form.controls['title']?.errors?.['required'] || form.controls['title']?.errors?.['pattern'])" />
+            <div class="error-message"
+              *ngIf="form?.controls?.['title']?.touched && form.controls['title']?.errors?.['required']">
+              <i class="ri-error-warning-line"></i>
+              <span>{{ 'Name is Required' | translate }}</span>
+            </div>
+            <div class="error-message"
+              *ngIf="form?.controls?.['title']?.touched && form.controls['title']?.errors?.['pattern']">
+              <i class="ri-error-warning-line"></i>
+              <span>{{ 'Only letters and spaces are allowed' | translate }}</span>
+            </div>
+          </div>
+          <div class="form-field-wrapper">
+            <label class="form-label-modern" for="country_id">
+              <i class="ri-global-line"></i>
+              <span>{{ 'Country' | translate }}</span>
+            </label>
+            <select2 class="custom-select-modern" [data]="(countries$ | async) ? (countries$ | async)! : []"
+              [placeholder]="'select_country' | translate" formControlName="country_id" (update)="countryChange($event)"
+              resettable [value]="356">
+            </select2>
+            <div class="error-message"
+              *ngIf="form?.controls?.['country_id']?.touched && form?.controls?.['country_id']?.errors?.['required']">
+              <i class="ri-error-warning-line"></i>
+              <span>{{ 'Country is Required' | translate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row state-city-row">
+          <div class="form-field-wrapper">
+            <label class="form-label-modern" for="state_id">
+              <i class="ri-map-line"></i>
+              <span>{{ 'State' | translate }}</span>
+            </label>
+            <select2 class="custom-select-modern" [data]="stateNameData" [placeholder]="'Select State' | translate"
+              formControlName="state_id" (update)="stateChange($event)">
+            </select2>
+            <div class="error-message"
+              *ngIf="form?.controls?.['state_id']?.touched && form?.controls?.['state_id']?.errors?.['required']">
+              <i class="ri-error-warning-line"></i>
+              <span>{{ 'State is Required' | translate }}</span>
+            </div>
+          </div>
+          <div class="form-field-wrapper">
+            <label class="form-label-modern" for="city">
+              <i class="ri-building-line"></i>
+              <span>{{ 'City' | translate }}</span>
+            </label>
+            <select2 class="custom-select-modern" [data]="cityOptions" [placeholder]="'Enter City' | translate"
+              formControlName="city" (update)="cityChange($event)">
+            </select2>
+            <div class="error-message"
+              *ngIf="form?.controls?.['city']?.touched && form.controls['city']?.errors?.['required']">
+              <i class="ri-error-warning-line"></i>
+              <span>{{ 'City is Required' | translate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row area-pincode-row">
+          <div class="form-field-wrapper">
+            <label class="form-label-modern" for="area">
+              <i class="ri-community-line"></i>
+              <span>{{ 'Area' | translate }}</span>
+            </label>
+            <select2 class="custom-select-modern" [data]="officeNameData" [placeholder]="'Enter Area' | translate"
+              formControlName="area" (update)="areaChange($event)">
+            </select2>
+            <div class="error-message"
+              *ngIf="form?.controls?.['area']?.touched && form.controls['area']?.errors?.['required']">
+              <i class="ri-error-warning-line"></i>
+              <span>{{ 'Area is Required' | translate }}</span>
+            </div>
+          </div>
+          <div class="form-field-wrapper">
+            <label class="form-label-modern" for="pincode">
+              <i class="ri-mail-line"></i>
+              <span>{{ 'Pincode' | translate }}</span>
+            </label>
+            <input class="form-input-modern" id="pincode" type="text" maxlength="6"
+              placeholder="{{ 'Enter Pincode' | translate }}" formControlName="pincode" numbersOnly minlength="6"
+              [class.is-invalid]="form?.controls?.['pincode']?.touched && (form.controls['pincode']?.errors?.['required'] || form.controls['pincode']?.errors?.['minlength'] || form.controls['pincode']?.errors?.['numbersOnly'])" />
+            <div class="error-message"
+              *ngIf="form?.controls?.['pincode']?.touched && (form.controls['pincode']?.errors?.['required'] || form.controls['pincode']?.errors?.['minlength'] || form.controls['pincode']?.errors?.['numbersOnly'])">
+              <i class="ri-error-warning-line"></i>
+              <span>{{ 'Pincode is invalid' | translate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="form-label-modern" for="street">
+            <i class="ri-road-map-line"></i>
+            <span>{{ 'Address' | translate }}</span>
+          </label>
+          <textarea class="form-textarea-modern" id="address" placeholder="{{ 'Enter Address' | translate }}"
+            formControlName="street" rows="2"
+            [class.is-invalid]="form?.controls?.['street']?.touched && form.controls['street']?.errors?.['required']"></textarea>
+          <div class="error-message"
+            *ngIf="form?.controls?.['street']?.touched && form.controls['street']?.errors?.['required']">
+            <i class="ri-error-warning-line"></i>
+            <span>{{ 'Street Address is Required' | translate }}</span>
+          </div>
+        </div>
+
+        <div class="form-field-wrapper">
+          <label class="form-label-modern" for="phone">
+            <i class="ri-phone-line"></i>
+            <span>{{ 'Phone Number' | translate }}</span>
+          </label>
+          <div class="phone-input-wrapper">
+            <span class="phone-prefix">+91</span>
+            <input type="tel" class="form-input-modern phone-input" id="phone" maxlength="10" minlength="9" formControlName="phone"
+              placeholder="{{ 'Enter Phone' | translate }}" name="phone" (keydown)="allowOnlyDigits($event)"
+              (input)="sanitizeDigitsInput($event, 'phone')" (paste)="sanitizeDigitsPaste($event)"
+              [class.is-invalid]="form.controls['phone'].touched && (form.controls['phone'].errors?.['required'] || form.controls['phone'].errors?.['pattern'])" />
+          </div>
+          <div class="error-message"
+            *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['required']">
+            <i class="ri-error-warning-line"></i>
+            <span>{{ 'Phone Number is Required' | translate }}</span>
+          </div>
+          <div class="error-message"
+            *ngIf="form.controls['phone'].touched && form.controls['phone'].errors?.['pattern']">
+            <i class="ri-error-warning-line"></i>
+            <span>{{ 'Phone Number is Invalid' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modern-modal-footer">
+        <button type="button" class="btn-cancel" (click)="modal.dismiss('Cancel')">
+          {{ 'Cancel' | translate }}
+        </button>
+        <app-button [class]="'btn-submit'" [type]="'submit'" [id]="'save_address_btn'" [spinner]="true">
+          <i class="ri-check-line"></i>
+          <span>{{ 'Save Address' | translate }}</span>
+        </app-button>
+      </div>
+    </div>
+  </form>
+</ng-template>

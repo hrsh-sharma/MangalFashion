@@ -1,0 +1,340 @@
+<div class="order-details-page-container">
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary mb-3" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <h5>Loading Order Details...</h5>
+      <p class="text-muted">Please wait while we fetch your order information.</p>
+    </div>
+  </div>
+
+  <!-- Order Content -->
+  <div *ngIf="!loading && order">
+    <!-- Page Header -->
+    <div class="order-details-header">
+        <div class="header-content">
+            <div class="header-icon-wrapper">
+                <i class="ri-file-text-line"></i>
+            </div>
+            <div class="header-text-content">
+                <h4 class="page-title">{{ 'order_number' | translate }}: #{{ order.order_number }}</h4>
+                <p class="page-subtitle">{{ 'View your order details and track shipment' | translate }}</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a [routerLink]="['/account/order']" class="btn-back-orders">
+                <i class="ri-arrow-left-line"></i>
+                <span>{{ 'Back to Orders' | translate }}</span>
+            </a>
+            <a href="javascript:void(0)"
+               class="btn-pay-now"
+               *ngIf="canPayNow"
+               (click)="payModal.openModal(order)">
+                <i class="ri-refresh-line"></i>
+                <span>{{ 'Pay Now' | translate }}</span>
+            </a>
+            <a (click)="download(order.order_number)"
+               class="btn-download-invoice"
+               download="download"
+               *ngIf="canDownloadInvoice">
+                <i class="ri-download-2-fill"></i>
+                <span>{{ 'Invoice' | translate }}</span>
+            </a>
+        </div>
+    </div>
+    <!-- Order Tracking Section -->
+    <div class="order-tracking-section mb-4" *ngIf="showTracking">
+        <div class="tracking-card">
+            <div class="tracking-header">
+                <h5 class="tracking-title">
+                    <i class="ri-truck-line"></i>
+                    {{ 'Order Tracking' | translate }}
+                </h5>
+            </div>
+            <div class="tracking-steps">
+                <div class="tracking-step" 
+                     *ngFor="let orderStatus of (orderStatus$ | async)?.data"
+                     [class.active]="orderStatus?.sequence! <= order.order_status.sequence!"
+                     [class.completed]="orderStatus?.sequence! < order.order_status.sequence!"
+                     [ngClass]="{
+                         'd-none': (orderStatus?.sequence! >= order.order_status.sequence! 
+                         && (order.order_status && order.order_status.slug == 'cancelled')) ||
+                         orderStatus?.slug == 'cancelled' || (order.is_digital_only && (orderStatus?.slug == 'shipped' || orderStatus?.slug == 'out-for-delivery'))
+                     }">
+                    <div class="step-icon-wrapper">
+                        <img src="assets/svg/tracking/{{orderStatus?.slug}}.svg" class="step-icon" alt="order status tracking icon">
+                    </div>
+                    <div class="step-label">{{ orderStatus?.name | titleCase }}</div>
+                </div>
+                <div class="tracking-step active cancelled-step" *ngIf="order?.order_status && order?.order_status?.slug == 'cancelled'">
+                    <div class="step-icon-wrapper cancelled">
+                        <img src="assets/svg/tracking/{{order.order_status.slug}}.svg" class="step-icon" alt="order status tracking icon">
+                    </div>
+                    <div class="step-label">{{ order.order_status.name.replace('_', ' ')! | titlecase }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Products Section -->
+    <div class="order-products-section mb-4" *ngIf="order?.products?.length">
+        <div class="products-card">
+            <div class="card-header-modern">
+                <h5 class="section-title">
+                    <i class="ri-shopping-bag-line"></i>
+                    {{ 'Ordered Products' | translate }}
+                </h5>
+            </div>
+            <div class="products-list">
+                <div class="product-item-card" *ngFor="let product of order.products">
+                    <div class="product-image-wrapper">
+                        <img [src]="product?.pivot?.variation && product?.pivot?.variation?.variation_image
+                                ? product?.pivot?.variation?.variation_image?.original_url
+                                : product?.product_thumbnail
+                                ? product?.product_thumbnail?.original_url
+                                : 'assets/images/product.png'" 
+                             class="product-img" 
+                             alt="product">
+                    </div>
+                    <div class="product-details">
+                        <h6 class="product-name">{{ product?.pivot?.variation ? product?.pivot?.variation?.name : product?.name }}</h6>
+                        <div class="product-info-grid">
+                            <div class="product-info-item">
+                                <span class="info-label">{{ 'Price' | translate }}</span>
+                                <span class="info-value">{{ product?.pivot?.single_price | currencySymbol }}</span>
+                            </div>
+                            <div class="product-info-item">
+                                <span class="info-label">{{ 'Quantity' | translate }}</span>
+                                <span class="info-value">{{ product?.pivot?.quantity }}</span>
+                            </div>
+                            <div class="product-info-item">
+                                <span class="info-label">{{ 'Subtotal' | translate }}</span>
+                                <span class="info-value amount">{{ product?.pivot?.subtotal | currencySymbol }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-refund-section">
+                        <a class="btn-refund" 
+                           href="javascript:void(0)"
+                           *ngIf="product?.is_return === 1 &&
+                           order?.payment_status && order?.payment_status === 'COMPLETED' 
+                           && order.order_status && order.order_status.slug == 'delivered' && 
+                           !product?.pivot?.refund_status;
+                           else noRefund" 
+                           (click)="refundModal.openModal(product, order.id)">
+                            <i class="ri-refund-line"></i>
+                            <span>{{ 'Refund' | translate }}</span>
+                        </a>
+                        <ng-template #noRefund>
+                            <ng-container *ngIf="product.is_return === 0; else NonRefundable">
+                                <span class="refund-status-badge non-refundable">{{ 'Non Refundable' | translate }}</span>
+                            </ng-container>
+                            <ng-template #NonRefundable>
+                                <div class="refund-status-badge status-{{product?.pivot?.refund_status?.toLowerCase()}}" 
+                                     *ngIf="product?.pivot?.refund_status; else disabled">
+                                    <span>{{ product?.pivot?.refund_status | titleCase }}</span>
+                                </div>
+                                <ng-template #disabled>
+                                    <div placement="top" class="black-tooltip" ngbTooltip="Enable after delivery">
+                                        <a class="btn-refund disabled" *ngIf="!product?.pivot?.refund_status">
+                                            {{ 'Refund' | translate }}
+                                        </a>
+                                    </div>
+                                </ng-template>
+                            </ng-template>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Order Information Section -->
+    <div class="order-info-section">
+        <div class="row g-4">
+            <div class="col-xxl-8 col-lg-12">
+                <div class="consumer-details-card">
+                    <div class="card-header-modern">
+                        <h5 class="section-title">
+                            <i class="ri-user-line"></i>
+                            {{ 'Consumer Details' | translate }}
+                        </h5>
+                    </div>
+                    <div class="card-body-modern">
+                        <div class="details-grid">
+                            <div class="detail-item" *ngIf="order?.billing_address">
+                                <div class="detail-icon-wrapper">
+                                    <i class="ri-file-text-line"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <label class="detail-label">{{ 'Billing Address' | translate }}</label>
+                                    <div class="detail-value">
+                                        <div *ngIf="order.billing_address.floor_no">Floor No.: {{ order.billing_address.floor_no }}</div>
+                                        <div *ngIf="order.billing_address.flat_no">Flat No.: {{ order.billing_address.flat_no }}</div>
+                                        <div *ngIf="order.billing_address.building">Building: {{ order.billing_address.building }}</div>
+                                        <div *ngIf="order.billing_address.road">Road: {{ order.billing_address.road }}</div>
+                                        <div>{{ order.billing_address.street }}</div>
+                                        <div>{{ order.billing_address.city }}, {{ getStateName(order.billing_address.state_id) }}, {{ getCountryName(order.billing_address.country_id) }} {{ order.billing_address.pincode }}</div>
+                                        <div><span class="phone-text">{{ 'Phone' | translate }}: +{{ order.billing_address.country_code }} {{ order.billing_address.phone }}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-item" *ngIf="order?.shipping_address && !order?.is_digital_only">
+                                <div class="detail-icon-wrapper">
+                                    <i class="ri-truck-line"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <label class="detail-label">{{ 'Shipping Address' | translate }}</label>
+                                    <div class="detail-value">
+                                        <div *ngIf="order.shipping_address.floor_no">Floor No.: {{ order.shipping_address.floor_no }}</div>
+                                        <div *ngIf="order.shipping_address.flat_no">Flat No.: {{ order.shipping_address.flat_no }}</div>
+                                        <div *ngIf="order.shipping_address.building">Building: {{ order.shipping_address.building }}</div>
+                                        <div *ngIf="order.shipping_address.road">Road: {{ order.shipping_address.road }}</div>
+                                        <div>{{ order.shipping_address.street }}</div>
+                                        <div>{{ order.shipping_address.city }}, {{ getStateName(order.shipping_address.state_id) }}, {{ getCountryName(order.shipping_address.country_id) }} {{ order.shipping_address.pincode }}</div>
+                                        <div><span class="phone-text">{{ 'Phone' | translate }}: +{{ order.shipping_address.country_code }} {{ order.shipping_address.phone }}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-item" *ngIf="order?.delivery_description && !order?.is_digital_only">
+                                <div class="detail-icon-wrapper">
+                                    <i class="ri-calendar-line"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <label class="detail-label">{{ 'Delivery Slot' | translate }}</label>
+                                    <p class="detail-value">Standard Delivery | Approx 10 to 15 Days</p>
+                                </div>
+                            </div>
+                            <div class="detail-item" *ngIf="order?.payment_method">
+                                <div class="detail-icon-wrapper">
+                                    <i class="ri-bank-card-line"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <label class="detail-label">{{ 'Payment Mode' | translate }}</label>
+                                    <p class="detail-value">
+                                        <span class="info-value">
+                                            <span *ngIf="order?.payment_method === 'mangal fashion_nabu'">
+                                                Pay By UPI INTENT 3
+                                            </span>
+                                            <span *ngIf="order?.payment_method === 'pay_drill'">
+                                                Cash Free
+                                            </span>
+                                            <span *ngIf="order?.payment_method === 'star_mangal'">
+                                                Pay via UPI App
+                                            </span>
+                                            <span *ngIf="order?.payment_method === 'payrise_mangalfashion_jio'">
+                                                Pay by UPI
+                                            </span>
+                                            <span *ngIf="order?.payment_method !== 'mangal fashion_nabu' && order?.payment_method !== 'pay_drill' && order?.payment_method !== 'star_mangal' && order?.payment_method !== 'payrise_mangalfashion_jio'">
+                                                {{ order?.payment_method | titleCase }}
+                                            </span>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="detail-item" *ngIf="order?.payment_status">
+                                <div class="detail-icon-wrapper">
+                                    <i class="ri-checkbox-circle-line"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <label class="detail-label">{{ 'Payment Status' | translate }}</label>
+                                    <div class="payment-status-badge status-{{order?.payment_status?.toLowerCase()}}">
+                                        <span>{{ order.payment_status | titleCase }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-lg-12">
+                <div class="order-summary-card">
+                    <div class="card-header-modern">
+                        <h5 class="section-title">
+                            <i class="ri-file-list-line"></i>
+                            {{ 'Summary' | translate }}
+                        </h5>
+                    </div>
+                    <div class="card-body-modern">
+                        <div class="summary-list">
+                            <div class="summary-item">
+                                <span class="summary-label">{{ 'Subtotal' | translate }}</span>
+                                <span class="summary-value">{{ (order.amount ? order.amount : 0) | currencySymbol }}</span>
+                            </div>
+                            <div class="summary-item" *ngIf="!order?.is_digital_only">
+                                <span class="summary-label">{{ 'Shipping' | translate }}</span>
+                                <span class="summary-value">{{ (order.shipping_total ? order.shipping_total : 0) | currencySymbol }}</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">{{ 'Tax' | translate }}</span>
+                                <span class="summary-value">{{ (order.tax_total ? order.tax_total : 0) | currencySymbol }}</span>
+                            </div>
+                            <div class="summary-item discount" *ngIf="order.points_amount != 0">
+                                <span class="summary-label">{{ 'Points' | translate }}</span>
+                                <span class="summary-value">-{{ order.points_amount | currencySymbol }}</span>
+                            </div>
+                            <div class="summary-item discount" *ngIf="order.wallet_balance != 0">
+                                <span class="summary-label">{{ 'Wallet Balance' | translate }}</span>
+                                <span class="summary-value">-{{ order.wallet_balance | currencySymbol }}</span>
+                            </div>
+                            <div class="summary-item discount" *ngIf="order.coupon_total_discount != 0">
+                                <span class="summary-label">{{ 'Discount' | translate }}</span>
+                                <span class="summary-value">-{{ order.coupon_total_discount | currencySymbol }}</span>
+                            </div>
+                            <div class="summary-item total">
+                                <span class="summary-label">{{ 'Total' | translate }}</span>
+                                <span class="summary-value">{{ (order.total ? order.total : 0) | currencySymbol }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sub Orders Section -->
+    <div class="sub-orders-section" *ngIf="order?.sub_orders?.length">
+        <div class="sub-orders-card">
+            <div class="card-header-modern">
+                <h5 class="section-title">
+                    <i class="ri-file-list-3-line"></i>
+                    {{ 'Sub Orders' | translate }}
+                </h5>
+            </div>
+            <div class="sub-orders-list">
+                <div class="sub-order-card" *ngFor="let subOrder of order.sub_orders">
+                    <div class="sub-order-content">
+                        <div class="sub-order-info">
+                            <div class="info-row">
+                                <span class="info-label">{{ 'Order Number' | translate }}</span>
+                                <span class="info-value">#{{ subOrder.order_number }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">{{ 'Order Date' | translate }}</span>
+                                <span class="info-value">{{ subOrder.created_at | date: 'dd MMM yyyy hh:mm:a' }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">{{ 'Total Amount' | translate }}</span>
+                                <span class="info-value amount">{{ subOrder.amount | currencySymbol }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">{{ 'Status' | translate }}</span>
+                                <div class="status-badge status-{{subOrder.order_status.slug}}">
+                                    <span>{{ subOrder.order_status.name | titleCase }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0)" 
+                           [routerLink]="['/account/order/details', subOrder.order_number]" 
+                           class="btn-view-sub-order">
+                            <i class="ri-eye-line"></i>
+                            <span>{{ 'View Details' | translate }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div> <!-- End Order Content -->
+</div>
+<app-refund-modal #refundModal></app-refund-modal>
+<app-pay-modal #payModal></app-pay-modal>

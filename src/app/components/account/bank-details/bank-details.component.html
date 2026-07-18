@@ -1,0 +1,165 @@
+<div class="bank-details-page-container">
+    <!-- Page Header -->
+    <div class="bank-details-page-header">
+        <div class="header-content">
+            <div class="header-icon-wrapper">
+                <i class="ri-bank-line"></i>
+            </div>
+            <div class="header-text-content">
+                <h4 class="page-title">{{ 'Bank Details' | translate }}</h4>
+                <p class="page-subtitle">{{ 'Manage your payment and bank information' | translate }}</p>
+            </div>
+        </div>
+        <a [routerLink]="['/account/dashboard']" class="btn-back-dashboard">
+            <i class="ri-arrow-left-line"></i>
+            <span>{{ 'Back to Dashboard' | translate }}</span>
+        </a>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <!-- Bank Details Section -->
+        <div class="bank-details-section">
+            <div class="section-header">
+                <div class="section-icon-wrapper">
+                    <i class="ri-bank-card-line"></i>
+                </div>
+                <div>
+                    <h5 class="section-title">{{ 'Bank Details' | translate }}</h5>
+                    <p class="section-subtitle">{{ 'Enter your bank account information' | translate }}</p>
+                </div>
+            </div>
+
+            <div class="form-fields-grid">
+                <div class="form-field-wrapper">
+                    <label class="form-label-modern" for="bank_account_no">
+                        <i class="ri-numbers-line"></i>
+                        <span>{{ 'Bank Account No.' | translate }}</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-input-modern" 
+                        id="bank_account_no" 
+                        placeholder="{{ 'Enter bank Account Number' | translate }}" 
+                        formControlName="bank_account_no" 
+                        (keydown)="allowOnlyDigits($event)" 
+                        (input)="sanitizeDigitsInput($event, 'bank_account_no')" 
+                        (paste)="sanitizeDigitsPaste($event)"
+                        [class.is-invalid]="form?.controls?.['bank_account_no']?.touched && form.controls['bank_account_no']?.errors?.['pattern']" />
+                    <div class="error-message" *ngIf="form?.controls?.['bank_account_no']?.touched && form.controls['bank_account_no']?.errors?.['pattern']">
+                        <i class="ri-error-warning-line"></i>
+                        <span>{{ 'Only numbers are allowed' | translate }}</span>
+                    </div>
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-label-modern" for="bank_name">
+                        <i class="ri-building-line"></i>
+                        <span>{{ 'Bank Name' | translate }}</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-input-modern" 
+                        id="bank_name" 
+                        placeholder="{{ 'Enter Bank Name' | translate }}" 
+                        formControlName="bank_name" 
+                        (keydown)="allowOnlyLetters($event)" 
+                        (input)="sanitizeLettersInput($event, 'bank_name')" 
+                        (paste)="sanitizeLettersPaste($event)"
+                        [class.is-invalid]="form?.controls?.['bank_name']?.touched && form.controls['bank_name']?.errors?.['pattern']" />
+                    <div class="error-message" *ngIf="form?.controls?.['bank_name']?.touched && form.controls['bank_name']?.errors?.['pattern']">
+                        <i class="ri-error-warning-line"></i>
+                        <span>{{ 'Only letters and spaces are allowed' | translate }}</span>
+                    </div>
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-label-modern" for="bank_holder_name">
+                        <i class="ri-user-line"></i>
+                        <span>{{ 'Holder Name' | translate }}</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-input-modern" 
+                        id="bank_holder_name" 
+                        placeholder="{{ 'Enter Bank Holder Name' | translate }}" 
+                        formControlName="bank_holder_name" 
+                        (keydown)="allowOnlyLetters($event)" 
+                        (input)="sanitizeLettersInput($event, 'bank_holder_name')" 
+                        (paste)="sanitizeLettersPaste($event)"
+                        [class.is-invalid]="form?.controls?.['bank_holder_name']?.touched && form.controls['bank_holder_name']?.errors?.['pattern']" />
+                    <div class="error-message" *ngIf="form?.controls?.['bank_holder_name']?.touched && form.controls['bank_holder_name']?.errors?.['pattern']">
+                        <i class="ri-error-warning-line"></i>
+                        <span>{{ 'Only letters and spaces are allowed' | translate }}</span>
+                    </div>
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-label-modern" for="swift">
+                        <i class="ri-global-line"></i>
+                        <span>{{ 'Swift' | translate }}</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-input-modern" 
+                        id="swift" 
+                        placeholder="{{ 'Enter Swift' | translate }}" 
+                        formControlName="swift" />
+                </div>
+
+                <div class="form-field-wrapper">
+                    <label class="form-label-modern" for="ifsc">
+                        <i class="ri-file-code-line"></i>
+                        <span>{{ 'IFSC' | translate }}</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-input-modern" 
+                        id="ifsc" 
+                        placeholder="{{ 'Enter IFSC' | translate }}" 
+                        formControlName="ifsc" />
+                </div>
+            </div>
+        </div>
+
+        <!-- PayPal Details Section -->
+        <div class="paypal-details-section">
+            <div class="section-header">
+                <div class="section-icon-wrapper paypal-icon">
+                    <i class="ri-paypal-line"></i>
+                </div>
+                <div>
+                    <h5 class="section-title">{{ 'Paypal Details' | translate }}</h5>
+                    <p class="section-subtitle">{{ 'Enter your PayPal email address' | translate }}</p>
+                </div>
+            </div>
+
+            <div class="form-fields-grid">
+                <div class="form-field-wrapper">
+                    <label class="form-label-modern" for="paypal_email">
+                        <i class="ri-mail-line"></i>
+                        <span>{{ 'Paypal Email' | translate }}</span>
+                    </label>
+                    <input 
+                        type="email" 
+                        class="form-input-modern" 
+                        id="paypal_email" 
+                        placeholder="{{ 'Enter Paypal Email' | translate }}" 
+                        formControlName="paypal_email"
+                        [class.is-invalid]="form?.controls?.['paypal_email']?.touched && form.controls['paypal_email']?.errors?.['email']" />
+                    <div class="error-message" *ngIf="form?.controls?.['paypal_email']?.touched && form.controls['paypal_email']?.errors?.['email']">
+                        <i class="ri-error-warning-line"></i>
+                        <span>{{ 'Please enter a valid email address' | translate }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+            <button type="submit" class="btn-save">
+                <i class="ri-save-line"></i>
+                <span>{{ 'Save' | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>

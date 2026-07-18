@@ -1,0 +1,6 @@
+<ul>
+    <li *ngFor="let category of categories">
+        <a *ngIf="category.is_clickable !== false" [routerLink]="['/collections/' + category?.slug]" class="text-content" [title]="category.name">{{ category.name }}</a>
+        <span *ngIf="category.is_clickable === false" class="text-content non-clickable" [title]="category.name">{{ category.name }}</span>
+    </li>
+</ul>

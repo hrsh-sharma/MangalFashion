@@ -1,0 +1,21 @@
+<div class="product-section-box mt-0 modern-product-tabs">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-tabs custom-nav modern-tabs">
+        <li ngbNavItem="description">
+            <a ngbNavLink class="modern-tab-link">
+                <span>{{ 'Description' | translate }}</span>
+            </a>
+            <ng-template ngbNavContent>
+                <div class="product-description more-less-box modern-description-content" [class.more]="showMore">
+                    <div *ngIf="product?.description" class="nav-desh ckeditor-content modern-description-text" id="description" #description
+                        [innerHTML]="getTrustedHtml(product?.description)">
+                    </div>
+                    <button class="btn more-lest-btn modern-show-more-btn" (click)="seeMore()" *ngIf="height > 500 || width < 768">
+                        {{ (!showMore ? 'show_more' : 'show_less') | translate }}
+                        <i class="ri-arrow-down-s-line" [class.rotate]="showMore"></i>
+                    </button>
+                </div>
+            </ng-template>
+        </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="custom-tab modern-tab-outlet"></div>
+</div>

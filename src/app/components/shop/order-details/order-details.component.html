@@ -1,0 +1,296 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<!-- Loading State -->
+<div class="loading-container" *ngIf="loading">
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary mb-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <h5>Loading Order Details...</h5>
+        <p class="text-muted">Please wait while we fetch your order information.</p>
+    </div>
+</div>
+
+<section class="user-dashboard-section section-b-space" *ngIf="!loading">
+    <div class="container-fluid-lg">
+        <div class="row">
+            <div class="col-xxl-12 col-lg-12">
+                <div class="dashboard-right-sidebar" *ngIf="order">
+                    <div>
+                        <div class="title-header">
+                            <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center w-100 justify-content-between gap-2">
+                                <h5 class="mb-0">{{ 'order_number' | translate }}: #{{ order.order_number }}</h5>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="tracking-panel">
+                                <ul *ngIf="order && !order?.sub_orders?.length">
+                                    <ng-container *ngFor="let orderStatus of orderStatuses">
+                                        <li [class.active]="orderStatus?.sequence! <= order.order_status.sequence!"
+                                            [ngClass]="{
+                                                'd-none': (orderStatus?.sequence! >= order.order_status.sequence! 
+                                                && (order.order_status && order.order_status.slug == 'cancelled')) ||
+                                                orderStatus?.slug == 'cancelled' || (order.is_digital_only && (orderStatus?.slug == 'shipped' || orderStatus?.slug == 'out-for-delivery'))
+                                            }">
+                                            <div class="panel-content">
+                                                <div class="icon">
+                                                    <img src="assets/svg/tracking/{{orderStatus?.slug}}.svg" class="img-fluid" alt="order status tracking icon">
+                                                </div>
+                                                <div class="status">{{ orderStatus?.name?.replaceAll('_', ' ') | titlecase }}</div>
+                                            </div>
+                                        </li>
+                                    </ng-container>
+                                    <li class="active cancelled-box" *ngIf="order?.order_status && order?.order_status?.slug == 'cancelled'">
+                                        <div class="panel-content" *ngIf="order?.order_status">
+                                            <div class="icon">
+                                                <img src="assets/svg/tracking/{{order.order_status.slug}}.svg" class="img-fluid" alt="order status tracking icon">
+                                            </div>
+                                            <div class="status">{{ order.order_status.name.replaceAll('_', ' ')! | titlecase }}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card" *ngIf="order?.products?.length">
+                            <div class="card-body">
+                                <!-- Desktop Table View -->
+                                <div class="tracking-wrapper table-responsive d-none d-md-block">
+                                    <table class="table product-table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">{{ 'image' | translate }}</th>
+                                                <th scope="col">{{ 'name' | translate }}</th>
+                                                <th scope="col">{{ 'price' | translate }}</th>
+                                                <th scope="col">{{ 'quantity' | translate }}</th>
+                                                <th scope="col">{{ 'subtotal' | translate }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let product of order.products">
+                                                <td class="product-image">
+                                                    <img [src]="product?.pivot?.variation && product?.pivot?.variation?.variation_image
+                                                            ? product?.pivot?.variation?.variation_image?.original_url
+                                                            : product?.product_thumbnail
+                                                            ? product?.product_thumbnail?.original_url
+                                                            : 'assets/images/product.png'" class="img-fluid" alt="product">
+                                                </td>
+                                                <td>
+                                                    <h6>{{ product?.pivot?.variation ? product?.pivot?.variation?.name : product?.name }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6>{{ product?.pivot?.single_price | currencySymbol }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6>{{ product?.pivot?.quantity }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6>{{ product?.pivot?.subtotal | currencySymbol }}</h6>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Mobile Card View -->
+                                <div class="product-mobile-view d-md-none">
+                                    <div class="product-mobile-card" *ngFor="let product of order.products">
+                                        <div class="product-mobile-image">
+                                            <img [src]="product?.pivot?.variation && product?.pivot?.variation?.variation_image
+                                                    ? product?.pivot?.variation?.variation_image?.original_url
+                                                    : product?.product_thumbnail
+                                                    ? product?.product_thumbnail?.original_url
+                                                    : 'assets/images/product.png'" class="img-fluid" alt="product">
+                                        </div>
+                                        <div class="product-mobile-details">
+                                            <h6 class="product-mobile-name">{{ product?.pivot?.variation ? product?.pivot?.variation?.name : product?.name }}</h6>
+                                            <div class="product-mobile-info">
+                                                <div class="info-row">
+                                                    <span class="info-label">{{ 'price' | translate }}:</span>
+                                                    <span class="info-value">{{ product?.pivot?.single_price | currencySymbol }}</span>
+                                                </div>
+                                                <div class="info-row">
+                                                    <span class="info-label">{{ 'quantity' | translate }}:</span>
+                                                    <span class="info-value">{{ product?.pivot?.quantity }}</span>
+                                                </div>
+                                                <div class="info-row">
+                                                    <span class="info-label">{{ 'subtotal' | translate }}:</span>
+                                                    <span class="info-value fw-bold">{{ product?.pivot?.subtotal | currencySymbol }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xxl-8 col-lg-12 col-md-7 col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="fw-semibold mb-3">{{ 'consumer_details' | translate }}</h3>
+                                        <div class="customer-detail tracking-wrapper">
+                                            <ul class="row g-3">
+                                                <li class="col-12 col-sm-6" *ngIf="order?.billing_address">
+                                                    <label>{{ 'billing_address' | translate }}:</label>
+                                                    <h4>
+                                                        <div *ngIf="order.billing_address.floor_no">Floor No.: {{ order.billing_address.floor_no }}</div>
+                                                        <div *ngIf="order.billing_address.flat_no">Flat No.: {{ order.billing_address.flat_no }}</div>
+                                                        <div *ngIf="order.billing_address.building">Building: {{ order.billing_address.building }}</div>
+                                                        <div *ngIf="order.billing_address.road">Road: {{ order.billing_address.road }}</div>
+                                                        <div>{{ order.billing_address.street }}</div>
+                                                        <div>{{ order.billing_address.city }} {{ getStateName(order.billing_address.state_id) }} {{ getCountryName(order.billing_address.country_id) }} {{ order.billing_address.pincode }}</div>
+                                                        <div>{{ 'phone' }} : +{{ order.billing_address.country_code }} {{ order.billing_address.phone }}</div>
+                                                    </h4>
+                                                </li>
+                                                <li class="col-12 col-sm-6" *ngIf="order?.shipping_address && !order?.is_digital_only">
+                                                    <label>{{ 'shipping_address' | translate }}:</label>
+                                                    <h4>
+                                                        <div *ngIf="order.shipping_address.floor_no">Floor No.: {{ order.shipping_address.floor_no }}</div>
+                                                        <div *ngIf="order.shipping_address.flat_no">Flat No.: {{ order.shipping_address.flat_no }}</div>
+                                                        <div *ngIf="order.shipping_address.building">Building: {{ order.shipping_address.building }}</div>
+                                                        <div *ngIf="order.shipping_address.road">Road: {{ order.shipping_address.road }}</div>
+                                                        <div>{{ order.shipping_address.street }}</div>
+                                                        <div>{{ order.shipping_address.city }} {{ getStateName(order.shipping_address.state_id) }} {{ getCountryName(order.shipping_address.country_id) }} {{ order.shipping_address.pincode }}</div>
+                                                        <div>{{ 'phone' }} : +{{ order.shipping_address.country_code }} {{ order.shipping_address.phone }}</div>
+                                                    </h4>
+                                                </li>
+                                                <li class="col-12 col-sm-6" *ngIf="order?.delivery_description && !order?.is_digital_only">
+                                                    <label>{{ 'delivery_slot' | translate }}:</label>
+                                                    <h4>{{ order.delivery_description }}</h4>
+                                                </li>
+                                                <li class="col-12 col-sm-6 col-md-3" *ngIf="order?.payment_method">
+                                                    <label>{{ 'payment_mode' | translate }}:</label>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <h4 class="mb-0" *ngIf="order?.payment_method === 'mangal fashion_nabu'">
+                                                            Pay By UPI INTENT 3
+                                                        </h4>
+                                                        <h4 class="mb-0" *ngIf="order?.payment_method === 'pay_drill'">
+                                                            Cash Free
+                                                        </h4>
+                                                        <h4 class="mb-0" *ngIf="order?.payment_method === 'star_mangal'">
+                                                            Pay via UPI App
+                                                        </h4>
+                                                        <h4 class="mb-0" *ngIf="order?.payment_method === 'payrise_mangalfashion_jio'">
+                                                            Pay by UPI
+                                                        </h4>
+                                                        <h4 class="mb-0" *ngIf="order?.payment_method !== 'mangal fashion_nabu' && order?.payment_method !== 'pay_drill' && order?.payment_method !== 'star_mangal' && order?.payment_method !== 'payrise_mangalfashion_jio'">
+                                                            {{ order?.payment_method | titleCase }}
+                                                        </h4>
+                                                    </div>
+                                                </li>
+                                                <li class="col-12 col-sm-6 col-md-3" *ngIf="order?.payment_method">
+                                                    <label>{{ 'payment_status' | translate }}:</label>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <h4 class="mb-0">{{ order.payment_status | uppercase }}</h4>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-4 col-lg-12 col-md-5 col-12">
+                                <div class="card h-m30 mt-3 mt-md-0">
+                                    <div class="card-body">
+                                        <h3 class="fw-semibold mb-3">
+                                            {{ 'summary' | translate }}
+                                        </h3>
+                                        <div class="tracking-total tracking-wrapper">
+                                            <ul>
+                                                <li>{{ 'subtotal' | translate }} <span>{{ (order.amount ? order.amount : 0) | currencySymbol }}</span></li>
+                                                <li *ngIf="!order?.is_digital_only">{{ 'shipping'| translate }} <span>{{ (order.shipping_total ? order.shipping_total : 0) | currencySymbol }}</span></li>
+                                                <li>{{ 'tax'| translate }} <span>{{ (order.tax_total ? order.tax_total : 0) | currencySymbol }}</span></li>
+                                                <li class="txt-primary fw-bold" *ngIf="order.points_amount != 0">{{ 'points'| translate }} <span>{{ order.points_amount | currencySymbol }}</span></li>
+                                                <li class="txt-primary fw-bold" *ngIf="order.wallet_balance != 0">{{ 'wallet_balance'| translate }} <span>{{ order.wallet_balance | currencySymbol }}</span></li>
+                                                <li class="txt-primary fw-bold" *ngIf="order.coupon_total_discount != 0">{{ 'coupon_discount'| translate }} <span>{{ order.coupon_total_discount | currencySymbol }}</span></li>
+                                                <li>{{ 'total'| translate }} <span>{{ (order.total ? order.total : 0) | currencySymbol }}</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" *ngIf="order?.sub_orders?.length">
+                            <div class="card-body">
+                                <!-- Desktop Table View -->
+                                <div class="tracking-wrapper table-responsive d-none d-md-block">
+                                    <table class="table product-table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">{{ 'order_number' | translate }}</th>
+                                                <th scope="col">{{ 'order_date' | translate }}</th>
+                                                <th scope="col">{{ 'total_amount' | translate }}</th>
+                                                <th scope="col">{{ 'status' | translate }}</th>
+                                                <th scope="col">{{ 'action' | translate }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let subOrder of order.sub_orders">
+                                                <td>
+                                                    <h6>{{ '#'+subOrder.order_number }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6>{{ subOrder.created_at | date: 'dd MMM yyyy hh:mm:a' }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6>{{ subOrder.amount | currencySymbol }}</h6>
+                                                </td>
+                                                <td>
+                                                    <h6>
+                                                        <div class="status-{{subOrder.order_status.slug}}">
+                                                            <span>{{ subOrder.order_status.name }}</span>
+                                                        </div>
+                                                    </h6>
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:void(0)" [routerLink]="['/order/details']" [queryParams]="{order_number: subOrder.order_number, email_or_phone: email_or_phone}">
+                                                        <i [class]="'ri-eye-line'"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Mobile Card View -->
+                                <div class="sub-order-mobile-view d-md-none">
+                                    <div class="sub-order-mobile-card" *ngFor="let subOrder of order.sub_orders">
+                                        <div class="sub-order-mobile-content">
+                                            <div class="sub-order-info-row">
+                                                <span class="info-label">{{ 'order_number' | translate }}:</span>
+                                                <span class="info-value">#{{ subOrder.order_number }}</span>
+                                            </div>
+                                            <div class="sub-order-info-row">
+                                                <span class="info-label">{{ 'order_date' | translate }}:</span>
+                                                <span class="info-value">{{ subOrder.created_at | date: 'dd MMM yyyy hh:mm:a' }}</span>
+                                            </div>
+                                            <div class="sub-order-info-row">
+                                                <span class="info-label">{{ 'total_amount' | translate }}:</span>
+                                                <span class="info-value fw-bold">{{ subOrder.amount | currencySymbol }}</span>
+                                            </div>
+                                            <div class="sub-order-info-row">
+                                                <span class="info-label">{{ 'status' | translate }}:</span>
+                                                <div class="status-{{subOrder.order_status.slug}}">
+                                                    <span>{{ subOrder.order_status.name }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="sub-order-action">
+                                                <a href="javascript:void(0)" class="btn-view-order" [routerLink]="['/order/details']" [queryParams]="{order_number: subOrder.order_number, email_or_phone: email_or_phone}">
+                                                    <i [class]="'ri-eye-line'"></i>
+                                                    <span>{{ 'view_details' | translate }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <app-no-data 
+                    [class]="'no-data-added'"
+                    [image]="'assets/svg/empty-items.svg'"
+                    [text]="'no_order_found'"
+                    *ngIf="!order">
+                </app-no-data>
+            </div>
+        </div>
+    </div>
+</section>

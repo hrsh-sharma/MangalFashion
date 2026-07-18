@@ -1,0 +1,32 @@
+<div class="footer-logo-contain">
+    <p *ngIf="data?.footer?.footer_about">{{ data?.footer?.footer_about }}</p>
+    <ul class="address">
+        <h2>Register Address</h2>
+        <li>
+            <i class="ri-home-line"></i>
+            <div *ngIf="!data?.footer?.about_address">
+                <div>MANGAL MURTI LANDCRAFTS PRIVATE LIMITED</div>
+                <div>10th UNIT NO. 10104</div>
+                <div>GAUR CITY MALL SECTOR 4 GREATER NOIDA</div>
+                <div>Parthala Bridge Gaur City Mall</div>
+                <div>Gautambuddha Nagar Uttar Pradesh  201318</div>
+            </div>
+            <a href="https://www.google.com/maps" target="_blank" title="View on Google Maps" *ngIf="data?.footer?.about_address">{{ data?.footer?.about_address }}</a>
+        </li>
+        <li>
+            <i class="ri-mail-line"></i>
+            <a href="mailto:{{ data?.footer?.about_email || 'info&#64;mangalfashion.com' }}" title="Send us an email">{{ data?.footer?.about_email || 'info&#64;mangalfashion.com' }}</a>
+        </li>
+    </ul>
+    <!-- <ul class="address">
+        <h2>Operational Address</h2>
+        <li *ngIf="data?.footer?.about_address">
+            <i class="ri-home-line"></i>
+            <a href="https://www.google.com/maps" target="_blank">{{ data?.footer?.about_address }}</a>
+        </li>
+        <li *ngIf="data?.footer?.about_email">
+            <i class="ri-mail-line"></i>
+            <a href="mailto:{{ data?.footer?.about_email }}">{{ data?.footer?.about_email }}</a>
+        </li>
+    </ul> -->
+</div>

@@ -1,0 +1,20 @@
+<div class="checkout-detail">
+    <div class="row g-sm-4 g-3">
+        <ng-container *ngFor="let payment of setting?.payment_methods; let i = index;">
+        <div class="col-xxl-12 top-margin-check" *ngIf="payment?.status">
+            <div class="payment-option">
+                <div class="payment-category w-100">
+                    <div class="form-check custom-form-check hide-check-box w-100">
+                        <input class="form-check-input" type="radio" name="payment_method" [id]="payment.name" (change)="set(payment.name)">
+                        <label class="form-check-label d-flex align-items-center gap-2" for="{{payment.name}}">
+                            <span>{{ (payment.title ? payment.title : payment.name) }}</span>
+                            <img *ngIf="payment.name === 'payrise_mangalfashion_jio'" src="assets/images/QR-code.png" alt="QR Code" style="height: 24px; object-fit: contain;">
+                            <img *ngIf="payment.icon" [src]="payment.icon" [alt]="payment.name" class="payment-icon" [ngClass]="{ 'payment-icon--large': payment.name === 'payrise_mangalfashion_jio' }">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </ng-container>
+    </div>
+</div>

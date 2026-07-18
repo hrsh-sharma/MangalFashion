@@ -1,0 +1,57 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<section class="payment-success-section section-b-space">
+  <div class="container text-center">
+    <div class="success-content">
+      <!-- Success Icon -->
+      <div class="success-icon mb-4">
+        <div class="success-circle"></div>
+      </div>
+
+      <!-- Success Message -->
+      <h2 class="success-title">Payment Successful!</h2>
+      <p class="success-subtitle">
+        {{ orderId ? 'Thank you for your order! Your payment has been processed successfully.' : 'Thank you for placing your order. Our team will verify the payment status and proceed accordingly.' }}
+      </p>
+
+      <!-- Order ID (if available) -->
+      <div class="order-id-box mt-4" *ngIf="orderId">
+        <span class="text-muted">Order ID:</span>
+        <span class="id-value ms-2">#{{ orderId }}</span>
+      </div>
+
+      <!-- Verification Status -->
+      <div class="verification-status mt-3" *ngIf="loading">
+        <div class="spinner-border text-primary spinner-border-sm me-2" role="status"></div>
+        <span class="text-muted small">Verifying your transaction...</span>
+      </div>
+
+      <!-- Redirect Message -->
+      <div class="redirect-message" *ngIf="showRedirectMessage">
+        <p class="redirect-text">
+          <i class="ri-information-line me-1"></i>
+          Redirecting to your order details in <span class="countdown">{{ redirectCountdown }}</span> seconds...
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons mt-5">
+        <button 
+          class="btn btn-primary" 
+          (click)="orderId ? goToOrderDetails() : continueShopping()"
+          *ngIf="!loading">
+          <i class="ri-eye-line me-2"></i>
+          {{ orderId ? 'View My Order' : 'Continue Shopping' }}
+        </button>
+        
+        <button 
+          class="btn btn-outline-primary" 
+          (click)="goToHome()"
+          *ngIf="orderId">
+          <i class="ri-home-4-line me-2"></i>
+          Back to Home
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

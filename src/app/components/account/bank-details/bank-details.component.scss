@@ -1,0 +1,316 @@
+// Modern Bank Details Page Styles
+.bank-details-page-container {
+  .bank-details-page-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+
+      .header-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #EA5A26 0%, #ff7a4a 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 28px;
+        box-shadow: 0 4px 15px rgba(234, 90, 38, 0.3);
+      }
+
+      .header-text-content {
+        .page-title {
+          color: #222;
+          font-weight: 700;
+          font-size: 24px;
+          margin: 0 0 5px 0;
+        }
+
+        .page-subtitle {
+          color: #6c757d;
+          font-size: 14px;
+          margin: 0;
+        }
+      }
+    }
+
+    .btn-back-dashboard {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: white;
+      color: #EA5A26;
+      border: 2px solid #EA5A26;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(234, 90, 38, 0.1);
+
+      i {
+        font-size: 18px;
+      }
+
+      &:hover {
+        background: #EA5A26;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(234, 90, 38, 0.3);
+      }
+    }
+  }
+
+  .bank-details-section,
+  .paypal-details-section {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f0f0f0;
+
+      .section-icon-wrapper {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #EA5A26 0%, #ff7a4a 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        box-shadow: 0 4px 12px rgba(234, 90, 38, 0.25);
+
+        &.paypal-icon {
+          background: linear-gradient(135deg, #0070ba 0%, #009cde 100%);
+          box-shadow: 0 4px 12px rgba(0, 112, 186, 0.25);
+        }
+      }
+
+      .section-title {
+        color: #222;
+        font-weight: 700;
+        font-size: 20px;
+        margin: 0 0 5px 0;
+      }
+
+      .section-subtitle {
+        color: #6c757d;
+        font-size: 13px;
+        margin: 0;
+      }
+    }
+
+    .form-fields-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+
+      .form-field-wrapper {
+        .form-label-modern {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #222;
+          font-weight: 600;
+          font-size: 14px;
+          margin-bottom: 10px;
+          text-transform: capitalize;
+
+          i {
+            color: #EA5A26;
+            font-size: 18px;
+          }
+        }
+
+        .form-input-modern {
+          width: 100%;
+          padding: 14px 18px;
+          border: 2px solid #e9ecef;
+          border-radius: 10px;
+          font-size: 15px;
+          color: #222;
+          background: #f8f9fa;
+          transition: all 0.3s ease;
+          font-family: inherit;
+
+          &:focus {
+            outline: none;
+            border-color: #EA5A26;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(234, 90, 38, 0.1);
+          }
+
+          &::placeholder {
+            color: #adb5bd;
+          }
+
+          &.is-invalid {
+            border-color: #dc3545;
+            background: #fff5f5;
+
+            &:focus {
+              border-color: #dc3545;
+              box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1);
+            }
+          }
+        }
+
+        .error-message {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          color: #dc3545;
+          font-size: 13px;
+          margin-top: 8px;
+          font-weight: 500;
+
+          i {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    .btn-save {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: #EA5A26;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(234, 90, 38, 0.3);
+
+      i {
+        font-size: 18px;
+      }
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(234, 90, 38, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .bank-details-page-container {
+    .bank-details-page-header {
+      padding: 20px;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .header-content {
+        width: 100%;
+
+        .header-icon-wrapper {
+          width: 50px;
+          height: 50px;
+          font-size: 24px;
+        }
+
+        .header-text-content {
+          .page-title {
+            font-size: 20px;
+          }
+
+          .page-subtitle {
+            font-size: 13px;
+          }
+        }
+      }
+
+      .btn-back-dashboard {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .bank-details-section,
+    .paypal-details-section {
+      padding: 20px;
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .form-fields-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    .form-actions {
+      .btn-save {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .bank-details-page-container {
+    .bank-details-page-header {
+      padding: 15px;
+
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+
+        .header-icon-wrapper {
+          margin: 0 auto;
+        }
+      }
+    }
+
+    .bank-details-section,
+    .paypal-details-section {
+      padding: 15px;
+    }
+  }
+}
+

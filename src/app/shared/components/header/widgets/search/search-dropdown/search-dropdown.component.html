@@ -1,0 +1,37 @@
+<div class="search-suggestion-box" *ngIf="isOpenResult">
+ 
+    <div class="recent-search-section">
+      <h4 class="page-title">{{ 'related_product' | translate }} <a [routerLink]="['/search']" [queryParams]="{'search': term}">{{ 'see_all' | translate }}</a></h4>
+      <!-- skeleton loader -->
+      <ul class="skeleton-ul" *ngIf="productService.searchSkeleton">
+        <li class="result-item" *ngFor="let item of skeleton">
+          <div class="suggestion-image"></div>
+          <div class="suggestion-category">
+            <div class="skeleton-img"></div>
+            <div>
+              <p></p>
+              <p></p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul *ngIf="!productService.searchSkeleton">
+        <li class="result-item" *ngFor="let item of products;  let i = index"
+          [class.selected]="i === selectedResultIndex" tabindex="0">
+          <div class="suggestion-image">
+            <img [src]="item.product_thumbnail ? item.product_thumbnail.original_url : 'assets/images/product.png'"
+              alt="">
+          </div>
+          <div class="suggestion-category">
+              <a [routerLink]="['/product/', item?.slug]" [innerHTML]="item.name | highlighter:term:'partial'"></a>
+            <div>
+              <p *ngFor="let category of item.categories" [routerLink]="['/collections/' + category.slug]">{{category.name}}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="not-found-box" *ngIf="!products?.length">
+      <h5>{{ 'no_results_for' | translate }} <span>"{{ term }}"</span></h5>
+    </div>
+</div>
