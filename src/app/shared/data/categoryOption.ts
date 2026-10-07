@@ -1330,13 +1330,13 @@ export const CategoryOption: any[] = [
         "parent": null
     },
     {
-        "id": 121,
-        "name": "Summer Collection",
-        "slug": "summer-collection",
+        "id": 120,
+        "name": "Winter Collection",
+        "slug": "winter-essentials",
         "meta_title": null,
         "meta_description": null,
         "category_meta_image_id": null,
-        "description": "Summer Collection",
+        "description": "Winter Collection",
         "category_image_id": null,
         "category_icon_id": null,
         "status": 1,
@@ -2522,4 +2522,4 @@ export const CategoryOption: any[] = [
         ],
         "parent": null
     }
-        ]
+]

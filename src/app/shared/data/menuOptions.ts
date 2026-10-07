@@ -1392,14 +1392,14 @@ const rawMenuOptions: any[] = [
     //     "child": []
     // },
     {
-        "id": 223,
-        "title": "summer collection",
+        "id": 222,
+        "title": "Winter Collection",
         "sort": null,
         "link_type": "link",
         "mega_menu": 0,
         "mega_menu_type": "simple",
-        "slug": "summer-collection",
-        "path": "summer collection",
+        "slug": "winter-essentials",    
+        "path": "winter-collection",
         "badge_text": null,
         "badge_color": null,
         "content_item": null,
